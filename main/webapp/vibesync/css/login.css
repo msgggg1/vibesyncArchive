@@ -1,0 +1,341 @@
+    /* 전역 설정 및 폰트 */
+    * {
+        box-sizing: border-box;
+        font-family: 'Cal Sans', 'National Park', sans-serif;
+    }
+
+    body {
+        margin: 0;
+        color: #313131;
+        background-color: #000310;
+        color: #fff;
+        overflow:scroll;
+    }
+    body::-webkit-scrollbar {
+        display: none;
+    }
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    /* 레이아웃 컨테이너 */
+    .container {
+        /* background: linear-gradient(90deg, #b7fdff00 61%, #c1f9fc00 60%, #d5d5d5de 65%, #edededfa 67%, #ffffff 69%);*/
+        display: flex;
+        justify-content: flex-start; /* 왼쪽 정렬 */
+        align-items: stretch;     /* 세로 늘리기 */
+        min-height: 100vh;
+        width: 100vw;
+    }
+
+    /* 로고 영역 */
+    #logo {
+        text-align: center;
+        flex-shrink: 0;
+        align-self: center;     /* 로고 세로 중앙 정렬 */
+
+        flex-basis: 0;        /* <-- 초기 크기 0 */
+        flex-grow: 7;         /* <-- 비율 2 */
+    }
+    #logo img {
+        width: 80%;             /* 로고 컨테이너 너비의 80% 사용 */
+        max-width: 250px;         /* 이미지 최대 너비 */
+        height: auto;
+    }
+
+    /* 로그인/회원가입 영역 */
+    #login {
+        background-color: #fff;
+        flex-basis: 0;        /* <-- 초기 크기 0 */
+        flex-grow: 3;           /* ★ 남은 공간 모두 채우기 */
+        text-align: left;
+        z-index: 1;
+    }
+
+    #findYourVibeSync {
+        font-weight: lighter;
+        text-align: left;
+        font-size: 2.8em;
+        line-height: 1.2;
+        color: #313131;
+    }
+
+    /* 폼 컨테이너 (로그인/회원가입 공통) */
+    #loginFormContainer,
+    #signupFormContainer {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: stretch; /* 내부 요소(form, links)가 너비를 꽉 채우도록 */
+    }
+
+    #loginForm,
+    #signupForm {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%; /* 폼 너비 */
+        gap: 30px; /* <-- 변경/추가: 폼 내부 요소 간 간격을 30px로 늘림 (원하는 값으로 조절) */
+    }
+
+    /* 폼 입력 요소 스타일 */
+    #login form input[type="email"],
+    #login form input[type="password"],
+    #login form input[type="text"] {
+        width: 100%;
+        padding: 12px 5px;
+        margin: 0; /* gap 사용하므로 제거 */
+        border: none;
+        border-bottom: 2px solid #313131; /* 하단 테두리 */
+        background-color: transparent;
+        font-size: 1em;
+        color: #313131;
+        transition: border-color 0.3s ease;
+    }
+
+    /* 입력 필드 포커스 스타일 */
+    #login form input[type="email"]:focus,
+    #login form input[type="password"]:focus,
+    #login form input[type="text"]:focus {
+        outline: none;
+        border-bottom-color: #5DAED7; /* 하이라이트 색상 */
+    }
+
+    /* Placeholder 텍스트 스타일 */
+    #login form input::placeholder {
+        color: #888;
+        opacity: 1;
+    }
+
+    /* 체크박스 그룹 스타일 */
+    .checkbox-group {
+        /* width: 80%; 또는 100%, 부모 form의 align-items: center 영향 받음 */
+        display: flex;
+        justify-content: flex-start; /* 왼쪽 정렬 */
+        align-items: center; /* 세로 중앙 정렬 */
+        gap: 20px;
+        margin: 0; /* gap 사용 */
+        font-size: 0.9em;
+        flex-wrap: wrap;
+    }
+
+    /* 각 체크박스+레이블 쌍을 위한 스타일 */
+    .checkbox-pair {
+        display: inline-flex; /* 내부 요소(input, label)를 inline처럼 배치하되 flex 속성 적용 */
+        align-items: center;  /* 내부 요소(input, label) 세로 중앙 정렬 */
+        gap: 6px;
+    }
+
+    .checkbox-group label {
+        margin-left: 0;
+        cursor: pointer;
+        color: #555;
+    }
+    .checkbox-group input[type="checkbox"] {
+        cursor: pointer;
+        margin: 0;
+    }
+
+    /* 버튼 스타일 */
+    #login form button {
+        width: 100%;
+        padding: 12px;
+        background-color: #5DAED7;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1.1em;
+        font-weight: lighter;
+        transition: background-color 0.3s ease;
+        /* margin-top 제거 (gap 사용) */
+    }
+    #login form button:hover {
+        background-color: #4a9ac4;
+    }
+
+    /* 링크 스타일 (Forget password, Already have account 등) */
+    .links {
+        font-size: 0.9em;
+        text-align: center;
+        color: #555;
+        padding-top: 10px;
+    }
+    .links a {
+        color: #5DAED7;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .links a:hover { 
+        text-decoration: underline;
+    }
+
+    /* 폼 전환 링크 ('Not a member yet?') 특별 스타일 */
+    .switch-form-link {
+        /* margin-top 제거 (space-between으로 맨 아래로 감) */
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+        width: 100%; /* 너비 100%로 설정 */
+    }
+
+    #inner_logo{
+        display: none;
+    }
+
+    /* --- 모바일 ( 화면 너비 1024px 이하) --- */
+    @media (max-width: 1024px) {
+        .container {
+            flex-direction: column; /* 세로로 쌓기 */
+            padding: 0 2vw;   /* 상하 패딩 줄이기 */
+            align-items: center;  /* 가운데 정렬 */
+            justify-content: center; /* 위에서부터 시작 */
+        }
+
+        #logo {
+            display: none;
+        }
+
+        #inner_logo{
+            display: flex;
+            justify-content: center;
+            z-index: -1;
+            margin-bottom: 20px;
+        }
+
+        #login {
+            flex-basis: auto; /* 너비 비율 설정 해제 */
+            flex-grow: 0;     /* 늘어나지 않음 */
+            max-width: 500px;
+            width: 100%;
+            min-width: 300px;
+            box-shadow: -10px -5px 50px #f069ff, 5px 10px 50px #40c9ff;
+            padding: 20px;       /* 내부 좌우 패딩 제거 또는 조절 */
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        
+        #findYourVibeSync {
+            font-size: 1.8em; /* 모바일용 폰트 크기 조정 */
+            text-align: left; /* 제목 가운데 정렬 */
+            /* margin-bottom: 30px; 아래 간격 조정 */
+        }
+
+        #loginForm, #signupForm {
+            gap: 2vh; /* 모바일 폼 내부 간격 줄이기 */
+            align-items: stretch; /* 내부 요소 너비 100%로 (input 등) */
+        }
+        
+        #login::before {
+            display: none;
+        }
+        
+    }
+
+    #starfield {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+    }
+
+    .shooting-star {
+      position: fixed;
+      width: 120px;
+      height: 4px; 
+      background: linear-gradient(to left, white, rgba(255,255,255,0));
+      opacity: 0.8;
+      pointer-events: none;
+      transform-origin: 0 0;
+      animation: shoot 1s ease-out forwards;
+    }
+
+    @keyframes shoot {
+      to {
+        transform: rotate(45deg) translate(600px, 0) scale(0.5);
+        opacity: 0;
+      }
+    }
+
+    #login::before{
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 10px;
+      pointer-events: none;
+      z-index: 10;
+      background: linear-gradient(to right, #000310, rgba(255,255,255,0));
+    }
+    .login-wrapper{
+        padding: 0 20px;
+        height: 80%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        z-index: 10;
+    }
+
+    .highlight {
+      background: linear-gradient(90deg, #9b58b6, #3498db, #2ecc71);
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      padding: 0 1px;
+      font-size: 1.05em;
+      animation: highlightColorMove 6s ease-in-out infinite;
+    }
+        @keyframes highlightColorMove {
+        0% {
+            background-position: 0% 50%;
+        }
+        33% {
+            background-position: 50% 50%;
+        }
+        66% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+        }
+        
+        
+
+	/* 회원가입 폼의 select#category 요소 스타일 */
+	#signupFormContainer select#category {
+	    width: 100%; /* 다른 입력 필드와 동일한 너비 */
+	    padding: 12px 15px; /* 내부 여백 (다른 입력 필드와 유사하게 조정) */
+	    margin-bottom: 15px; /* 다른 필드와의 하단 간격 */
+	    border: 1px solid #ddd; /* 테두리 색상 (다른 입력 필드와 유사하게) */
+	    border-radius: 8px; /* 테두리 둥글기 (다른 입력 필드와 유사하게) */
+	    box-sizing: border-box; /* padding과 border가 너비에 포함되도록 설정 */
+	    background-color: #fff; /* 배경색 (다른 입력 필드와 유사하게) */
+	    font-size: 1em; /* 글꼴 크기 (다른 입력 필드와 유사하게) */
+	    color: #333; /* 글자 색상 */
+	    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+
+	}
+	
+	/* select#category 요소 포커스 시 스타일 */
+	#signupFormContainer select#category:focus {
+	    border-color: #007bff; /* 포커스 시 테두리 색상 (다른 입력 필드와 유사하게) */
+	    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* 포커스 시 그림자 효과 (다른 입력 필드와 유사하게) */
+	    outline: none; /* 기본 포커스 아웃라인 제거 */
+	}
+	
+
+	        
