@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mvc.command.CommandHandler;
+import mvc.command.Handler.CommandHandler;
+
 
 //web.xml에 직접 설정
 public class DispatcherServlet extends HttpServlet {

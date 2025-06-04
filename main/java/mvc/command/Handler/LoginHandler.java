@@ -1,4 +1,4 @@
-package mvc.command;
+package mvc.command.Handler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

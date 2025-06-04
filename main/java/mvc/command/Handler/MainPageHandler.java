@@ -1,4 +1,4 @@
-package mvc.command;
+package mvc.command.Handler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,8 +8,8 @@ import mvc.domain.NoteVO;
 import mvc.domain.UserVO; 
 import mvc.persistence.NoteDAO;
 import mvc.persistence.NoteDAOImpl;
-import mvc.persistence.UserDAO;
-import mvc.persistence.UserDAOImpl; 
+import mvc.persistence.dao.UserDAO;
+import mvc.persistence.daoImpl.UserDAOImpl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

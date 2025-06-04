@@ -12,8 +12,8 @@ import mvc.domain.NoteVO;
 import mvc.domain.UserVO;
 import mvc.persistence.NoteDAO;
 import mvc.persistence.NoteDAOImpl;
-import mvc.persistence.UserDAO;
-import mvc.persistence.UserDAOImpl;
+import mvc.persistence.dao.UserDAO;
+import mvc.persistence.daoImpl.UserDAOImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
