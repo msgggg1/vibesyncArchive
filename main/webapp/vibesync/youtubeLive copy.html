@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Watch Party Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 2rem auto; padding: 1rem; }
+    h1 { text-align: center; }
+    form { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    input[type="text"] { flex: 1; padding: 0.5rem; }
+    button { padding: 0.5rem 1rem; }
+    #player, #video-list, #list-player { margin-top: 1rem; text-align: center; }
+    ul { list-style: none; padding: 0; }
+    li { cursor: pointer; padding: 0.5rem; border: 1px solid #ccc; margin: 0.25rem 0; }
+    li:hover { background-color: #f0f0f0; }
+  </style>
+</head>
+<body>
+  <h1>Watch Party</h1>
+
+  <!-- Form to save and play the latest video -->
+  <form id="url-form">
+    <input type="text" id="share-url" placeholder="Enter YouTube share URL" required />
+    <button type="submit">Launch</button>
+  </form>
+  <div id="player"></div>
+
+  <!-- List of stored videos -->
+  <h2>Video List</h2>
+  <ul id="video-list"></ul>
+
+  <!-- New player area for clicked video from list -->
+  <div id="list-player"></div>
+
+  <!-- Supabase client via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const { createClient } = supabase;
+    const supabaseUrl = 'https://ngevloycjejgqkqdzthu.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nZXZsb3ljamVqZ3FrcWR6dGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYwNTY2MDcsImV4cCI6MjA2MTYzMjYwN30.-aoO8IQ1kV7MjE1YTc8oYJKB53BcFZHfDRS_Kbobw3E';
+    const supabaseClient = createClient(supabaseUrl, supabaseKey);
+
+    const form = document.getElementById('url-form');
+    const input = document.getElementById('share-url');
+    const playerDiv = document.getElementById('player');
+    const listPlayerDiv = document.getElementById('list-player');
+    const videoList = document.getElementById('video-list');
+
+    function extractVideoId(url) {
+      const regex = /(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|v\/|live\/))([\w-]{11})/;
+      const match = url.match(regex);
+      return match ? match[1] : null;
+    }
+
+    function embedVideo(videoId, container) {
+      container.innerHTML = '';
+      const iframe = document.createElement('iframe');
+      iframe.width = '560';
+      iframe.height = '315';
+      iframe.src = `https://www.youtube.com/embed/${videoId}`;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      container.appendChild(iframe);
+    }
+
+    async function loadVideoList() {
+      const { data, error } = await supabaseClient
+        .from('temp')
+        .select('id, youtubeid')
+        .order('id', { ascending: false });
+
+      if (error) {
+        console.error('Failed to load video list:', error);
+        return;
+      }
+
+      videoList.innerHTML = '';
+      data.forEach(record => {
+        const li = document.createElement('li');
+        li.textContent = `ID ${record.id}: ${record.youtubeid}`;
+        li.addEventListener('click', () => {
+          embedVideo(record.youtubeid, listPlayerDiv);
+        });
+        videoList.appendChild(li);
+      });
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const url = input.value.trim();
+      const videoId = extractVideoId(url);
+      if (!videoId) {
+        alert('Invalid YouTube URL');
+        return;
+      }
+      const { data, error } = await supabaseClient
+        .from('temp')
+        .insert({ youtubeid: videoId, title: 'temp' })
+        .select();
+
+      if (error) {
+        console.error('Supabase insert error:', error);
+        alert('Failed to save videoId');
+        return;
+      }
+
+      embedVideo(videoId, playerDiv);
+      input.value = '';
+      loadVideoList();
+    });
+
+    window.addEventListener('DOMContentLoaded', loadVideoList);
+  </script>
+</body>
+</html>

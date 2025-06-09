@@ -1,0 +1,936 @@
+@import url('https://fonts.googleapis.com/css2?family=Cal+Sans&family=National+Park:wght@200..800&display=swap');
+
+:root[color-theme='dark'] {
+  --icon-filter: invert(1);
+  --font-color: #fff;
+  --sidebar-color : #202020;
+  --background-color : #191919;
+  --border-color: #fff
+}
+:root[color-theme='light']{
+  --icon-filter: invert(0);
+  --font-color: #000;
+  --sidebar-color : #f8f8f8;
+  --background-color : #f1f1f1;
+  --border-color: #000
+}
+
+:root {
+  /* global colors */
+  --w-fff : #fff;
+  --b-000 : #000;
+
+  /* default style */
+  --icon-filter: invert(0);
+  --font-color: #000;
+  --sidebar-color : #f8f8f8;
+  --background-color : #f1f1f1;
+  --border-color: #000
+}
+* {
+  box-sizing: border-box;
+}
+.subfont {
+  font-family: "National Park", sans-serif;
+}
+.df {
+  display: flex;
+}
+body {
+  font-family: "Cal Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+}
+a {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: var(--font-color);
+  cursor: pointer;
+}
+ul{
+  list-style: none;
+}
+p {
+  margin: 0;
+  padding: 0;
+}
+.line {
+  width: 100%;
+  height: 4px;
+  min-height: 4px;
+  margin-bottom: 30px;
+  background-color: var(--font-color);
+}
+
+#notion-app {
+  width: 100%;
+  height: 100vh;
+}
+.notion-app-inner {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+#toggle-btn {
+  display: none;
+  position: absolute;
+  font-size: 24px;
+  font-weight: bold;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border: none;
+  color: var(--font-color);
+  z-index: 112;
+  cursor: pointer;
+}
+
+/* sidebar */
+.sidebar_icon{
+  filter: var(--icon-filter);
+}
+
+.notion-app-inner .notion-sidebar-container {
+  /* box-shadow: -8px 0 10px 0px #000; */
+  position: fixed;
+  height: 100%;
+  background: var(--sidebar-color);
+  background-image: url(./back4.png);
+  width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 10px;
+  z-index: 111;
+  transition: transform 0.3s ease;
+}
+
+.notion-app-inner .notion-sidebar-container .notion-sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+
+.notion-app-inner .notion-sidebar-container .notion-sidebar .menu_content {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  gap: 40px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-block: 60px;
+}
+.notion-app-inner .notion-sidebar-container .notion-sidebar .menu_content .nickname {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: var(--font-color);
+}
+
+.search {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+/* 입력창 숨김 상태 */
+.search-input {
+  width: 100px;
+  height: 22px;
+  background: none;
+  border: none;
+  border-bottom: var(--border-color) 2px solid;
+  color: var(--font-color);
+}
+
+input:focus {
+  outline: none;
+}
+
+#follow {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  padding: 0;
+}
+
+/* 레이블 스타일 */
+.follow_list label {
+  text-decoration: none;
+  color: var(--font-color);
+  cursor: pointer;
+}
+
+/* 체크박스 숨김 */
+#follow_toggle {
+  display: none;
+}
+
+/* 토글 메뉴 숨김 상태 */
+.follow_items {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+/* 체크되면 메뉴 확장 */
+#follow_toggle:checked ~ .follow_items {
+  max-height: 200px;
+  transition: max-height 0.3s ease-in;
+}
+
+.follow_items li {
+  margin: 4px 0;
+}
+
+.icon_wrap {
+  display: flex;
+  gap: 10px;
+}
+
+#logout {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 40px;
+  margin-bottom: 20px;
+}
+
+#logout > button {
+  width: 150px;
+  border: none;
+  background-color: red;
+  border-radius: 5px;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: var(--w-fff);
+}
+
+#content_wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-left: 220px;
+  padding-top: 100px;
+}
+
+#content {
+  width: 100%;
+  max-width: 1160px;
+  padding-inline: 20px;
+}
+/* main */
+
+.slider-container {
+  padding-bottom: 40px;
+}
+#swiper1 {
+  width: 100%;
+}
+#swiper1 .swiper-slide {
+  width: 96%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  background-color: #6e6e6e;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--w-fff);
+  transition: transform 0.3s, opacity 0.3s;
+  z-index: 10 !important;
+}
+#swiper1 .swiper-slide:not(.swiper-slide-active) {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8);
+}
+
+.category_btn_group {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+
+.category_btn_group>button {
+  width: min(32vw, 280px);
+  height: min(18vw, 158px);
+  font-size: 16px;
+  font-weight: bold;
+  background: transparent;
+  color: var(--w-fff);
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  padding: 0;
+  overflow: hidden;
+}
+
+@media (max-width: 1174px) {
+  .category_btn_group > button {
+    /* 50% 너비에서 gap을 뺀 값 */
+    flex: 0 0 calc(50% - 8px);
+  }
+}
+
+.category_btn_group>button>p{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: #1919195e;
+}
+
+.category_btn_group>button>p:hover{
+  backdrop-filter: blur(5px);
+  scale: 1.3;
+  transition: backdrop-filter 0.4s ease-in-out, scale 0.4s ease-in-out;
+
+}
+
+.grid_wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.grid_wrapper .grid_item {
+  background-color: var(--b-000);
+  height: 300px;
+  border-radius: 20px;
+  color: var(--w-fff);
+}
+
+#swiper2 {
+  width: 100%;
+}
+#swiper2 .swiper-slide {
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--w-fff);
+  background-color: #6e6e6e;
+}
+.swiper-button-disabled {
+  display: none !important;
+}
+
+.swiper-button-next:after, .swiper-button-prev:after {
+  color: var(--font-color);
+  font-weight: bold;
+}
+
+/* user */
+#user_wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#userInfo {
+  width: 100%;
+  display: flex;
+  gap: 22px;
+  margin-bottom: 30px;
+}
+
+.user_profile_img {
+  width: 160px;
+  display: flex;
+  align-items: center;
+}
+
+.user_profile_img img {
+  width: min(20vw,130px);
+  height: min(20vw,130px);
+  background: red;
+  border-radius: 50%;
+}
+
+.userInfo_detail {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.name_function {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.name_function button {
+  height: 100%;
+  padding-inline: 10px;
+  font-size: min(3vw,18px);
+  font-weight: bold;
+  color: var(--w-fff);
+  border: none;
+  border-radius: 5px;
+}
+
+.name_function .btn_follow_1 {
+  background-color: #99bc85;
+}
+.name_function .btn_follow_2 {
+  background-color: #6e6e6e;
+}
+
+.user_count {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: min(4.6vw, 24px);
+  padding-right: 10px;
+}
+
+.user_count>p {
+  margin: 0;
+  display: flex;
+}
+
+.user_count p span {
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+#con_wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+#con_wrapper .con_item {
+  background-color: gray;
+  height: 300px;
+}
+
+/* workspace */
+#workspace_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#todolist {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#todolist .calendar_contents,
+#todolist .calender {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+}
+
+#todolist .calendar_contents {
+  flex: 2;
+  background-color: gray;
+}
+
+#todolist .calender {
+  flex: 1;
+  background-color: cyan;
+}
+
+#contents_grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+#contents_grid .contents_item,
+#content_plus {
+  height: 300px;
+  background-color: gray;
+  align-content: center;
+  border-radius: 20px;
+}
+
+#content_plus {
+  font-size: 70px;
+  font-weight: bold;
+  text-align: center;
+  color: var(--w-fff);
+  cursor: pointer;
+}
+
+/* post view */
+.back_icon {
+  filter: var(--icon-filter);
+  height: 30px;
+  width: 30px;
+  margin-bottom: 20px;
+}
+.back_icon a img {
+  height: initial;
+}
+
+#postview_Wrapper {
+  color: var(--font-color);
+  width: 100%;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#postview_Wrapper>p {
+  font-size: min(6.2vw, 26px);
+  font-weight: bold;
+  text-transform: uppercase;
+
+}
+
+.writer_info {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.writer_info .writer {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.writer_info .writer img {
+  width: min(12.2vw, 50px);
+  height: min(12.2vw, 50px);
+  background-color: red;
+  border-radius: 50px;
+}
+.writer_info .writer p {
+  font-size: min(4vw, 16px);
+  font-weight: bold;
+}
+
+.writer button {
+  height: min(10vw, 40px);
+  padding-inline: 24px;
+  font-size: min(3.6vw, 16px);
+  font-weight: bold;
+  color: var(--w-fff);
+  border: none;
+  border-radius: 10px;
+  background-color: red;
+}
+
+.like_share {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.like_share .like {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.like_share .like img {
+  filter: var(--icon-filter);
+  width: min(8vw, 30px);
+  height: min(8vw, 30px);
+  object-fit: contain;
+}
+
+.like_share .like p {
+  font-size: min(4.4vw, 16px);
+  font-weight: bold;
+}
+
+#postview_Wrapper .text_content {
+  width: 100%;
+}
+
+#postview_Wrapper .text_content p {
+  font-size: min(5vw, 20px);
+
+}
+
+/* list */
+#board_all {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.board_info {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.board_info>p {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+#page-board-full { width: 100%; }
+#page-board-full .full-list{ padding: 20px; }
+#page-board-full .full-post{ display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #666; cursor: pointer; }
+#page-board-full .full-post:last-child{ border-bottom: none; }
+#page-board-full .pagination{ display: flex; justify-content: center; margin-block: 20px; gap: 2vw; }
+#page-board-full .pagination button{ background: none;  border: none;  color: var(--b-000);  cursor: pointer;  border-radius: 3px;  font-size: 14px; }
+
+/* login */
+#login_wrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#login_logo {
+  flex: 7.4;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#login_signup_form {
+  flex: 2.6;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  border-left: 1px solid black;
+  
+}
+#login{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  padding-block: 100px;
+  padding-inline: 40px;
+}
+
+.login_title > p {
+  font-size: min(8vw,56px);
+  display: flex;
+  flex-direction: column;
+}
+
+.login_form {
+  display: flex;
+  flex-direction: column;
+}
+
+#login_form_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.login_chk_group {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: min(5vw,16.8px);
+}
+
+
+.login_chk_group input[type="checkbox"] {
+  appearance: none; /* 기본 스타일 제거 */
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  background-color: var(--w-fff);
+  cursor: pointer;
+  outline: none;
+}
+
+.login_chk_group input[type="checkbox"]:checked {
+  background-color: #5DAED7;
+}
+
+.login_chk_group input[type="checkbox"]:checked::before {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: translate(5px, 4px) rotate(45deg);
+}
+
+#login_form_wrapper>input {
+  width: 100%;
+  height: min(16vw, 70px);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid black;
+  font-size: clamp(14px, 1vw, 22px);
+}
+
+#login_submit, #signup_submit {
+  width: 100%;
+  height: 60px;
+  background-color: #5DAED7;
+  border: none;
+  font-weight: bold;
+  font-size: 20px;
+  color: var(--w-fff);
+}
+
+.login_form>p {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: clamp(13.2px, 1vw, 16px);
+  margin-top: 10px;
+}
+
+.login_form>p>a {
+  text-transform: none;
+  color: #5DAED7;
+}
+
+.sign_up_text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#changeSingup, #changeLogin {
+  color: #5DAED7;
+  cursor: pointer;
+}
+
+#signUp {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-left: 2px solid black;
+}
+
+#signup_form_wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding-inline: 20px;
+  margin-bottom: 10px;
+}
+
+#signup_form_wrapper>input {
+  width: 100%;
+  height: 60px;
+  font-size: 20px;
+  border: none;
+  border-bottom: 2px solid black;
+}
+
+#signUp>p {
+  padding-bottom: 40px;
+}
+
+/*추가*/
+.grid_item {
+    background-color: transparent;
+    height: 300px;
+    border-radius: 20px;
+    color: var(--w-fff, #fff);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    padding: 5px;
+    margin: 0px;
+}
+
+.list-entry {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-sizing: border-box;
+    color: var(--w-fff, #fff);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 10px;
+    flex-grow: 1;   /* 모든 list-entry가 grid_item의 남은 공간을 채우도록 함 */
+    flex-shrink: 0; /* 공간이 부족할 때 아이템 크기가 줄어들지 않도록 합니다.
+                       상황에 따라 1로 설정하여 다른 아이템들과 함께 유연하게 줄어들도록 할 수도 있습니다. */
+    flex-basis: 42px; /* 비활성 상태일 때의 기본 높이(애니메이션 대상).
+                         이전의 height: 42px;와 유사한 역할입니다. */
+    transition: flex-basis 0.4s ease-in-out, background-color 0.4s ease-in-out;
+
+    background-color: #222; /* 비활성 아이템 배경색 */
+}
+
+.list-entry .entry-image {
+    display: none; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px; 
+    z-index: 1;
+    filter: brightness(0.7);
+    opacity: 0; /* display:none 이므로 opacity는 사실상 의미 없지만, 만약 display를 block으로 바꿀 때 fade-in 효과를 원한다면 유지 */
+    transition: opacity 0.3s ease-in-out; /* 위와 동일한 이유 */
+}
+
+.list-entry .entry-number 
+.list-entry .entry-title {
+    position: relative; /* 이미지가 없으므로 z-index는 배경색과의 관계에서만 의미 가짐 */
+    z-index: 2;
+    color: var(--w-fff, #fff);
+    transition: font-size 0.3s ease-in-out, opacity 0.3s ease-in-out, line-height 0.3s ease-in-out, margin-bottom 0.3s ease-in-out;
+}
+
+/* 비활성 아이템의 순위와 제목 스타일 */
+.list-entry .entry-number {
+    font-size: 12px;
+    font-weight: bold;
+    color: #FFD700;
+    line-height: 1.1;
+    margin-right: 5px;
+}
+
+.list-entry .entry-title {
+    font-size: 12px;
+    line-height: 1.1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-grow: 1; /* 제목이 남은 공간을 채우도록 */
+    min-width: 0; /* 추가: ellipsis가 flex 아이템에서 잘 동작하도록*/
+}
+
+/* 활성 상태 스타일 (.active-highlight) */
+.list-entry.active-highlight {
+    background-color: var(--b-000, #000); /* 활성 아이템 배경색 */
+	flex-basis: 100px;
+}
+
+.list-entry.active-highlight .entry-image {
+    display: block;
+    opacity : 1;
+    filter: brightness(0.4);
+}
+
+/* 활성 아이템의 순위와 제목 스타일 (기존과 동일) */
+.list-entry.active-highlight .entry-number {
+    font-size: 16px;
+    font-weight: bold;
+    color: #FFD700;
+     line-height: 1.2; 
+    margin-right: 4px; 
+    margin-bottom: 0; 
+    position: relative;
+    z-index: 2;
+    white-space: nowrap; 
+
+}
+
+.list-entry.active-highlight .entry-title {
+    font-size: 18px; 
+    font-weight: bold;
+    color: var(--w-fff, #fff);
+    white-space: normal; /* 여러 줄 표시 허용 */
+    line-height: 1.2;
+    max-height: calc(1.2em * 2); /* 예: 최대 2줄까지 보이도록 (넘치면 숨김) */
+    overflow: hidden; /* 위 max-height와 함께 사용 */
+    text-overflow: ellipsis; /* 필요시 */
+    flex-grow: 0;
+    min-width: auto;
+    position: relative; /* z-index 적용 위해 */
+    z-index: 2; /* 이미지 위에 오도록 */
+    background-color: rgba(0,0,0,0.5); padding: 4px 6px; border-radius: 3px; 
+}
+
+
+@media (max-width:700px) {
+  #login_wrapper {flex-direction: column; margin-top: 150px;}
+  #login_signup_form, #signUp {border-left: none;}
+  #login { padding-block: 40px;}
+  #login .login_title>p {width: 100%; flex-direction: row; gap: 10px; justify-content: center;}
+  #postview_Wrapper .writer_info { flex-direction: column; align-items: start; gap: 8px; height: 86px; }
+  #userInfo {flex-direction: column; margin-bottom: 30px;}
+}
+
+@media (max-width:600px) {
+  #todolist {flex-direction: column;}
+  #contents_grid, .grid_wrapper {grid-template-columns: repeat(1, 1fr);}
+  #swiper2 .swiper-wrapper .swiper-slide {width: 100% !important}
+}
+
+@media (max-width: 1000px) {
+  #toggle-btn {
+    display: block;
+  }
+  .collapsed {
+    transform: translateX(-220px);
+  }
+  #sidebar.collapsed + #content {
+    margin-left: 0;
+  }
+  #content_wrapper {padding-top: 80px; margin-left: 0px;}
+}
+

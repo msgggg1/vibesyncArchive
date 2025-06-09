@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Watch Party Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 2rem auto; padding: 1rem; }
+    h1 { text-align: center; }
+    form { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    input[type="text"] { flex: 1; padding: 0.5rem; }
+    button { padding: 0.5rem 1rem; }
+    #player { margin-top: 1rem; text-align: center; }
+  </style>
+</head>
+<body>
+  <h1>Watch Party</h1>
+  <form id="url-form">
+    <input type="text" id="share-url" placeholder="Enter YouTube share URL" required />
+    <button type="submit">Launch</button>
+  </form>
+  <div id="player"></div>
+  <form id="url-form2">
+    <input type="text" id="select-url" placeholder="Enter id" required />
+    <button type="submit">Launch</button>
+  </form>
+  <div id="selector"></div>
+
+
+  <!-- Supabase client via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // Initialize Supabase client
+    const { createClient } = supabase;
+    const supabaseUrl = 'https://ngevloycjejgqkqdzthu.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nZXZsb3ljamVqZ3FrcWR6dGh1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYwNTY2MDcsImV4cCI6MjA2MTYzMjYwN30.-aoO8IQ1kV7MjE1YTc8oYJKB53BcFZHfDRS_Kbobw3E';
+    const supabaseClient = createClient(supabaseUrl, supabaseKey);
+
+    const form = document.getElementById('url-form');
+    const input = document.getElementById('share-url');
+    const playerDiv = document.getElementById('player');
+
+    // Helper: extract YouTube videoId
+    function extractVideoId(url) {
+      const regex = /(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|v\/|live\/))([\w-]{11})/;
+      const match = url.match(regex);
+      return match ? match[1] : null;
+    }
+
+    // On form submit
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      playerDiv.innerHTML = '';
+
+      const url = input.value.trim();
+      const videoId = extractVideoId(url);
+      if (!videoId) {
+        alert('Invalid YouTube URL');
+        return;
+      }
+
+      // Save videoId to Supabase
+      const { data, error } = await supabaseClient
+        .from('temp')
+        .insert({ youtubeid: videoId, title: "temp" })
+        .select();
+      if (error) {
+        console.error('Supabase insert error:', error);
+        alert('Failed to save videoId');
+        return;
+      }
+
+      // Fetch the stored record
+      const { data: fetched, error: fetchError } = await supabaseClient
+        .from('temp')
+        .select('youtubeid')
+        .order('id', { ascending: false })
+        .limit(1);
+      if (fetchError || !fetched.length) {
+        console.error('Supabase fetch error:', fetchError);
+        alert('Failed to load videoId');
+        return;
+      }
+      const storedId = fetched[0].youtubeid;
+
+      // Create and insert iframe
+      const iframe = document.createElement('iframe');
+      iframe.width = '560';
+      iframe.height = '315';
+      iframe.src = `https://www.youtube.com/embed/${storedId}`;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      playerDiv.appendChild(iframe);
+    });
+  </script>
+</body>
+</html>

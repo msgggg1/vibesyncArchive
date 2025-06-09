@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=National+Park:wght@200..800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet" />
+    <link rel="icon" href="./favicon.ico" />
+    <title>VibeSync Login</title>
+    <link rel="stylesheet" href="./login/login.css" />
+  </head>
+
+  <body ondragstart="return false" ondrop="return false" onselectstart="return false">
+    <canvas id="starfield"></canvas>
+
+    <div class="container">
+      <div id="logo">
+        <img src="./assets/logo1.png" alt="VibeSync 로고" width="30%" />
+      </div>
+
+      <div id="login">
+        <div id="inner_logo">
+          <img src="./assets/footer_logo.png" alt="VibeSync 로고" style="width: 150px; filter: drop-shadow(-1px 0px 0px #000) drop-shadow(-1px 0px 0px #000) drop-shadow(-1px 0px 0px #000) drop-shadow(1px 0px 0px #000) drop-shadow(0px 1px 0px #000);" />
+        </div>
+        <div class="login-wrapper">
+          <div id="findYourVibeSync">
+            Find<br />Your<br /><span class="highlight">VibeSync</span><br />
+          </div>
+
+          <div id="loginFormContainer">
+            <form action="./login.jsp" method="post" id="loginForm">
+              <input type="hidden" name="mode" value="login">
+              <label for="userId" class="sr-only">이메일</label>
+              <input type="email" id="userId" name="userId" placeholder="Email" required />
+
+              <label for="userPw" class="sr-only">비밀번호</label>
+              <input type="password" id="userPw" name="userPw" placeholder="Password" required pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$" title="8자 이상, 영문자, 숫자, 특수문자를 모두 포함해야 합니다." />
+
+              <div class="checkbox-group">
+                <div class="checkbox-pair">
+                  <input type="checkbox" name="autoLogin" id="autoLogin" />
+                  <label for="autoLogin">Auto-Login</label>
+                </div>
+                <div class="checkbox-pair">
+                  <input type="checkbox" name="RememEmail" id="RememEmail" />
+                  <label for="RememEmail">Remember Email</label>
+                </div>
+              </div>
+
+              <button type="submit" id="loginBtn">Login</button>
+            </form>
+            <div class="links">
+              Forget your account? <a href="#">Find ID</a> or
+              <a href="#">Reset Password</a>
+            </div>
+          </div>
+
+          <div id="signupFormContainer" style="display: none">
+            <form action="./login.jsp" method="post" id="signupForm">
+              <input type="hidden" name="mode" value="signup">
+
+              <label for="signupEmail" class="sr-only">이름</label>
+              <input type="text" id="signupName" name="signupName" placeholder="Name" required />
+
+              <label for="signupEmail" class="sr-only">닉네임</label>
+              <input type="text" id="signupNickname" name="signupNickname" placeholder="NickName" required />
+
+              <label for="signupEmail" class="sr-only">이메일</label>
+              <input type="email" id="signupEmail" name="signupEmail" placeholder="Email" required />
+
+              <label for="signupPw" class="sr-only">비밀번호</label>
+              <input type="password" id="signupPw" name="signupPw" placeholder="Password" required pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$" title="8자 이상, 영문자, 숫자, 특수문자를 모두 포함해야 합니다." />
+
+              <label for="confirmPw" class="sr-only">비밀번호 확인</label>
+              <input type="password" id="confirmPw" name="confirmPw" placeholder="Confirm Password" required />
+              <p id="confirmPwError" class="error-message" style="display: none; color: red; font-size: 0.8em;"></p>
+
+			  <label for="category" class="sr-only">관심 카테고리</label>
+              <select id="category" name="category">
+			   <option value="1">영화</option> 
+			   <option value="2">드라마</option> 
+			   <option value="3">음악</option> 
+			   <option value="4">애니메이션</option> 
+			   <option value="5">일상</option> 
+			  </select>
+
+              <button type="submit" id="signupBtn">Sign Up</button>
+            </form>
+            <div class="links">
+              Already have an account?<a href="#" id="switchToLoginLink">Login</a>
+            </div>
+          </div>
+
+          <div class="links switch-form-link">
+            Not a member yet?<a href="#" id="switchToSignupLink">Sign Up</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./login/login.js"></script>
+  </body>
+</html>

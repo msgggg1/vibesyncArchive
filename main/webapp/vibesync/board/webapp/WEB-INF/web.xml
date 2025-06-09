@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <!-- JSP 스크립틀릿 방식 -->
+    <welcome-file-list>
+        <welcome-file>project/write.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- Servlet 매핑 (권장 방식 사용 시) -->
+    <!--
+    <servlet>
+        <servlet-name>WriteServlet</servlet-name>
+        <servlet-class>com.project.servlet.WriteServlet</servlet-class>
+        <multipart-config>
+            <location>/project/source</location>
+            <max-file-size>2097152</max-file-size>
+            <max-request-size>4194304</max-request-size>
+            <file-size-threshold>512000</file-size-threshold>
+        </multipart-config>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WriteServlet</servlet-name>
+        <url-pattern>/write</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ViewServlet</servlet-name>
+        <servlet-class>com.project.servlet.ViewServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewServlet</servlet-name>
+        <url-pattern>/view</url-pattern>
+    </servlet-mapping>
+    -->
+
+</web-app>
