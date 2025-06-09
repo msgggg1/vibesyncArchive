@@ -32,6 +32,15 @@ public class TodoDAOImpl implements TodoDAO {
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
+            	
+            	 // ============= ★★★★★ 디버깅 로그 추가 ★★★★★ =============
+                int idx = rs.getInt("todo_idx");
+                String group = rs.getString("todo_group");
+                
+                // DB에서 읽어온 값을 가공 없이 즉시 출력합니다.
+                System.out.println("DB에서 직접 읽은 값 -> todo_idx: [" + idx + "], todo_group: [" + group + "]");
+                // ==============
+                
                 TodoVO todo = TodoVO.builder()
                         .todo_idx(rs.getInt("todo_idx"))
                         .created_at(rs.getTimestamp("created_at"))
@@ -71,10 +80,12 @@ public class TodoDAOImpl implements TodoDAO {
     
     @Override
     public int updateTodo(TodoVO todo) throws SQLException {
-        String sql = "UPDATE todolist SET text = ? WHERE todo_idx = ?";
+        String sql = "UPDATE todolist SET text = ?, todo_group = ?, color = ? WHERE todo_idx = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, todo.getText());
             pstmt.setInt(2, todo.getTodo_idx());
+            pstmt.setString(3, todo.getColor()); 
+            pstmt.setInt(4, todo.getTodo_idx());
             return pstmt.executeUpdate();
         }
     }
@@ -83,12 +94,13 @@ public class TodoDAOImpl implements TodoDAO {
     public int addTodo(TodoVO todo) throws SQLException {
         // status는 기본값 0(미완료)으로, created_at은 DB 기본값(SYSDATE)으로 자동 생성되도록 합니다.
         // todo_seq는 Oracle의 시퀀스 예시입니다.
-        String sql = "INSERT INTO todolist (todo_idx, text, ac_idx, status, created_at) VALUES (todolist_seq.NEXTVAL, ?, ?, 0, SYSDATE)";
+        String sql = "INSERT INTO todolist (todo_idx, text, ac_idx, status, created_at, todo_group, color) VALUES (todolist_seq.NEXTVAL, ?, ?, 0, SYSDATE,?,?)";
         
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, todo.getText());
             pstmt.setInt(2, todo.getAc_idx());
-            
+            pstmt.setString(3, todo.getTodo_group());
+            pstmt.setString(4, todo.getColor());
             // INSERT, UPDATE, DELETE는 executeUpdate()를 사용합니다.
             // 성공적으로 추가된 행(row)의 개수를 반환합니다. (보통 1)
             return pstmt.executeUpdate();

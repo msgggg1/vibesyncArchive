@@ -335,7 +335,7 @@ button {
 
 #con_wrapper .con_item {
   background-color: gray;
-  height: 300px;
+  height: 300px ;
 }
 
 /* workspace */
@@ -357,10 +357,21 @@ button {
 #calendar {
     flex: 2 1 0;          /* 팽창 비율 2, 수축 비율 1, 기본 너비 0 */
     min-width: 0;           /* 유연한 축소를 위해 */
+    
+     /* 자식 요소(FullCalendar)를 컨트롤하기 위해 flex로 만듭니다. */
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* 자식 높이가 부모를 초과하지 않도록 보장 */
+    
     background-color: #ffffff;
     border: 1px solid #e0e0e0;
     border-radius: 10px; 
     padding: 20px;
+}
+
+/* FullCalendar의 날짜 그리드 영역이 남는 공간을 모두 차지하도록 설정 */
+#calendar .fc-view-harness {
+    flex-grow: 1; 
 }
 
 /* --- 캘린더 상단 툴바 (이전/다음, 날짜 제목) 스타일 --- */
@@ -609,7 +620,8 @@ button {
     margin-bottom: 20px;
 }
 
-#schedule-form .form-group {
+#schedule-form .form-group,
+#todo-form .form-group  {
     margin-bottom: 15px;
 }
 #schedule-form .form-group-row {
@@ -624,7 +636,8 @@ button {
     margin-bottom: 0;
 }
 
-#schedule-form label {
+#schedule-form label,
+#todo-form label  {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
@@ -633,7 +646,9 @@ button {
 
 #schedule-form input[type="text"],
 #schedule-form input[type="datetime-local"],
-#schedule-form textarea {
+#schedule-form textarea,
+#todo-form input[type="text"],
+#todo-form textarea  {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -642,7 +657,13 @@ button {
     box-sizing: border-box; 
 }
 
-#schedule-form input[type="color"] {
+#schedule-form textarea,
+#todo-form textarea {
+    resize: vertical;
+}
+
+#schedule-form input[type="color"] ,
+#todo-form input[type="color"]{
     width: 30%;
     height: 40px;
     border: 1px solid #ccc;

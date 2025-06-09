@@ -54,8 +54,8 @@
 						<div class="line"></div>
 
 						<div id="contents_grid">
-							<div class="contents_item"></div>
-							<div class="contents_item"></div>
+							<div class="contents_item" id="my-posts"></div>
+							<div class="contents_item" id="liked-posts"></div>
 							<div class="contents_item"></div>
 							<div id="content_plus">+</div>
 						</div>
@@ -73,6 +73,8 @@
     var schedulesByDate = {}; 
     // 선택된 날짜의 셀(DOM 요소)을 저장할 변수, 하이라이트 용
     var selectedDateCell = null; 
+    
+    var todosById = {}; // 할 일 데이터를 ID로 접근하기 위한 캐시
 
     // --- [함수] 일별 일정 로딩 (우측 패널) ---
     function loadDailySchedules(dateString) { // dateString은 'YYYY-MM-DD'
@@ -80,11 +82,7 @@
     
     var scheduleHtml = '<ul class="schedule-list">';
     if (schedules && schedules.length > 0) {
-    	 // 1. 받은 일정들을 시간순으로 정렬합니다.
-        schedules.sort(function(a, b) {
-            return new Date(a.start_time) - new Date(b.start_time);
-        });
-
+    	 
         // 2. 정렬된 일정으로 HTML을 만듭니다.
         $.each(schedules, function(index, schedule) {
             // Date 객체를 만들어 시간/분을 HH:MM 형식으로 추출합니다.
@@ -141,6 +139,9 @@
                         todoListHtml += '  <span class="todo-text ' + textClass + '">' + todo.text + '</span>';
                         todoListHtml += '  <button class="todo-delete-btn">&times;</button>'; // X 모양 아이콘
                         todoListHtml += '</li>';
+                        
+                     // 할 일 객체 전체를 ID를 키로 하여 캐시합니다.
+                        todosById[todo.todo_idx] = todo; 
                     });
                 } else {
                     todoListHtml += '<li style="justify-content:center; color:#888;">등록된 할 일이 없습니다.</li>';
@@ -254,9 +255,7 @@
             successCallback(processedEvents); 
             console.log("[FCE-4] successCallback called with processed events.");
             
-            // 5. 데이터 로드가 완료된 후 캘린더를 다시 그리도록 명시 (핵심!)
-            // 데이터가 로드되기 전에 dayCellContent가 실행되는 것을 방지합니다.
-            calendar.render(); 
+            
         },
         error: function(xhr, status, error) {
             console.error("[FCE-AJAX-ERR] 월별 일정을 불러오는 데 실패했습니다:", error, status, xhr);
@@ -362,6 +361,7 @@ $('#add-todo-btn').on('click', function() {
 $modalTitle.text('새로운 할 일 추가');
 $todoForm[0].reset();
 $('#todo-id').val('');
+$('#todo-group').val('');
 
 //일정 폼은 숨기고, 할 일 폼을 보여줌
 $scheduleForm.hide();
@@ -407,15 +407,23 @@ $unifiedModal.show();
 $('#tab_todo').on('click', '.todo-list li .todo-text', function() {
 const $li = $(this).closest('li');
 const todoId = $li.data('id');
-const todoText = $(this).text();
+
+//캐시된 데이터에서 해당 할 일 객체를 찾습니다.
+const clickedTodo = todosById[todoId];
+
+// ★★★★★ 디버깅을 위해 이 console.log를 추가합니다. ★★★★★
+console.log("수정할 할 일 데이터:", clickedTodo);
 
 $modalTitle.text('할 일 수정');
 $todoForm[0].reset();
 $scheduleForm.hide();
 
 //기존 데이터를 폼에 채워넣기
-$('#todo-id').val(todoId);
-$('#todo-text').val(todoText);
+// 기존 데이터를 폼에 채워넣기
+$('#todo-id').val(clickedTodo.todo_idx); // 캐시된 객체에서 todo_idx 사용
+$('#todo-text').val(clickedTodo.text);   // 캐시된 객체에서 text 사용
+$('#todo-group').val(clickedTodo.todo_group || ''); // <-- 이 줄 추가: 캐시된 객체에서 todo_group 사용
+$('#todo-color').val(clickedTodo.color || '#3788d8');
 
 //일정 폼은 숨기고, 할 일 폼을 보여줌
 $todoForm.show();
@@ -472,7 +480,9 @@ const todoId = $('#todo-id').val();
 const isUpdating = !!todoId;
 const todoData = {
 action: isUpdating ? 'updateTodo' : 'addTodo',
-text: $('#todo-text').val()
+text: $('#todo-text').val(),
+todo_group: $('#todo-group').val(),
+color: $('#todo-color').val()
 };
 if (isUpdating) { todoData.todo_idx = todoId; }
 const alertMessage = isUpdating ? "수정" : "추가";
@@ -539,6 +549,15 @@ error: function() { alert('서버와 통신 중 오류가 발생했습니다.');
                 <label for="todo-text">내용</label>
                 <textarea id="todo-text" name="text" rows="4" required></textarea>
             </div>
+            <div class="form-group">
+                <label for="todo-group">그룹</label>
+                <input type="text" id="todo-group" name="todo_group">
+            </div>
+            <div class="form-group">
+        		<label for="todo-color">색상</label>
+        		<input type="color" id="todo-color" name="color" value="#3788d8">
+    		</div>
+            
             <div class="modal-buttons">
                 <button type="button" class="modal-close-btn">취소</button>
                 <button type="submit" class="modal-save-btn">저장</button>

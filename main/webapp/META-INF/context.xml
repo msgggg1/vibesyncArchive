@@ -11,5 +11,6 @@
    maxTotal="20"
    maxIdle="10" 
    maxWaitMillis="-1"
+   connectionProperties="oracle.jdbc.defaultNChar=true"
    />
 </Context>

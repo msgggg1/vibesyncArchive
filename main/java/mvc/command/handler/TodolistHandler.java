@@ -87,10 +87,13 @@ public class TodolistHandler implements CommandHandler {
             out.print(gson.toJson(Map.of("success", result)));
             out.flush();
             return null; // AJAX 응답이므로 null 반환
+            
         } else if ("addTodo".equals(action)) {
             // 1. 요청 파라미터로 VO 객체 생성
             TodoVO newTodo = TodoVO.builder()
                     .text(request.getParameter("text"))
+                    .todo_group(request.getParameter("todo_group"))
+                    .color(request.getParameter("color"))
                     .ac_idx(acIdx) // 핸들러 초반에 세션에서 가져온 사용자 ID
                     .build();
             
@@ -105,6 +108,8 @@ public class TodolistHandler implements CommandHandler {
             TodoVO updatedTodo = TodoVO.builder()
                     .todo_idx(Integer.parseInt(request.getParameter("todo_idx")))
                     .text(request.getParameter("text"))
+                    .todo_group(request.getParameter("todo_group")) 
+                    .color(request.getParameter("color"))
                     .build();
             boolean result = todoService.updateTodo(updatedTodo);
             out.print(gson.toJson(Map.of("success", result)));
