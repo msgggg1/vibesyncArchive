@@ -391,5 +391,22 @@ public class UserDAOImpl implements UserDAO {
         }
         return count;
     }
+    
+    @Override
+    public boolean isFollowing(int followerAcIdx, int followingAcIdx) throws SQLException {
+        // follow 테이블에 해당 관계가 존재하는지 COUNT로 확인
+        String sql = "SELECT COUNT(*) FROM follow WHERE follower_ac_idx = ? AND following_ac_idx = ?";
+        int count = 0;
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, followerAcIdx);
+            pstmt.setInt(2, followingAcIdx);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt(1);
+                }
+            }
+        }
+        return count > 0; // 1개 이상이면 true (팔로우 중)
+    }
 	
 }

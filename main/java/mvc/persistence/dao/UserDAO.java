@@ -45,4 +45,7 @@ public interface UserDAO {
     // 특정 사용자가 팔로우하고 있는 총 사용자 수를 조회합니다.
     int getFollowingCount(int userAcIdx) throws SQLException;
     
+    // followerAcIdx가 followingAcIdx를 팔로우하고 있는지 확인
+    boolean isFollowing(int followerAcIdx, int followingAcIdx) throws SQLException;
+    
 }

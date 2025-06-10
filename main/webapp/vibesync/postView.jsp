@@ -8,6 +8,7 @@
     UserNoteDTO followLike = (UserNoteDTO) request.getAttribute("followLike");
     boolean following = followLike != null && followLike.isFollowing();
     boolean liking = followLike != null && followLike.isLiking();
+    Integer loggedInUserAcIdx = (user != null) ? user.getAc_idx() : null;
 %>
 
 <!DOCTYPE html>
@@ -123,6 +124,7 @@
                 <p>${note.nickname}</p>
 
                 <!-- follow 버튼 -->
+               <c:if test="${user != null && user.ac_idx != note.upac_idx}">
                 <form id="followForm" style="display:inline; margin:0; padding:0;">
                   <button
                     id="followBtn"
@@ -134,6 +136,7 @@
                     <%= following ? "Unfollow" : "Follow" %>
                   </button>
                 </form>
+                </c:if>
               </div>
 
               <div class="like_share">

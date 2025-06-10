@@ -1,0 +1,107 @@
+
+
+Insert INTO userpage (subject, thumbnail, ac_idx, re_userPg_idx) VALUES('애니메이션', 'img.jpg', 26, null);
+
+select *
+from userpage;
+
+-- note_idx를 위한 시퀀스가 있다면 VALUES 절의 첫 번째 값을 note_seq.NEXTVAL 등으로 바꿔주세요.
+
+-- 1. 기술 관련 글
+INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
+VALUES (101, '자바스크립트 비동기 처리 마스터하기', 'Promise와 async/await에 대한 심층 분석 및 실전 예제입니다.', NULL, SYSDATE - 10, NULL, 152, 1, 1, 1, 28);
+
+-- 2. 여행 관련 글 (이미지 포함, 수정 이력 있음)
+INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
+VALUES (102, '여름 휴가, 제주도 동쪽 해안 여행 코스', '세화부터 성산까지, 놓치면 안 될 카페와 맛집 리스트입니다.', '/images/notes/jeju_trip.jpg', SYSDATE - 8, SYSDATE - 7, 340, 2, 2, 2, 28);
+
+-- 3. 일상/에세이 글
+INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
+VALUES (103, '오늘의 다이어리: 비 오는 날의 생각', '창밖을 바라보며 마시는 따뜻한 커피 한 잔의 여유.', NULL, SYSDATE - 5, NULL, 78, 3, 3, 3, 28);
+
+-- 4. 영화 리뷰 글
+INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
+VALUES (104, '영화 "인셉션" 10년 만의 재관람 후기', '다시 봐도 놀라운 크리스토퍼 놀란의 상상력. 꿈과 현실의 경계에 대하여.', '/images/notes/inception_poster.jpg', SYSDATE - 3, NULL, 521, 2, 4, 2, 28);
+
+-- 5. 요리/레시피 글
+INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
+VALUES (105, '10분 완성! 초간단 간장계란파스타 레시피', '자취생 필수 레시피, 실패 없는 황금 비율을 공개합니다.', NULL, SYSDATE - 2, SYSDATE - 1, 210, 3, 5, 3, 28);
+
+-- 6. 개발 관련 글 2
+INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
+VALUES (106, 'Oracle DB 성능 튜닝 기본 원칙', '인덱스, 실행 계획, SQL 최적화에 대한 기본적인 내용을 다룹니다.', NULL, SYSDATE - 1, NULL, 45, 1, 1, 1, 28);
+
+-- 7. 반려동물 관련 글
+INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
+VALUES (107, '우리집 강아지 자랑', '새로운 가족이 된 댕댕이를 소개합니다. 이름은 코코에요!', '/images/notes/puppy.jpg', SYSDATE, NULL, 998, 3, 6, 3, 28);
+
+-- 모든 변경사항을 데이터베이스에 최종 저장
+COMMIT;
+
+-- 17. schedule 테이블 데이터 삽입 (schedule_idx 명시적 지정)
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[업무] 주간 팀 미팅', '프로젝트 진행 상황 공유 및 다음 주 계획 논의', TO_TIMESTAMP('2025-06-03 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-03 11:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#FF6B6B', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[영화] 액션 신작 관람', '이영희님과 영화관람. CGV C열 12,13번', TO_TIMESTAMP('2025-06-01 14:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-01 16:30:00', 'YYYY-MM-DD HH24:MI:SS'), '#4D96FF', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[약속] 파스타 런치', '최유리님과 회사 앞 파스타집에서 점심 식사', TO_TIMESTAMP('2025-06-01 12:30:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-01 13:30:00', 'YYYY-MM-DD HH24:MI:SS'), '#6BCB77', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[취미] K-POP 댄스 연습', '윤서아님과 함께 연습실에서 신곡 안무 연습', TO_TIMESTAMP('2025-06-02 15:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-02 17:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#FDBA74', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[운동] 헬스장 PT', '하체 운동 집중', TO_TIMESTAMP('2025-06-03 19:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-03 20:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#8B5CF6', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[학습] Java 스터디 모임', 'MVC 패턴 및 JDBC 심화 학습', TO_TIMESTAMP('2025-06-04 19:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-04 21:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#A78BFA', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[게임] 신작 판타지 RPG 파티 플레이', '박현우님과 함께 보스 레이드 도전!', TO_TIMESTAMP('2025-06-02 20:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-02 23:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#EC4899', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[약속] 한강 자전거 라이딩', '박민준님과 오후 3시에 한강 공원에서 만나기', TO_TIMESTAMP('2025-06-02 15:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-02 16:30:00', 'YYYY-MM-DD HH24:MI:SS'), '#6BCB77', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[개인] 치과 정기 검진', '스케일링 및 충치 검진', TO_TIMESTAMP('2025-06-05 15:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-05 15:30:00', 'YYYY-MM-DD HH24:MI:SS'), '#FDBA74', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[업무] 클라이언트 미팅', 'A사 신규 프로젝트 제안 발표', TO_TIMESTAMP('2025-06-06 14:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-06 15:30:00', 'YYYY-MM-DD HH24:MI:SS'), '#FF6B6B', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[약속] 저녁 식사 (쭈꾸미)', '강지훈님과 저녁 7시에 회사 앞에서 만나기', TO_TIMESTAMP('2025-06-04 19:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-04 20:30:00', 'YYYY-MM-DD HH24:MI:SS'), '#FDBA74', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[취미] 쿠킹 클래스', '디저트 베이킹 - 딸기 케이크 만들기', TO_TIMESTAMP('2025-06-08 14:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-08 16:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#EC4899', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[여가] VVSync 콘서트', '올림픽공원 KSPO DOME. 스탠딩 A구역', TO_TIMESTAMP('2025-06-15 18:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-15 20:30:00', 'YYYY-MM-DD HH24:MI:SS'), '#A78BFA', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[약속] 성수동 맛집 탐방', '전지현님과 핫플레이스 카페 및 레스토랑 방문', TO_TIMESTAMP('2025-06-08 13:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-08 15:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#6BCB77', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[개인] 도서관 가기', '''사라진 기억'' 원작 소설 대여하기', TO_TIMESTAMP('2025-06-07 13:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-07 14:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#4D96FF', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[학습] 코딩 테스트 스터디', '알고리즘 문제 풀이 (백준)', TO_TIMESTAMP('2025-06-08 18:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-08 20:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#A78BFA', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[취미] 주말 캠핑', '가평 캠핑장. 장비 점검 및 식료품 준비', TO_TIMESTAMP('2025-06-22 12:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-23 15:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#8B5CF6', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[약속] 축구 경기 직관', '상암 월드컵 경기장. 대한민국 vs 브라질 친선 경기', TO_TIMESTAMP('2025-06-11 19:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-11 22:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#6BCB77', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[업무] 분기 실적 보고 회의', NULL, TO_TIMESTAMP('2025-06-17 14:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-17 15:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#FF6B6B', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[여가] 웹툰 작가 사인회', '''학교의 비밀'' 작가님 사인회 참석', TO_TIMESTAMP('2025-06-29 14:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-29 16:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#FDBA74', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[개인] 미용실 예약', '여름맞이 염색 및 커트', TO_TIMESTAMP('2025-06-14 16:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-14 18:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#EC4899', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[운동] 요가 클래스', '빈야사 요가. 힐링 타임', TO_TIMESTAMP('2025-06-12 20:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-12 21:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#6BCB77', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[학습] 영어 회화 스터디', '주제: 최근에 본 영화에 대해 이야기하기', TO_TIMESTAMP('2025-06-13 19:30:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-13 21:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#A78BFA', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[개인] 은행 업무', '대출 관련 서류 제출', TO_TIMESTAMP('2025-06-18 15:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-18 15:30:00', 'YYYY-MM-DD HH24:MI:SS'), '#4D96FF', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[업무] 신입사원 OJT 멘토링', '신규 입사자 개발 환경 세팅 지원', TO_TIMESTAMP('2025-06-19 11:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-19 12:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#FF6B6B', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[약속] 쇼핑 약속', '유해진님과 주말 쇼핑', TO_TIMESTAMP('2025-06-08 16:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-08 18:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#FDBA74', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[취미] 프라모델 조립', '''메카 워리어즈'' 신규 모델 조립 시작', TO_TIMESTAMP('2025-06-16 13:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-16 17:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#EC4899', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[여가] 미술관 관람', '현대미술 기획전 관람', TO_TIMESTAMP('2025-06-23 14:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-23 15:30:00', 'YYYY-MM-DD HH24:MI:SS'), '#8B5CF6', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[개인] 자동차 정기 점검', '엔진 오일 교체 및 타이어 공기압 체크', TO_TIMESTAMP('2025-06-20 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-20 11:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#4D96FF', 26);
+INSERT INTO schedule (title, description, start_time, end_time, color, ac_idx) VALUES ( '[약속] 집들이', '새싹개발자 박현우님 집들이 참석', TO_TIMESTAMP('2025-06-29 18:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2025-06-29 22:00:00', 'YYYY-MM-DD HH24:MI:SS'), '#6BCB77', 26);
+
+COMMIT;
+
+-- todo
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-01 09:00:00', 'YYYY-MM-DD HH24:MI:SS'), '새 프로젝트 기획안 작성', '업무', '파란색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-01 10:30:00', 'YYYY-MM-DD HH24:MI:SS'), '주간 업무 보고서 제출', '업무', '파란색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-01 14:00:00', 'YYYY-MM-DD HH24:MI:SS'), '헬스장 등록하기', '운동', '초록색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-01 17:00:00', 'YYYY-MM-DD HH24:MI:SS'), '저녁 장보기 - 채소 및 과일', '개인', '노란색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-02 08:00:00', 'YYYY-MM-DD HH24:MI:SS'), '아침 조깅 3km', '운동', '초록색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-02 11:00:00', 'YYYY-MM-DD HH24:MI:SS'), '자바 스터디 자료 예습하기 🚀', '학습', '보라색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-02 15:30:00', 'YYYY-MM-DD HH24:MI:SS'), '영화 ''우주 대모험'' 예매', '취미', '주황색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-03 09:30:00', 'YYYY-MM-DD HH24:MI:SS'), '팀 회의 준비 (발표 자료 점검)', '업무', '파란색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-03 13:00:00', 'YYYY-MM-DD HH24:MI:SS'), '도서관에서 기술 서적 대출', '학습', '보라색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-03 16:00:00', 'YYYY-MM-DD HH24:MI:SS'), '친구 생일 선물 고르기 🎁', '개인', '분홍색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-04 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), '플랭크 챌린지 1일차 💪', '운동', '초록색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-04 14:30:00', 'YYYY-MM-DD HH24:MI:SS'), '기타 코드 연습 (C, G, Am, F)', '취미', '하늘색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-04 18:00:00', 'YYYY-MM-DD HH24:MI:SS'), '온라인 강의 시청 - 데이터베이스 기초', '학습', '보라색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-05 09:00:00', 'YYYY-MM-DD HH24:MI:SS'), '클라이언트 미팅 준비', '업무', '파란색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-05 12:00:00', 'YYYY-MM-DD HH24:MI:SS'), '점심 약속 - 김영희와 파스타', '약속', '노란색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-05 16:30:00', 'YYYY-MM-DD HH24:MI:SS'), '새로운 레시피로 저녁 요리 도전! 🍳', '취미', '주황색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-06 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), '여행 계획 세우기 (여름휴가) ✈️', '개인', '분홍색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-06 15:00:00', 'YYYY-MM-DD HH24:MI:SS'), '자전거 라이딩 - 한강공원까지', '운동', '초록색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-07 11:00:00', 'YYYY-MM-DD HH24:MI:SS'), '영어 회화 스터디 참여', '학습', '보라색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-07 14:00:00', 'YYYY-MM-DD HH24:MI:SS'), '밀린 드라마 정주행 시작! 📺', '여가', '하늘색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-07 19:00:00', 'YYYY-MM-DD HH24:MI:SS'), '가족 외식 예약하기', '개인', '노란색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-08 09:30:00', 'YYYY-MM-DD HH24:MI:SS'), '주말 대청소 및 정리정돈', '생활', '파란색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-08 13:00:00', 'YYYY-MM-DD HH24:MI:SS'), '새로운 카페 탐방 및 블로그 포스팅 ✨', '취미', '주황색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-08 17:00:00', 'YYYY-MM-DD HH24:MI:SS'), '코딩 테스트 문제 풀이 (3문제)', '학습', '보라색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-09 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), '반려견 산책 시키기 🐕', '반려동물', '초록색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-09 14:00:00', 'YYYY-MM-DD HH24:MI:SS'), '미술관 전시회 관람', '여가', '분홍색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-09 18:00:00', 'YYYY-MM-DD HH24:MI:SS'), '다음 주 식단 계획하기', '생활', '노란색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-10 09:00:00', 'YYYY-MM-DD HH24:MI:SS'), '월요병 극복! 힘내서 출근 준비! 🔥', '일상', '파란색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-10 11:30:00', 'YYYY-MM-DD HH24:MI:SS'), '새로운 프로그래밍 언어 탐색', '학습', '보라색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-10 16:00:00', 'YYYY-MM-DD HH24:MI:SS'), '퇴근 후 친구와 저녁 약속 🍻', '약속', '주황색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
+
+commit;

@@ -161,7 +161,7 @@ CREATE SEQUENCE seq_wa_comment
   
 -- 19. schedule 시퀀스
 CREATE SEQUENCE schedule_seq 
-	START WITH 31
+	START WITH 1
     INCREMENT BY 1
 	NOCACHE
     NOCYCLE;

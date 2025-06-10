@@ -21,99 +21,111 @@ import mvc.persistence.daoImpl.UserDAOImpl;
 
 public class UserService {
 
-    private static final int PAGE_SIZE = 9; // 한 번에 로드할 게시글 수
-    
-    Connection conn = null;
+	private static final int PAGE_SIZE = 9; // 한 번에 로드할 게시글 수
 
-    public UserService() {
-    	
-    }
+	Connection conn = null;
 
-    public UserPageDataDTO getUserPageData(int profileUserAcIdx, Integer loggedInUserAcIdx, int pageNumber) throws SQLException {
-        Connection conn = null;
-        UserPageDataDTO pageData = new UserPageDataDTO();
-        UserPageInfoDTO userProfileInfo = new UserPageInfoDTO(); // UserPageInfoDTO 객체 먼저 생성
-        UserDTO basicUserInfo = null; // UserDAO에서 받을 기본 정보 DTO
-        List<NoteSummaryDTO> posts = null;
-        boolean hasMorePosts = false;
-        // boolean autoCommitOriginalState = true; // 현재 코드에서는 트랜잭션 수동 관리가 주석처리 되어있음
+	public UserService() {
 
-        try {
-            conn = ConnectionProvider.getConnection(); 
+	}
 
-            UserDAO userDAO = new UserDAOImpl(conn);
-            NoteDAO noteDAO = new NoteDAOImpl(conn);
-            FollowDAO followDAO = new FollowDAOImpl(conn);
-            // 1. 프로필 사용자의 기본 정보 조회
-            basicUserInfo = userDAO.getBasicUserInfoById(profileUserAcIdx); // UserDAO에 이 메소드가 정의되어 있다고 가정
+	public UserPageDataDTO getUserPageData(int profileUserAcIdx, Integer loggedInUserAcIdx, int pageNumber) throws SQLException {
+		Connection conn = null;
+		UserPageDataDTO pageData = new UserPageDataDTO();
+		UserPageInfoDTO userProfileInfo = new UserPageInfoDTO(); // UserPageInfoDTO 객체 먼저 생성
+		UserDTO basicUserInfo = null; // UserDAO에서 받을 기본 정보 DTO
+		List<NoteSummaryDTO> posts = null;
+		boolean hasMorePosts = false;
+		// boolean autoCommitOriginalState = true; // 현재 코드에서는 트랜잭션 수동 관리가 주석처리 되어있음
 
-            if (basicUserInfo == null) {
-                // 사용자가 없는 경우
-                return null;
-            }
+		try {
+			conn = ConnectionProvider.getConnection(); 
 
-            // UserAccountDTO에서 UserPageInfoDTO로 기본 정보 복사
-            userProfileInfo.setAc_idx(basicUserInfo.getAc_idx());
-            userProfileInfo.setNickname(basicUserInfo.getNickname());
-            userProfileInfo.setImg(basicUserInfo.getImg());
-            // 필요하다면 UserAccountDTO의 다른 필드도 UserPageInfoDTO에 복사
+			UserDAO userDAO = new UserDAOImpl(conn);
+			NoteDAO noteDAO = new NoteDAOImpl(conn);
+			FollowDAO followDAO = new FollowDAOImpl(conn);
+			// 1. 프로필 사용자의 기본 정보 조회
+			basicUserInfo = userDAO.getBasicUserInfoById(profileUserAcIdx); // UserDAO에 이 메소드가 정의되어 있다고 가정
 
-            // 2. 게시글 수, 팔로워 수, 팔로잉 수 설정
-            userProfileInfo.setPostCount(userDAO.getPostCount(profileUserAcIdx));
-            userProfileInfo.setFollowerCount(userDAO.getFollowerCount(profileUserAcIdx));
-            userProfileInfo.setFollowingCount(userDAO.getFollowingCount(profileUserAcIdx));
+			if (basicUserInfo == null) {
+				// 사용자가 없는 경우
+				return null;
+			}
 
-            // 3. 현재 로그인한 사용자가 이 프로필 사용자를 팔로우하는지 여부 설정
-            if (loggedInUserAcIdx != null && loggedInUserAcIdx != profileUserAcIdx) {
-                userProfileInfo.setFollowedByCurrentUser(followDAO.isFollowing(loggedInUserAcIdx, profileUserAcIdx));
-            } else {
-                userProfileInfo.setFollowedByCurrentUser(false); // 본인이거나 비로그인 시
-            }
-            pageData.setUserProfile(userProfileInfo); // 완성된 UserPageInfoDTO를 pageData에 설정
+			// UserAccountDTO에서 UserPageInfoDTO로 기본 정보 복사
+			userProfileInfo.setAc_idx(basicUserInfo.getAc_idx());
+			userProfileInfo.setNickname(basicUserInfo.getNickname());
+			userProfileInfo.setImg(basicUserInfo.getImg());
+			// 필요하다면 UserAccountDTO의 다른 필드도 UserPageInfoDTO에 복사
 
-            // 4. 사용자의 게시글 목록 조회 (페이징)
-            int offset = (pageNumber - 1) * PAGE_SIZE;
-            posts = noteDAO.getPostsByUser(profileUserAcIdx, offset, PAGE_SIZE);
-            pageData.setPosts(posts);
+			// 2. 게시글 수, 팔로워 수, 팔로잉 수 설정
+			userProfileInfo.setPostCount(userDAO.getPostCount(profileUserAcIdx));
+			userProfileInfo.setFollowerCount(userDAO.getFollowerCount(profileUserAcIdx));
+			userProfileInfo.setFollowingCount(userDAO.getFollowingCount(profileUserAcIdx));
 
-            // 5. 더 많은 게시글이 있는지 확인
-            int totalPosts = userProfileInfo.getPostCount();
-            if ((offset + posts.size()) < totalPosts) {
-                hasMorePosts = true;
-            }
-            pageData.setHasMorePosts(hasMorePosts);
-            pageData.setNextPageNumber(pageNumber + 1);
+			// 3. 현재 로그인한 사용자가 이 프로필 사용자를 팔로우하는지 여부 설정
+			if (loggedInUserAcIdx != null && loggedInUserAcIdx != profileUserAcIdx) {
+				userProfileInfo.setFollowedByCurrentUser(followDAO.isFollowing(loggedInUserAcIdx, profileUserAcIdx));
+			} else {
+				userProfileInfo.setFollowedByCurrentUser(false); // 본인이거나 비로그인 시
+			}
+			pageData.setUserProfile(userProfileInfo); // 완성된 UserPageInfoDTO를 pageData에 설정
 
-        } catch (SQLException e) { // NamingException도 함께 처리하거나, throws에 추가
-            throw e;
-        } catch (NamingException e) {
+			// 4. 사용자의 게시글 목록 조회 (페이징)
+			int offset = (pageNumber - 1) * PAGE_SIZE;
+			posts = noteDAO.getPostsByUser(profileUserAcIdx, offset, PAGE_SIZE);
+			pageData.setPosts(posts);
+
+			// 5. 더 많은 게시글이 있는지 확인
+			int totalPosts = userProfileInfo.getPostCount();
+			if ((offset + posts.size()) < totalPosts) {
+				hasMorePosts = true;
+			}
+			pageData.setHasMorePosts(hasMorePosts);
+			pageData.setNextPageNumber(pageNumber + 1);
+
+		} catch (SQLException e) { // NamingException도 함께 처리하거나, throws에 추가
+			throw e;
+		} catch (NamingException e) {
 			e.printStackTrace();
 		} finally {
-            if (conn != null) {
-                try {
-                    conn.close(); 
-                } catch (SQLException e) {
-                    e.printStackTrace(); 
-                }
-            }
-        }
-        return pageData;
-    }
+			if (conn != null) {
+				try {
+					conn.close(); 
+				} catch (SQLException e) {
+					e.printStackTrace(); 
+				}
+			}
+		}
+		return pageData;
+	}
 
-    // 무한 스크롤로 추가 게시글 로드 시 사용될 수 있는 메소드
-    public List<NoteSummaryDTO> getMorePosts(int profileUserAcIdx, int pageNumber) throws SQLException {
-        Connection conn = null;
-        List<NoteSummaryDTO> posts = null;
-        try {
-            conn = ConnectionProvider.getConnection();
-            NoteDAO noteDAO = new NoteDAOImpl(conn);
-            int offset = (pageNumber - 1) * PAGE_SIZE;
-            posts = noteDAO.getPostsByUser(profileUserAcIdx, offset, PAGE_SIZE);
-        } catch (NamingException e) {
+	// 무한 스크롤로 추가 게시글 로드 시 사용될 수 있는 메소드
+	public List<NoteSummaryDTO> getMorePosts(int profileUserAcIdx, int pageNumber) throws SQLException {
+		Connection conn = null;
+		List<NoteSummaryDTO> posts = null;
+		try {
+			conn = ConnectionProvider.getConnection();
+			NoteDAO noteDAO = new NoteDAOImpl(conn);
+			int offset = (pageNumber - 1) * PAGE_SIZE;
+			posts = noteDAO.getPostsByUser(profileUserAcIdx, offset, PAGE_SIZE);
+		} catch (NamingException e) {
 			e.printStackTrace();
 		} finally {
-            if (conn != null) conn.close();
-        }
-        return posts;
-    }
+			if (conn != null) conn.close();
+		}
+		return posts;
+	}
+
+	public boolean isFollowing(int followerAcIdx, int followingAcIdx) throws Exception {
+		// 비로그인 사용자는 항상 false
+		if (followerAcIdx == 0) {
+			return false;
+		}
+		try (Connection conn = ConnectionProvider.getConnection()) {
+			UserDAO userDAO = new UserDAOImpl(conn);
+			return userDAO.isFollowing(followerAcIdx, followingAcIdx);
+		}
+	}
+
 }
