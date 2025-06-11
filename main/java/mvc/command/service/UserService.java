@@ -12,6 +12,7 @@ import mvc.domain.dto.NoteSummaryDTO;
 import mvc.domain.dto.UserDTO;
 import mvc.domain.dto.UserPageDataDTO;
 import mvc.domain.dto.UserPageInfoDTO;
+import mvc.domain.vo.UserSummaryVO;
 import mvc.persistence.dao.FollowDAO; // 실제 경로로
 import mvc.persistence.dao.NoteDAO;   // 실제 경로로
 import mvc.persistence.dao.UserDAO;
@@ -33,7 +34,7 @@ public class UserService {
 		Connection conn = null;
 		UserPageDataDTO pageData = new UserPageDataDTO();
 		UserPageInfoDTO userProfileInfo = new UserPageInfoDTO(); // UserPageInfoDTO 객체 먼저 생성
-		UserDTO basicUserInfo = null; // UserDAO에서 받을 기본 정보 DTO
+		UserSummaryVO basicUserInfo = null; // UserDAO에서 받을 기본 정보 DTO
 		List<NoteSummaryDTO> posts = null;
 		boolean hasMorePosts = false;
 		// boolean autoCommitOriginalState = true; // 현재 코드에서는 트랜잭션 수동 관리가 주석처리 되어있음
@@ -55,13 +56,13 @@ public class UserService {
 			// UserAccountDTO에서 UserPageInfoDTO로 기본 정보 복사
 			userProfileInfo.setAc_idx(basicUserInfo.getAc_idx());
 			userProfileInfo.setNickname(basicUserInfo.getNickname());
-			userProfileInfo.setImg(basicUserInfo.getImg());
+			userProfileInfo.setImg(basicUserInfo.getProfile_img());
 			// 필요하다면 UserAccountDTO의 다른 필드도 UserPageInfoDTO에 복사
 
 			// 2. 게시글 수, 팔로워 수, 팔로잉 수 설정
 			userProfileInfo.setPostCount(userDAO.getPostCount(profileUserAcIdx));
-			userProfileInfo.setFollowerCount(userDAO.getFollowerCount(profileUserAcIdx));
-			userProfileInfo.setFollowingCount(userDAO.getFollowingCount(profileUserAcIdx));
+			userProfileInfo.setFollowerCount(followDAO.getFollowerCount(profileUserAcIdx));
+			userProfileInfo.setFollowingCount(followDAO.getFollowingCount(profileUserAcIdx));
 
 			// 3. 현재 로그인한 사용자가 이 프로필 사용자를 팔로우하는지 여부 설정
 			if (loggedInUserAcIdx != null && loggedInUserAcIdx != profileUserAcIdx) {
@@ -118,13 +119,16 @@ public class UserService {
 	}
 
 	public boolean isFollowing(int followerAcIdx, int followingAcIdx) throws Exception {
+		
+		FollowDAO followDAO = new FollowDAOImpl(conn);
+		
 		// 비로그인 사용자는 항상 false
 		if (followerAcIdx == 0) {
 			return false;
 		}
 		try (Connection conn = ConnectionProvider.getConnection()) {
 			UserDAO userDAO = new UserDAOImpl(conn);
-			return userDAO.isFollowing(followerAcIdx, followingAcIdx);
+			return followDAO.isFollowing(followerAcIdx, followingAcIdx);
 		}
 	}
 

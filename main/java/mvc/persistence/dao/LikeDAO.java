@@ -1,13 +1,12 @@
 package mvc.persistence.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public interface LikeDAO {
 
-    
     //게시글에 좋아요를 추가
     int addLike(int acIdx, int noteIdx) throws SQLException;
-
     
     // 게시글의 좋아요를 제거
     int removeLike(int acIdx, int noteIdx) throws SQLException;
@@ -17,4 +16,7 @@ public interface LikeDAO {
 
     // 게시글의 총 좋아요 수를 계산
     int getLikesCountForNote(int noteIdx) throws SQLException;
+    
+    // 여러 게시글의 좋아요 수 합산
+    int getLikesCountForMultipleNotes(List<Integer> noteIdxList) throws SQLException;
 }

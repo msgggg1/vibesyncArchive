@@ -32,7 +32,6 @@ public class FollowService {
         try {
             conn = ConnectionProvider.getConnection();
             FollowDAO followDAO = new FollowDAOImpl(conn);
-            UserDAO userDAO = new UserDAOImpl(conn);
             autoCommitOriginalState = conn.getAutoCommit();
             conn.setAutoCommit(false); // 트랜잭션 시작
 
@@ -47,7 +46,7 @@ public class FollowService {
             }
             
          // 팔로우/언팔로우 작업 후, 대상 사용자의 최신 팔로워 수 조회
-            newFollowerCount = userDAO.getFollowerCount( targetUserAcIdx);
+            newFollowerCount = followDAO.getFollowerCount( targetUserAcIdx);
             result.put("newFollowerCount", newFollowerCount); // 결과 맵에 추가
 
             conn.commit(); // 트랜잭션 커밋

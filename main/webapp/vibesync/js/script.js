@@ -147,6 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const contentsGrid = document.querySelector('#contents_grid');
     const maxItems = 8; // 최대 아이템 개수
 
+   /* workspace.js와 중복
     plusbtn.addEventListener('click', function() {
       const contentsItems = contentsGrid.querySelectorAll('.contents_item');
 
@@ -161,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log(contentsGrid.innerHTML);
       }
-    });
+    }); */
 
     // 페이지 로드시 아이템 개수 확인 및 plusbtn 초기 상태 설정
     function checkItemCount() {
@@ -298,6 +299,5 @@ document.addEventListener('DOMContentLoaded', () => {
       singup.style.display = "none";
     })
   }
-  
   
 });

@@ -10,6 +10,7 @@ import java.util.List;
 import com.util.JdbcUtil;
 
 import mvc.domain.dto.SidebarDTO;
+import mvc.domain.vo.UserSummaryVO;
 import mvc.domain.vo.UserVO;
 import mvc.persistence.dao.FollowDAO;
 
@@ -21,16 +22,16 @@ public class FollowDAOImpl implements FollowDAO {
     	this.conn = conn;
     }
     
-	// 팔로우 목록
+	// 팔로워 목록
 	@Override
-	public List<UserVO> userFollowList(int ac_idx) {
-		List<UserVO> users = new ArrayList<>();
+	public List<UserSummaryVO> userFollowerList(int ac_idx) {
+		List<UserSummaryVO> users = new ArrayList<>();
 		
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    
 	    String sql = "SELECT " + 
-	    			 " ac_idx, email, nickname, img, name, category_idx " +
+	    			 " ac_idx, nickname, img, category_idx " +
 	    			 "FROM follows f JOIN userAccount u ON u.ac_idx = f.ac_following " +
 	    			 "WHERE ac_follow = ?";
 	    
@@ -40,12 +41,10 @@ public class FollowDAOImpl implements FollowDAO {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				UserVO user = new UserVO().builder()
+				UserSummaryVO user = UserSummaryVO.builder()
 										  .ac_idx(rs.getInt("ac_idx"))
-										  .email(rs.getString("email"))
 										  .nickname(rs.getString("nickname"))
-										  .img(rs.getString("img"))
-										  .name(rs.getString("name"))
+										  .profile_img(rs.getString("img"))
 										  .category_idx(rs.getInt("category_idx"))
 										  .build();
 				users.add(user);
@@ -63,14 +62,14 @@ public class FollowDAOImpl implements FollowDAO {
 	
 	// 팔로잉 목록
 	@Override
-	public List<UserVO> userFollowingList(int ac_idx) {
-		List<UserVO> users = new ArrayList<>();
+	public List<UserSummaryVO> userFollowingList(int ac_idx) {
+		List<UserSummaryVO> users = new ArrayList<>();
 		
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    
 	    String sql = "SELECT " + 
-	    			 " ac_idx, email, nickname, img, name, category_idx " +
+	    			 " ac_idx, nickname, img, category_idx " +
 	    			 "FROM follows f JOIN userAccount u ON u.ac_idx = f.ac_follow " +
 	    			 "WHERE ac_following = ?";
 	    
@@ -80,12 +79,10 @@ public class FollowDAOImpl implements FollowDAO {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				UserVO user = new UserVO().builder()
+				UserSummaryVO user = UserSummaryVO.builder()
 										  .ac_idx(rs.getInt("ac_idx"))
-										  .email(rs.getString("email"))
 										  .nickname(rs.getString("nickname"))
-										  .img(rs.getString("img"))
-										  .name(rs.getString("name"))
+										  .profile_img(rs.getString("img"))
 										  .category_idx(rs.getInt("category_idx"))
 										  .build();
 				users.add(user);
@@ -100,11 +97,43 @@ public class FollowDAOImpl implements FollowDAO {
 		
 		return users;
 	}
+	
+    // 팔로잉 목록 : 유저가 팔로우하고 있는 사용자 ID
+	@Override
+	public List<Integer> userFollowingIdList(int ac_idx) {
+		List<Integer> userIdList = new ArrayList<>();
+		
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    
+	    String sql = "SELECT " + 
+	    			 " ac_following " +
+	    			 " FROM follows " +
+	    			 " WHERE ac_follow = ?";
+	    
+	    try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ac_idx);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				userIdList.add(rs.getInt("ac_following"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		
+		return userIdList;
+	}
     
 	// 전체 카테고리 - 인기 유저 조회
 	@Override
-	public List<UserVO> findPopularUsers(int limit) throws SQLException {
-		 List<UserVO> users = new ArrayList<>();
+	public List<UserSummaryVO> findPopularUsers(int limit) throws SQLException {
+		 List<UserSummaryVO> users = new ArrayList<>();
 		 
 	     PreparedStatement pstmt = null;
 	     ResultSet rs = null;
@@ -136,12 +165,10 @@ public class FollowDAOImpl implements FollowDAO {
 	         rs = pstmt.executeQuery();
 
 	         while (rs.next()) {
-	        	 UserVO user = new UserVO().builder()
+	        	 UserSummaryVO user = UserSummaryVO.builder()
 	        			 				   .ac_idx(rs.getInt("ac_idx"))
-	        			 				   .email(rs.getString("email"))
 	        			 				   .nickname(rs.getString("nickname"))
-	        			 				   .img(rs.getString("img"))
-	        			 				   .name(rs.getString("name"))
+	        			 				   .profile_img(rs.getString("img"))
 	        			 				   .category_idx(rs.getInt("category_idx"))
 	        			 				   .build();
 	        			 
@@ -160,8 +187,8 @@ public class FollowDAOImpl implements FollowDAO {
 
 	// 특정 카테고리의 인기 유저 조회
 	@Override
-	public List<UserVO> findPopularUsersByCategory(int categoryIdx, int limit) throws SQLException {
-		 List<UserVO> users = new ArrayList<>();
+	public List<UserSummaryVO> findPopularUsersByCategory(int categoryIdx, int limit) throws SQLException {
+		 List<UserSummaryVO> users = new ArrayList<>();
 		 
 	     PreparedStatement pstmt = null;
 	     ResultSet rs = null;
@@ -194,12 +221,10 @@ public class FollowDAOImpl implements FollowDAO {
 	         rs = pstmt.executeQuery();
 
 	         while (rs.next()) {
-	        	 UserVO user = new UserVO().builder()
+	        	 UserSummaryVO user = UserSummaryVO.builder()
 		 				   .ac_idx(rs.getInt("ac_idx"))
-		 				   .email(rs.getString("email"))
 		 				   .nickname(rs.getString("nickname"))
-		 				   .img(rs.getString("img"))
-		 				   .name(rs.getString("name"))
+		 				   .profile_img(rs.getString("img"))
 		 				   .category_idx(categoryIdx)
 		 				   .build();
 	        	 
@@ -216,6 +241,7 @@ public class FollowDAOImpl implements FollowDAO {
 	      return users;
 	}
 	
+	// 팔로우
 	 @Override
     public int addFollow(int followerAcIdx, int followingAcIdx) throws SQLException {
         String sql = "INSERT INTO follows (follows_idx, ac_follow, ac_following) VALUES (follows_seq.NEXTVAL, ?, ?)";
@@ -230,6 +256,7 @@ public class FollowDAOImpl implements FollowDAO {
         }
     }
 
+	// 팔로우 취소
     @Override
     public int removeFollow(int followerAcIdx, int followingAcIdx) throws SQLException {
         String sql = "DELETE FROM follows WHERE ac_follow = ? AND ac_following = ?";
@@ -244,6 +271,7 @@ public class FollowDAOImpl implements FollowDAO {
         }
     }
 
+    // 팔로잉 여부 확인
     @Override
     public boolean isFollowing(int followerAcIdx, int followingAcIdx) throws SQLException {
         String sql = "SELECT COUNT(*) FROM follows WHERE ac_follow = ? AND ac_following = ?";
@@ -264,7 +292,7 @@ public class FollowDAOImpl implements FollowDAO {
         }
     }
 
-	
+    /*
     @Override
     public SidebarDTO getFollowingList(int acFollow) {
         List<UserVO> followingList = new ArrayList<>();
@@ -309,4 +337,46 @@ public class FollowDAOImpl implements FollowDAO {
         dto.setFollowingList(followingList);
         return dto;
     }
+    */
+    
+    @Override
+    public int getFollowerCount(int userAcIdx) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM follows WHERE ac_following = ?"; // userAcIdx를 팔로우하는 사람들의 수
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int count = 0;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, userAcIdx);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } finally {
+            if (rs != null) rs.close();
+            if (pstmt != null) pstmt.close();
+        }
+        return count;
+    }
+
+    @Override
+    public int getFollowingCount(int userAcIdx) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM follows WHERE ac_follow = ?"; // userAcIdx가 팔로우하는 사람들의 수
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int count = 0;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, userAcIdx);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } finally {
+            if (rs != null) rs.close();
+            if (pstmt != null) pstmt.close();
+        }
+        return count;
+    }
+
 }

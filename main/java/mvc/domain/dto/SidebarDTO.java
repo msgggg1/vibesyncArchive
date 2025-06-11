@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import mvc.domain.vo.UserVO;
+import mvc.domain.vo.UserSummaryVO;
 
 @Getter
 @Setter
@@ -18,6 +18,6 @@ import mvc.domain.vo.UserVO;
 @ToString
 public class SidebarDTO {
 
-	private List<UserVO> followingList; // 유저가 팔로우하고 있는 계정 목록
+	private List<UserSummaryVO> followingList; // 유저가 팔로우하고 있는 계정 목록
 	
 }

@@ -38,7 +38,7 @@ public class FollowHandler implements CommandHandler {
 
             if (session != null) {
                 Object userObj = session.getAttribute("userInfo"); // login.jsp에서 설정한 세션 속성 이름
-                if (userObj instanceof UserVO) { // 타입 확인
+                if (userObj != null && userObj instanceof UserVO) { // 타입 확인
                 	UserVO loggedInUser = (UserVO) userObj;
                     followerAcIdx = loggedInUser.getAc_idx();
                 }

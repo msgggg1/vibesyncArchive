@@ -3,15 +3,15 @@ package mvc.command.handler;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import mvc.command.service.UserService;
+import mvc.command.service.UserPageService;
 import mvc.domain.dto.UserPageDataDTO;
 import mvc.domain.vo.UserVO;
 
 public class UserPageHandler implements CommandHandler {
-    private UserService userPageService;
+    private UserPageService userPageService;
     
     public UserPageHandler() {
-        this.userPageService = new UserService(); // 생성자에서 초기화
+        this.userPageService = new UserPageService(); // 생성자에서 초기화
     }
 
     @Override
@@ -25,15 +25,13 @@ public class UserPageHandler implements CommandHandler {
         }
         int profileUserAcIdx = Integer.parseInt(profileUserAcIdxParam);
 
-     // 2. 세션에서 현재 로그인한 사용자 정보 가져오기
+        // 2. 세션에서 현재 로그인한 사용자 ID 가져오기
         HttpSession session = request.getSession(false);
-        Integer loggedInUserAcIdx = null; // 비로그인 상태를 처리하기 위해 Integer 타입 사용
-
+        UserVO userInfo = null;
+        Integer loggedInUserAcIdx = null;
         if (session != null && session.getAttribute("userInfo") != null) {
-            // "userInfo" 키로 UserVO 객체를 가져옵니다.
-            UserVO loginUser = (UserVO) session.getAttribute("userInfo");
-            // 가져온 객체에서 사용자 ID를 추출합니다.
-            loggedInUserAcIdx = loginUser.getAc_idx();
+        	userInfo = (UserVO) session.getAttribute("userInfo");
+        	loggedInUserAcIdx = userInfo.getAc_idx();
         }
         
         // 3. 초기 페이지 번호 (무한 스크롤용)

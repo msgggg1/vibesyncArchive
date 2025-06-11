@@ -8,7 +8,6 @@
     UserNoteDTO followLike = (UserNoteDTO) request.getAttribute("followLike");
     boolean following = followLike != null && followLike.isFollowing();
     boolean liking = followLike != null && followLike.isLiking();
-    Integer loggedInUserAcIdx = (user != null) ? user.getAc_idx() : null;
 %>
 
 <!DOCTYPE html>

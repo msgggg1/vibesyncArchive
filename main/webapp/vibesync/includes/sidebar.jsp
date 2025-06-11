@@ -286,7 +286,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: '<%= request.getContextPath() %>/common.do',
+            url: '<%= request.getContextPath() %>/sidebar.do',
             data: formData,
             dataType: 'json',
             success: function(response) {

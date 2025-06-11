@@ -19,7 +19,6 @@ public class NoteHandler implements CommandHandler {
     public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
     	System.out.println("> NoteHandler.process()");
         
-        // --- 1. 공통 로직: JSON 응답 설정 및 로그인 사용자 정보 확인 ---
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
@@ -38,19 +37,14 @@ public class NoteHandler implements CommandHandler {
         try {
             // --- 2. action 값에 따라 다른 서비스 메소드 호출 ---
         	if ("getMyPostsPreview".equals(action)) {
-        	    System.out.println("---- [HANDLER] getMyPostsPreview 실행 ----");
-        	    int limit = Integer.parseInt(request.getParameter("limit"));
-        	    List<NoteSummaryDTO> posts = noteService.getMyPostsPreview(acIdx, limit);
-        	    // ★★★ 핸들러가 JSON으로 응답하기 직전의 목록 크기를 출력합니다. ★★★
-        	    System.out.println("[HANDLER] Service로부터 받은 목록 크기: " + posts.size());
+        	    List<NoteSummaryDTO> posts = noteService.getMyPostsPreview(acIdx);
         	    out.print(gson.toJson(posts));
         	} else if ("getAllMyPosts".equals(action)) {
                 List<NoteSummaryDTO> posts = noteService.getAllMyPosts(acIdx);
                 out.print(gson.toJson(posts));
 
             } else if ("getLikedPostsPreview".equals(action)) {
-            	int limit = Integer.parseInt(request.getParameter("limit"));
-                List<NoteSummaryDTO> posts = noteService.getLikedPostsPreview(acIdx, limit);
+                List<NoteSummaryDTO> posts = noteService.getLikedPostsPreview(acIdx);
                 out.print(gson.toJson(posts));
 
             } else if ("getAllLikedPosts".equals(action)) {
@@ -69,6 +63,6 @@ public class NoteHandler implements CommandHandler {
             if (out != null) out.flush();
         }
 
-        return null; // AJAX 요청이므로 null 반환
+        return null; 
     }
 }

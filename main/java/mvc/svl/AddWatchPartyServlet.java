@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 import mvc.domain.vo.WaSyncVO;
 import mvc.domain.vo.WatchPartyVO;
 import mvc.persistence.dao.WaSyncDAO;
-import mvc.persistence.dao.WatchPartyDAO;
+import mvc.persistence.daoImpl.WatchPartyDAOImpl;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -24,7 +24,7 @@ import java.sql.Timestamp;
 public class AddWatchPartyServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private WatchPartyDAO dao = new WatchPartyDAO();
+	private WatchPartyDAOImpl dao = new WatchPartyDAOImpl();
 	private WaSyncDAO   wsDao = new WaSyncDAO();
     private Gson gson = new Gson();
 

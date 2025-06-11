@@ -47,42 +47,7 @@ public class UserHandler implements CommandHandler {
         
         // 로그아웃
         if (requestMethod.equals("POST") && accessType.equals("logout")) {
-            boolean wasAutoLoginActive = false; // 자동 로그인이 활성화되어 있었는지 여부를 판단하는 플래그
-            Cookie rememberEmailCookieInstance = null; // rememberEmail 쿠키 객체를 저장할 변수
-
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                for (Cookie cookie : cookies) {
-                    if ("autoLoginUserEmail".equals(cookie.getName())) { // 자동 로그인용 쿠키
-                        wasAutoLoginActive = true; // 자동 로그인이 활성화 되어 있었음을 표시
-                        
-                        cookie.setValue("");
-                        cookie.setMaxAge(0);
-                        cookie.setPath("/"); 
-                        response.addCookie(cookie); // 자동 로그인 쿠키 삭제
-                        
-                    } else if ("rememberedEmail".equals(cookie.getName())) {
-                        // rememberEmail 쿠키를 바로 삭제하지 않고, 인스턴스만 저장
-                        rememberEmailCookieInstance = cookie;
-                    }
-                }
-            }
-
-            // 자동 로그인이 활성화되어 있었고, 이메일 기억하기 쿠키도 존재했다면 함께 삭제
-            if (wasAutoLoginActive && rememberEmailCookieInstance != null) {
-                rememberEmailCookieInstance.setValue("");
-                rememberEmailCookieInstance.setMaxAge(0);
-                rememberEmailCookieInstance.setPath("/"); 
-                response.addCookie(rememberEmailCookieInstance); // 이메일 기억하기 쿠키 삭제
-            }
-
-            // 세션 초기화
-            session.invalidate();
-
-            // 로그아웃 후 login.jsp로 리디렉션
-            response.sendRedirect(contextPath + "/vibesync/user.do");
-            
-            return null;
+            return "logout.jsp";
         }
         
         // 쿠키 값 불러오기
@@ -133,7 +98,12 @@ public class UserHandler implements CommandHandler {
             		userInfo = loginService.autoLogin(autoLoginUserEmail); // 이메일 정보로 자동로그인
             		session.setAttribute("userInfo", userInfo); // 로그인 처리 + 세션에 로그인된 사용자 정보 저장
             		
-            		response.sendRedirect(contextPath + "/vibesync/main.do"); // main.jsp로 리디렉션
+            		if (userInfo == null) { // 자동 로그인으로 로그인 실패 시
+            			return "logout.jsp";
+					} else {
+						response.sendRedirect(contextPath + "/vibesync/main.do"); // main.jsp로 리디렉션
+						return null;
+					}
             		
 				} else { // 현재 세션에 로그인 정보가 없고, 자동 로그인용 쿠키도 존재하지 않는 상태
 					return "login.jsp"; // login.jsp로 포워딩

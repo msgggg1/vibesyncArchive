@@ -5,13 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 // import your.project.db.DBConnectionManager; // 직접 사용하지 않고 Connection을 매개변수로 받음
+import java.util.List;
+
+import com.util.JdbcUtil;
 
 import mvc.persistence.dao.LikeDAO;
 
 public class LikeDAOImpl implements LikeDAO {
     private Connection conn = null;
 
-	    // 생성자
+	// 생성자
 	public LikeDAOImpl(Connection conn) {
 	    	this.conn = conn;
 	    }
@@ -83,4 +86,36 @@ public class LikeDAOImpl implements LikeDAO {
             if (pstmt != null) pstmt.close();
         }
     }
+
+    // 여러 게시글의 좋아요 수 합산
+	@Override
+	public int getLikesCountForMultipleNotes(List<Integer> noteIdxList) throws SQLException {
+        int likeCnt = 0;
+		
+		StringBuffer sql = new StringBuffer(" SELECT COUNT(likes_idx) FROM likes WHERE note_idx IN ( ");
+		
+		for (int i = 0; i < noteIdxList.size(); i++) {
+			sql.append(noteIdxList.get(i));
+			if (i != noteIdxList.size() - 1) {
+				sql.append(", ");
+			} else {
+				sql.append(" ) ");
+			}
+		}
+		
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        pstmt = conn.prepareStatement(sql.toString());
+		rs = pstmt.executeQuery();
+		
+        if (rs.next()) {
+        	likeCnt = rs.getInt(1);
+        }
+        
+        JdbcUtil.close(rs);
+        JdbcUtil.close(pstmt);        
+		
+		return likeCnt;
+	}
 }

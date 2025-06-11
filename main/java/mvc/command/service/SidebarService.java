@@ -10,7 +10,7 @@ import com.util.ConnectionProvider;
 import com.util.JdbcUtil;
 
 import mvc.domain.dto.SidebarDTO;
-import mvc.domain.vo.UserVO;
+import mvc.domain.vo.UserSummaryVO;
 import mvc.persistence.dao.FollowDAO;
 import mvc.persistence.daoImpl.FollowDAOImpl;
 
@@ -19,7 +19,7 @@ public class SidebarService {
     public SidebarDTO loadSidebar(int ac_idx) {
     	SidebarDTO sidebarDTO = null;
     	
-    	List<UserVO> followingList = null;
+    	List<UserSummaryVO> followingList = null;
     	
     	Connection conn = null;
     	

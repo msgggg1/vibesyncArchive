@@ -9,8 +9,8 @@ import java.util.Map;
 import com.util.ConnectionProvider;
 
 import mvc.domain.dto.MainPageDTO;
-import mvc.domain.vo.NoteVO;
-import mvc.domain.vo.UserVO;
+import mvc.domain.dto.NoteSummaryDTO;
+import mvc.domain.vo.UserSummaryVO;
 import mvc.persistence.dao.FollowDAO;
 import mvc.persistence.dao.NoteDAO;
 import mvc.persistence.daoImpl.FollowDAOImpl;
@@ -21,13 +21,13 @@ public class MainPageService {
     public MainPageDTO loadMainPage(int preferredCategory) {
     	MainPageDTO mainPageDTO = null;
     	
-    	List<NoteVO> latestNotes = null; // 선호 카테고리 - 최신글
-    	List<NoteVO> popularNotesByMyCategory = null; // 선호 카테고리 - 인기글
-    	List<UserVO> popularUsers = null; // 선호 카테고리 - 인기유저
-    	Map<Integer, List<NoteVO>> popularNotesNotByMyCategory = null; // 비선호 카테고리 인기글
+    	List<NoteSummaryDTO> latestNotes = null; // 선호 카테고리 - 최신글
+    	List<NoteSummaryDTO> popularNotesByMyCategory = null; // 선호 카테고리 - 인기글
+    	List<UserSummaryVO> popularUsers = null; // 선호 카테고리 - 인기유저
+    	Map<Integer, List<NoteSummaryDTO>> popularNotesNotByMyCategory = null; // 비선호 카테고리 인기글
     	
     	// 전체 카테고리 인기글
-    	Map<Integer, List<NoteVO>> popularNotes = null;
+    	Map<Integer, List<NoteSummaryDTO>> popularNotes = null;
     	
     	Connection conn = null;
     	
@@ -41,7 +41,7 @@ public class MainPageService {
 			
 			latestNotes = noteDAO.recentNoteByMyCategory(preferredCategory, 5);
 			popularUsers = followDAO.findPopularUsersByCategory(preferredCategory, 5);
-			popularNotesNotByMyCategory = new LinkedHashMap<Integer, List<NoteVO>>(popularNotes);
+			popularNotesNotByMyCategory = new LinkedHashMap<Integer, List<NoteSummaryDTO>>(popularNotes);
 			popularNotesByMyCategory = popularNotesNotByMyCategory.remove(preferredCategory);
             
 			mainPageDTO = MainPageDTO.builder()
@@ -50,7 +50,6 @@ public class MainPageService {
 						            .popularUsers(popularUsers)
 						            .popularNotesNotByMyCategory(popularNotesNotByMyCategory)
 						            .build();
-			
 		} catch (Exception e) {
         	e.printStackTrace();
 		} finally {

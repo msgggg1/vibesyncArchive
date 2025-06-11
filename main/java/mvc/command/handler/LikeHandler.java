@@ -12,8 +12,7 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 
 import mvc.command.service.LikeService;
-import mvc.domain.dto.UserDTO;
-// import your.project.db.DBConnectionManager; // 더 이상 핸들러에서 사용하지 않음
+import mvc.domain.vo.UserVO;
 
 public class LikeHandler implements CommandHandler {
 
@@ -38,9 +37,14 @@ public class LikeHandler implements CommandHandler {
             Integer userAcIdxFromSession = null; // Integer로 선언하여 null 가능성 처리
 
             if (session != null) {
-                Object attr = session.getAttribute("loggedInUserAcIdx"); // "loggedInUserAcIdx" 키로 조회
-                if (attr instanceof Integer) {
-                    userAcIdxFromSession = (Integer) attr;
+                Object attr = session.getAttribute("userInfo"); // "userInfo" 키로 조회
+                UserVO userInfo = null;
+                if (attr != null) {
+                	userInfo = (UserVO) session.getAttribute("userInfo");
+                }
+                
+                if (userInfo != null) {
+                    userAcIdxFromSession = (Integer) userInfo.getAc_idx();
                 }
             }
 

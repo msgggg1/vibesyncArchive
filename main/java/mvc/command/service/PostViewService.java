@@ -9,8 +9,12 @@ import com.util.ConnectionProvider;
 
 import mvc.domain.dto.UserNoteDTO;
 import mvc.domain.vo.UserNoteVO;
-import mvc.persistence.dao.UserNoteDAO;
-import mvc.persistence.daoImpl.UserNoteDAOImpl;
+import mvc.persistence.dao.FollowDAO;
+import mvc.persistence.dao.LikeDAO;
+import mvc.persistence.dao.NoteDAO;
+import mvc.persistence.daoImpl.FollowDAOImpl;
+import mvc.persistence.daoImpl.LikeDAOImpl;
+import mvc.persistence.daoImpl.NoteDAOImpl;
 
 public class PostViewService {
 	
@@ -19,15 +23,19 @@ public class PostViewService {
 		try {
             conn = ConnectionProvider.getConnection(); 
 
-            UserNoteDAO dao = new UserNoteDAOImpl(conn);
+            NoteDAO noteDAO = new NoteDAOImpl(conn);
             
-            UserNoteVO noteInfo = dao.getUserNoteById(note_idx);
+            UserNoteVO noteInfo = noteDAO.getUserNoteById(note_idx);
+            
+            if (noteInfo != null) { // 트랜잭션 처리 (조회수)
+            	noteDAO.increaseViewCount(note_idx);
+			}
             
             return noteInfo;
 
         } catch (SQLException e) {
             e.printStackTrace(); 
-            throw new RuntimeException("노트 정보 오류", e); 
+            throw new RuntimeException("노트 정보 오류", e);
         } catch (NamingException e) {
 			e.printStackTrace();
 			throw new RuntimeException("DB 커넥션 설정(JNDI) 오류 발생: " + e.getMessage(), e);
@@ -48,11 +56,11 @@ public class PostViewService {
 		try {
             conn = ConnectionProvider.getConnection(); 
 
-            UserNoteDAO dao = new UserNoteDAOImpl(conn);
+            FollowDAO followDAO = new FollowDAOImpl(conn);
+            LikeDAO likeDAO = new LikeDAOImpl(conn);
             
-            boolean following = dao.isFollowing(user_idx, writerIdx);
-            boolean liking = dao.isLiked(user_idx, note_idx);
-            
+            boolean following = followDAO.isFollowing(user_idx, writerIdx);
+            boolean liking = likeDAO.isLiked(user_idx, note_idx);
 
             return UserNoteDTO.builder()
                     .following(following)

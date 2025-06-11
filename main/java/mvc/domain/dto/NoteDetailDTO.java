@@ -26,7 +26,7 @@ public class NoteDetailDTO {
     private int view_count;     
 
     private int ac_idx;       
-    private String nickname; 
+    private String nickname;
     private String img; // 프로필 사진         
 
     private boolean followedByCurrentUser;

@@ -3,7 +3,7 @@ package mvc.svl;
 import com.google.gson.Gson;
 
 import mvc.domain.vo.WatchPartyVO;
-import mvc.persistence.dao.WatchPartyDAO;
+import mvc.persistence.daoImpl.WatchPartyDAOImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +19,7 @@ import java.util.List;
 public class HostWatchPartyListServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private WatchPartyDAO dao = new WatchPartyDAO();
+	private WatchPartyDAOImpl dao = new WatchPartyDAOImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) 

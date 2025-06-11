@@ -7,14 +7,15 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
-import mvc.command.service.UserService; // 또는 NoteService 사용
+
+import mvc.command.service.UserPageService; // 또는 NoteService 사용
 import mvc.domain.dto.NoteSummaryDTO;
 
 public class LoadMorePostsHandler implements CommandHandler {
-    private UserService userPageService; // 또는 NoteService
+    private UserPageService userPageService; // 또는 NoteService
 
     public LoadMorePostsHandler() {
-        this.userPageService = new UserService();
+        this.userPageService = new UserPageService();
     }
 
     @Override

@@ -1,16 +1,16 @@
 
 <%@page import="mvc.domain.vo.WatchPartyVO"%>
-<%@page import="mvc.persistence.dao.WatchPartyDAO"%>
+<%@page import="mvc.persistence.daoImpl.WatchPartyDAOImpl"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-    String contextPath = request.getContextPath();
+String contextPath = request.getContextPath();
 
     // 1) 파라미터로 전달된 watchPartyIdx를 가져옴
     String strIdx = request.getParameter("watchPartyIdx");
     int watchPartyIdx = Integer.parseInt(strIdx);
 
     // 2) DAO를 통해 해당 WatchParty 정보(제목, video_id 등)를 가져옴
-    WatchPartyDAO wpDao = new WatchPartyDAO();
+    WatchPartyDAOImpl wpDao = new WatchPartyDAOImpl();
     WatchPartyVO wp = wpDao.selectOne(watchPartyIdx);
 %>
 <!DOCTYPE html>

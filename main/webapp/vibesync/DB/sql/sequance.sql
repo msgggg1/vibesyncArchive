@@ -160,10 +160,10 @@ CREATE SEQUENCE seq_wa_comment
   
 -- 19. schedule 시퀀스
 CREATE SEQUENCE schedule_seq 
-	START WITH 31 I
+	START WITH 1 
 	NCREMENT BY 1
 	NOCACHE
-  ``NOCYCLE;
+  NOCYCLE;
 
 SELECT COUNT(*) AS sequence_count FROM user_sequences;
 
@@ -361,16 +361,6 @@ BEGIN
       INTO :NEW.wac_idx 
       FROM dual;
   END IF;
-END;
-/
--- schedule IDX 자동 증가 트리거
-CREATE OR REPLACE TRIGGER trg_schedule_bi
-  BEFORE INSERT ON schedule
-  FOR EACH ROW
-BEGIN
-    SELECT schedule_seq.NEXTVAL 
-      INTO :NEW.schedule_idx 
-      FROM dual;
 END;
 /
 
