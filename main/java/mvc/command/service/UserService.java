@@ -131,5 +131,4 @@ public class UserService {
 			return followDAO.isFollowing(followerAcIdx, followingAcIdx);
 		}
 	}
-
 }

@@ -9,7 +9,7 @@
 
     try {
         try (Connection conn = DriverManager.getConnection(
-                     "jdbc:oracle:thin:@localhost:1521:xe","netflix","1234");
+                     "jdbc:oracle:thin:@localhost:1521:xe","vibesync","1234");
              PreparedStatement ps = conn.prepareStatement("SELECT title, content, images, TO_CHAR(created_at, 'YYYY-MM-DD HH24:MI:SS') AS created_at FROM board WHERE id = ?")) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {

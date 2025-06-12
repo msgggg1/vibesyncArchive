@@ -12,94 +12,94 @@ where ac_idx=26;
 
 -- 1. 기술 관련 글
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (101, '자바스크립트 비동기 처리 마스터하기', 'Promise와 async/await에 대한 심층 분석 및 실전 예제입니다.', NULL, SYSDATE - 10, NULL, 152, 1, 1, 1, 29);
+VALUES (101, '자바스크립트 비동기 처리 마스터하기', 'Promise와 async/await에 대한 심층 분석 및 실전 예제입니다.', NULL, SYSDATE - 10, NULL, 152, 1, 1, 1, 28);
 
 -- 2. 여행 관련 글 (이미지 포함, 수정 이력 있음)
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (102, '여름 휴가, 제주도 동쪽 해안 여행 코스', '세화부터 성산까지, 놓치면 안 될 카페와 맛집 리스트입니다.', '/images/notes/jeju_trip.jpg', SYSDATE - 8, SYSDATE - 7, 340, 2, 2, 2, 29);
+VALUES (102, '여름 휴가, 제주도 동쪽 해안 여행 코스', '세화부터 성산까지, 놓치면 안 될 카페와 맛집 리스트입니다.', '/images/notes/jeju_trip.jpg', SYSDATE - 8, SYSDATE - 7, 340, 2, 2, 2, 28);
 
 -- 3. 일상/에세이 글
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (103, '오늘의 다이어리: 비 오는 날의 생각', '창밖을 바라보며 마시는 따뜻한 커피 한 잔의 여유.', NULL, SYSDATE - 5, NULL, 78, 3, 3, 3, 29);
+VALUES (103, '오늘의 다이어리: 비 오는 날의 생각', '창밖을 바라보며 마시는 따뜻한 커피 한 잔의 여유.', NULL, SYSDATE - 5, NULL, 78, 3, 3, 3, 28);
 
 -- 4. 영화 리뷰 글
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (104, '영화 "인셉션" 10년 만의 재관람 후기', '다시 봐도 놀라운 크리스토퍼 놀란의 상상력. 꿈과 현실의 경계에 대하여.', '/images/notes/inception_poster.jpg', SYSDATE - 3, NULL, 521, 2, 4, 2, 29);
+VALUES (104, '영화 "인셉션" 10년 만의 재관람 후기', '다시 봐도 놀라운 크리스토퍼 놀란의 상상력. 꿈과 현실의 경계에 대하여.', '/images/notes/inception_poster.jpg', SYSDATE - 3, NULL, 521, 2, 4, 2, 28);
 
 -- 5. 요리/레시피 글
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (105, '10분 완성! 초간단 간장계란파스타 레시피', '자취생 필수 레시피, 실패 없는 황금 비율을 공개합니다.', NULL, SYSDATE - 2, SYSDATE - 1, 210, 3, 5, 3, 29);
+VALUES (105, '10분 완성! 초간단 간장계란파스타 레시피', '자취생 필수 레시피, 실패 없는 황금 비율을 공개합니다.', NULL, SYSDATE - 2, SYSDATE - 1, 210, 3, 5, 3, 28);
 
 -- 6. 개발 관련 글 2
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (106, 'Oracle DB 성능 튜닝 기본 원칙', '인덱스, 실행 계획, SQL 최적화에 대한 기본적인 내용을 다룹니다.', NULL, SYSDATE - 1, NULL, 45, 1, 1, 1, 29);
+VALUES (106, 'Oracle DB 성능 튜닝 기본 원칙', '인덱스, 실행 계획, SQL 최적화에 대한 기본적인 내용을 다룹니다.', NULL, SYSDATE - 1, NULL, 45, 1, 1, 1, 28);
 
 -- 7. 반려동물 관련 글
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (107, '우리집 강아지 자랑', '새로운 가족이 된 댕댕이를 소개합니다. 이름은 코코에요!', '/images/notes/puppy.jpg', SYSDATE, NULL, 998, 3, 6, 3, 29);
+VALUES (107, '우리집 강아지 자랑', '새로운 가족이 된 댕댕이를 소개합니다. 이름은 코코에요!', '/images/notes/puppy.jpg', SYSDATE, NULL, 998, 3, 6, 3, 28);
 -- 1. 기술 관련 글
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (101, '자바스크립트 비동기 처리 마스터하기', 'Promise와 async/await에 대한 심층 분석 및 실전 예제입니다.', NULL, SYSDATE - 10, NULL, 152, 1, 1, 1, 29);
+VALUES (101, '자바스크립트 비동기 처리 마스터하기', 'Promise와 async/await에 대한 심층 분석 및 실전 예제입니다.', NULL, SYSDATE - 10, NULL, 152, 1, 1, 1, 28);
 
 -- 2. 여행 관련 글 (이미지 포함, 수정 이력 있음)
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (102, '여름 휴가, 제주도 동쪽 해안 여행 코스', '세화부터 성산까지, 놓치면 안 될 카페와 맛집 리스트입니다.', '/images/notes/jeju_trip.jpg', SYSDATE - 8, SYSDATE - 7, 340, 2, 2, 2, 29);
+VALUES (102, '여름 휴가, 제주도 동쪽 해안 여행 코스', '세화부터 성산까지, 놓치면 안 될 카페와 맛집 리스트입니다.', '/images/notes/jeju_trip.jpg', SYSDATE - 8, SYSDATE - 7, 340, 2, 2, 2, 28);
 
 -- 3. 일상/에세이 글
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (103, '오늘의 다이어리: 비 오는 날의 생각', '창밖을 바라보며 마시는 따뜻한 커피 한 잔의 여유.', NULL, SYSDATE - 5, NULL, 78, 3, 3, 3, 29);
+VALUES (103, '오늘의 다이어리: 비 오는 날의 생각', '창밖을 바라보며 마시는 따뜻한 커피 한 잔의 여유.', NULL, SYSDATE - 5, NULL, 78, 3, 3, 3, 28);
 
 -- 4. 영화 리뷰 글
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (104, '영화 "인셉션" 10년 만의 재관람 후기', '다시 봐도 놀라운 크리스토퍼 놀란의 상상력. 꿈과 현실의 경계에 대하여.', '/images/notes/inception_poster.jpg', SYSDATE - 3, NULL, 521, 2, 4, 2, 29);
+VALUES (104, '영화 "인셉션" 10년 만의 재관람 후기', '다시 봐도 놀라운 크리스토퍼 놀란의 상상력. 꿈과 현실의 경계에 대하여.', '/images/notes/inception_poster.jpg', SYSDATE - 3, NULL, 521, 2, 4, 2, 28);
 
 -- 5. 요리/레시피 글
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (105, '10분 완성! 초간단 간장계란파스타 레시피', '자취생 필수 레시피, 실패 없는 황금 비율을 공개합니다.', NULL, SYSDATE - 2, SYSDATE - 1, 210, 3, 5, 3, 29);
+VALUES (105, '10분 완성! 초간단 간장계란파스타 레시피', '자취생 필수 레시피, 실패 없는 황금 비율을 공개합니다.', NULL, SYSDATE - 2, SYSDATE - 1, 210, 3, 5, 3, 28);
 
 -- 6. 개발 관련 글 2
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (106, 'Oracle DB 성능 튜닝 기본 원칙', '인덱스, 실행 계획, SQL 최적화에 대한 기본적인 내용을 다룹니다.', NULL, SYSDATE - 1, NULL, 45, 1, 1, 1, 29);
+VALUES (106, 'Oracle DB 성능 튜닝 기본 원칙', '인덱스, 실행 계획, SQL 최적화에 대한 기본적인 내용을 다룹니다.', NULL, SYSDATE - 1, NULL, 45, 1, 1, 1, 28);
 
 -- 7. 반려동물 관련 글
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (107, '우리집 강아지 자랑', '새로운 가족이 된 댕댕이를 소개합니다. 이름은 코코에요!', '/images/notes/puppy.jpg', SYSDATE, NULL, 998, 3, 6, 3, 29);
+VALUES (107, '우리집 강아지 자랑', '새로운 가족이 된 댕댕이를 소개합니다. 이름은 코코에요!', '/images/notes/puppy.jpg', SYSDATE, NULL, 998, 3, 6, 3, 28);
 
 -- 모든 변경사항을 데이터베이스에 최종 저장
 
 -- 개발/IT
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (108, 'Spring Boot JPA 기본 설정 가이드', 'JPA와 MySQL 연동 시 자주 발생하는 에러와 해결 방법을 정리했습니다.', NULL, SYSDATE - 20, NULL, 255, 1, 1, 1, 29);
+VALUES (108, 'Spring Boot JPA 기본 설정 가이드', 'JPA와 MySQL 연동 시 자주 발생하는 에러와 해결 방법을 정리했습니다.', NULL, SYSDATE - 20, NULL, 255, 1, 1, 1, 28);
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (109, 'Git, 이것만 알면 협업 문제없다!', 'branch, merge, rebase의 개념과 실전 사용법을 다룹니다.', '/images/notes/git_logo.png', SYSDATE - 18, SYSDATE - 17, 480, 1, 1, 1, 29);
+VALUES (109, 'Git, 이것만 알면 협업 문제없다!', 'branch, merge, rebase의 개념과 실전 사용법을 다룹니다.', '/images/notes/git_logo.png', SYSDATE - 18, SYSDATE - 17, 480, 1, 1, 1, 28);
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (110, 'Docker 컨테이너 기초', '왜 Docker를 사용해야 할까? 기본 개념부터 실행까지 알아봅니다.', NULL, SYSDATE - 15, NULL, 180, 1, 1, 1, 29);
+VALUES (110, 'Docker 컨테이너 기초', '왜 Docker를 사용해야 할까? 기본 개념부터 실행까지 알아봅니다.', NULL, SYSDATE - 15, NULL, 180, 1, 1, 1, 28);
 
 -- 여행
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (111, '강릉 1박 2일 주말 여행 코스 추천', '안목해변 커피거리와 강문해변, 그리고 초당 순두부 맛집까지!', '/images/notes/gangneung.jpg', SYSDATE - 30, NULL, 890, 2, 2, 2, 29);
+VALUES (111, '강릉 1박 2일 주말 여행 코스 추천', '안목해변 커피거리와 강문해변, 그리고 초당 순두부 맛집까지!', '/images/notes/gangneung.jpg', SYSDATE - 30, NULL, 890, 2, 2, 2, 28);
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (112, '가을 단풍 구경, 내장산 등산 후기', '케이블카를 타고 정상까지. 감탄이 절로 나오는 풍경이었습니다.', NULL, SYSDATE - 25, NULL, 620, 2, 2, 2, 29);
+VALUES (112, '가을 단풍 구경, 내장산 등산 후기', '케이블카를 타고 정상까지. 감탄이 절로 나오는 풍경이었습니다.', NULL, SYSDATE - 25, NULL, 620, 2, 2, 2, 28);
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (113, '오사카 3박 4일 자유여행 필수코스', '도톤보리, 유니버셜 스튜디오, 오사카성 방문기', '/images/notes/osaka.jpg', SYSDATE - 40, SYSDATE - 39, 1250, 2, 2, 2, 29);
+VALUES (113, '오사카 3박 4일 자유여행 필수코스', '도톤보리, 유니버셜 스튜디오, 오사카성 방문기', '/images/notes/osaka.jpg', SYSDATE - 40, SYSDATE - 39, 1250, 2, 2, 2, 28);
 
 -- 일상/취미
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (114, '주말 베이킹: 레몬 마들렌 만들기', '상큼한 레몬향이 가득한 마들렌 레시피입니다. 커피랑 잘 어울려요.', '/images/notes/madeleine.jpg', SYSDATE - 6, NULL, 95, 3, 3, 3, 29);
+VALUES (114, '주말 베이킹: 레몬 마들렌 만들기', '상큼한 레몬향이 가득한 마들렌 레시피입니다. 커피랑 잘 어울려요.', '/images/notes/madeleine.jpg', SYSDATE - 6, NULL, 95, 3, 3, 3, 28);
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (115, '오늘의 운동 기록 - 헬스장', '가슴 운동 루틴: 벤치프레스, 덤벨프레스, 푸쉬업 3세트 완료.', NULL, SYSDATE - 1, NULL, 35, 3, 5, 3, 29);
+VALUES (115, '오늘의 운동 기록 - 헬스장', '가슴 운동 루틴: 벤치프레스, 덤벨프레스, 푸쉬업 3세트 완료.', NULL, SYSDATE - 1, NULL, 35, 3, 5, 3, 28);
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (116, '요즘 읽고 있는 책, "사피엔스"', '인류의 역사에 대한 새로운 관점을 제시하는 책. 추천합니다.', NULL, SYSDATE - 12, NULL, 112, 3, 3, 3, 29);
+VALUES (116, '요즘 읽고 있는 책, "사피엔스"', '인류의 역사에 대한 새로운 관점을 제시하는 책. 추천합니다.', NULL, SYSDATE - 12, NULL, 112, 3, 3, 3, 28);
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (117, '새로운 취미, 식물 키우기 시작!', '몬스테라와 스킨답서스를 새로 들였어요. 잘 키울 수 있겠죠?', '/images/notes/plants.jpg', SYSDATE - 4, NULL, 88, 3, 3, 3, 29);
+VALUES (117, '새로운 취미, 식물 키우기 시작!', '몬스테라와 스킨답서스를 새로 들였어요. 잘 키울 수 있겠죠?', '/images/notes/plants.jpg', SYSDATE - 4, NULL, 88, 3, 3, 3, 28);
 
 -- 문화/리뷰
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (118, '뮤지컬 "오페라의 유령" 관람 후기', '웅장한 무대와 배우들의 연기력에 압도당했습니다.', NULL, SYSDATE - 50, SYSDATE - 50, 760, 2, 4, 2, 29);
+VALUES (118, '뮤지컬 "오페라의 유령" 관람 후기', '웅장한 무대와 배우들의 연기력에 압도당했습니다.', NULL, SYSDATE - 50, SYSDATE - 50, 760, 2, 4, 2, 28);
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (119, '넷플릭스 신작 시리즈 "더 글로리" 정주행 완료', '흡입력 있는 스토리와 배우들의 연기가 일품.', '/images/notes/the_glory.jpg', SYSDATE - 22, NULL, 2300, 2, 4, 2, 29);
+VALUES (119, '넷플릭스 신작 시리즈 "더 글로리" 정주행 완료', '흡입력 있는 스토리와 배우들의 연기가 일품.', '/images/notes/the_glory.jpg', SYSDATE - 22, NULL, 2300, 2, 4, 2, 28);
 INSERT INTO note (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx)
-VALUES (120, '국립중앙박물관 특별전, "어느 수집가의 초대"', '고즈넉한 분위기 속에서 즐기는 우리 문화재의 아름다움.', NULL, SYSDATE - 16, NULL, 190, 2, 4, 2, 29);
+VALUES (120, '국립중앙박물관 특별전, "어느 수집가의 초대"', '고즈넉한 분위기 속에서 즐기는 우리 문화재의 아름다움.', NULL, SYSDATE - 16, NULL, 190, 2, 4, 2, 28);
 COMMIT;
 
 -- 17. schedule 테이블 데이터 삽입 (schedule_idx 명시적 지정)
@@ -168,12 +168,113 @@ INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUE
 INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-10 11:30:00', 'YYYY-MM-DD HH24:MI:SS'), '새로운 프로그래밍 언어 탐색', '학습', '보라색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
 INSERT INTO todolist (created_at, text, todo_group, color, ac_idx, status) VALUES ( TO_TIMESTAMP('2025-06-10 16:00:00', 'YYYY-MM-DD HH24:MI:SS'), '퇴근 후 친구와 저녁 약속 🍻', '약속', '주황색', 26, FLOOR(DBMS_RANDOM.VALUE(0, 2)));
 
-commit;
-
-
--- 모든 변경사항을 데이터베이스에 최종 저장
-COMMIT;
-
-
 
 commit;
+
+select *
+from watchParty;
+
+-- =================================================================
+-- message 테이블 더미 데이터 (총 20개)
+-- =================================================================
+
+-- 26번 사용자가 보낸 메시지 (10개)
+-- 26 -> 27 (서로 주고받는 메시지)
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('안녕하세요! 워크스페이스에서 보고 쪽지 드려요.', SYSTIMESTAMP - INTERVAL '1' DAY, 1, 27, 26);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('네, 반갑습니다! 어떤 일로 연락주셨나요?', SYSTIMESTAMP - INTERVAL '23' HOUR, 1, 26, 27);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('다름이 아니라 혹시 주말에 같이 프로젝트 진행 가능할까요?', SYSTIMESTAMP - INTERVAL '22' HOUR, 1, 27, 26);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('네 좋아요! 시간 맞춰보죠.', SYSTIMESTAMP - INTERVAL '21' HOUR, 0, 26, 27); -- 27번이 보낸 아직 안읽은 메시지
+
+-- 26 -> 그 외 사용자
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('선배님, 지난번에 말씀드린 자료 메일로 보냈습니다!', SYSTIMESTAMP - INTERVAL '2' DAY, 1, 1, 26);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('친구야 오늘 저녁에 시간 돼?', SYSTIMESTAMP - INTERVAL '5' HOUR, 1, 2, 26);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('사장님, 요청하신 시안 A, B 두 가지로 만들었습니다.', SYSTIMESTAMP - INTERVAL '3' DAY, 1, 3, 26);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('스터디 자료 공유 감사합니다!', SYSTIMESTAMP - INTERVAL '1' DAY, 1, 4, 26);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('혹시 이 부분 코드 좀 봐주실 수 있나요? 에러가 계속 나네요.', SYSTIMESTAMP - INTERVAL '10' HOUR, 1, 1, 26);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('오늘 회의는 30분 늦게 시작한다고 합니다.', SYSTIMESTAMP - INTERVAL '2' HOUR, 0, 3, 26); -- 아직 안읽은 메시지
+
+-- 27번 사용자가 보낸 메시지 (10개)
+-- 27 -> 26 (서로 주고받는 메시지 - 위에서 이미 4개 생성)
+
+-- 27 -> 그 외 사용자
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('교수님, 과제 제출 기한을 하루만 연장해주실 수 있을까요?', SYSTIMESTAMP - INTERVAL '4' DAY, 1, 5, 27);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('주문한 상품 배송 언제쯤 시작되나요?', SYSTIMESTAMP - INTERVAL '2' DAY, 1, 6, 27);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('저번에 빌려준 책 잘 읽고 있어 고마워!', SYSTIMESTAMP - INTERVAL '6' HOUR, 1, 7, 27);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('이번 주말에 같이 영화나 볼까?', SYSTIMESTAMP - INTERVAL '1' DAY, 0, 8, 27); -- 아직 안읽은 메시지
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('팀장님, 휴가 신청서 결재 부탁드립니다.', SYSTIMESTAMP - INTERVAL '5' DAY, 1, 5, 27);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('다음 주 세미나 장소가 변경되었습니다.', SYSTIMESTAMP - INTERVAL '3' HOUR, 1, 6, 27);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('생일 축하해! 오늘 하루 최고로 행복하게 보내!', SYSTIMESTAMP - INTERVAL '12' HOUR, 1, 7, 27);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('면접 결과 나왔나요? 좋은 소식 있었으면 좋겠네요.', SYSTIMESTAMP - INTERVAL '1' HOUR, 0, 8, 27); -- 아직 안읽은 메시지
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('네, 답장 감사합니다. 그럼 주말에 뵙겠습니다.', SYSTIMESTAMP - INTERVAL '20' HOUR, 1, 26, 27); -- 26에게 보낸 답장
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('자세한 얘기는 만나서 해요!', SYSTIMESTAMP - INTERVAL '19' HOUR, 0, 26, 27); -- 26에게 보낸 아직 안읽은 메시지
+
+commit;
+
+-- =================================================================
+-- wa_sync 테이블 더미 데이터 (총 20개)
+-- =================================================================
+
+-- ac_idx=26 사용자의 워치파티(watchParty_idx: 1-10)에 대한 동기화 데이터 10개
+INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (120.500, 'play', 1);
+INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (300.000, 'pause', 1);
+INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (310.250, 'play', 1);
+INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (650.000, 'play', 2);
+INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (980.110, 'seek', 3);
+INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (995.000, 'play', 3);
+INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (1500.000, 'pause', 4);
+INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (1825.800, 'play', 5);
+INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (3600.000, 'pause', 8);
+INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (4200.000, 'play', 10);
+
+-- ac_idx=27 사용자의 워치파티(watchParty_idx: 11-20)에 대한 동기화 데이터 10개
+INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (50.000, 'play', 11);
+INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (900.750, 'pause', 11);
+INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (910.000, 'play', 11);
+INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (1234.567, 'seek', 12);
+INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (1240.000, 'play', 12);
+INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (2400.000, 'pause', 13);
+INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (3100.000, 'play', 15);
+INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (5000.000, 'pause', 17);
+INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (5010.500, 'play', 17);
+INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (600.000, 'play', 20);
+commit;
+
+-- =================================================================
+-- watchParty 테이블 추가 더미 데이터 (총 20개)
+-- 다양한 사용자가 생성한 워치파티
+-- =================================================================
+INSERT INTO watchParty (title, video_id, host) VALUES ('주말엔 역시 마블 정주행이지!', 'play', 1);
+INSERT INTO watchParty (title, video_id, host) VALUES ('응답하라 시리즈 같이 봐요! (1997부터)', 'play', 2);
+INSERT INTO watchParty (title, video_id, host) VALUES ('BTS 최신 콘서트 실황 함께 즐기기', 'play', 3);
+INSERT INTO watchParty (title, video_id, host) VALUES ('퇴근 후 힐링: 지브리 애니메이션 모음', 'play', 4);
+INSERT INTO watchParty (title, video_id, host) VALUES ('숨 막히는 심리 스릴러 영화 추천', 'play', 5);
+INSERT INTO watchParty (title, video_id, host) VALUES ('인생 드라마 ''나의 아저씨'' 1화부터', 'play', 6);
+INSERT INTO watchParty (title, video_id, host) VALUES ('넷플릭스 신작 다큐 ''나는 신이다'' 토론', 'play', 7);
+INSERT INTO watchParty (title, video_id, host) VALUES ('[코미디] SNL 레전드편 모음집', 'play', 8);
+INSERT INTO watchParty (title, video_id, host) VALUES ('유퀴즈 보면서 하루 마무리', 'play', 9);
+INSERT INTO watchParty (title, video_id, host) VALUES ('로맨스 영화 추천 받습니다!', 'play', 10);
+INSERT INTO watchParty (title, video_id, host) VALUES ('해외 축구 빅매치 다시보기', 'play', 11);
+INSERT INTO watchParty (title, video_id, host) VALUES ('귀멸의 칼날 1기 정주행', 'play', 12);
+INSERT INTO watchParty (title, video_id, host) VALUES ('블랙핑크 뮤직비디오 리액션', 'play', 13);
+INSERT INTO watchParty (title, video_id, host) VALUES ('명작 다큐 ''아마존의 눈물'' 시청', 'play', 14);
+INSERT INTO watchParty (title, video_id, host) VALUES ('추억의 예능 1박2일 시즌1', 'play', 15);
+INSERT INTO watchParty (title, video_id, host) VALUES ('영화 ''기생충'' 심층 분석', 'play', 18);
+INSERT INTO watchParty (title, video_id, host) VALUES ('같이 게임 스트리밍 봐요!', 'play', 20);
+INSERT INTO watchParty (title, video_id, host) VALUES ('KBS 역사스페셜: 조선왕조실록편', 'play', 21);
+INSERT INTO watchParty (title, video_id, host) VALUES ('미드 ''프렌즈''로 영어 공부하기', 'play', 22);
+INSERT INTO watchParty (title, video_id, host) VALUES ('디즈니 OST와 함께하는 저녁', 'play', 25);
+
+
+INSERT INTO follows (ac_follow, ac_following) VALUES (26, 2);
+INSERT INTO follows (ac_follow, ac_following) VALUES (26, 5);
+INSERT INTO follows (ac_follow, ac_following) VALUES (26, 8);
+INSERT INTO follows (ac_follow, ac_following) VALUES (26, 12);
+INSERT INTO follows (ac_follow, ac_following) VALUES (26, 25);
+commit;
+
+select *
+from useraccount;
+
+select *
+from follows
+where ac_follow = 26;

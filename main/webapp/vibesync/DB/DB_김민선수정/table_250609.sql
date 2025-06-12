@@ -2,6 +2,7 @@
 -- 테이블 삭제 (제약조건 순서에 유의)
 --------------------------------------------------------------------------------
 DROP TABLE schedule;
+DROP TABLE workspace_blocks;
 DROP TABLE commentlist;
 DROP TABLE noteAccess;
 DROP TABLE likes;
@@ -264,8 +265,16 @@ CREATE TABLE schedule (
     CONSTRAINT FK_schedule_TO_userAccount FOREIGN KEY (ac_idx) REFERENCES userAccount(ac_idx) ON DELETE CASCADE
 );
 
+--------------------------------------------------------------------------------
+-- 17. workspace_blocks (워크스페이스 추가블록)
+--------------------------------------------------------------------------------
+CREATE TABLE workspace_blocks (
+    block_id      NUMBER(10)      CONSTRAINT pk_workspace_blocks PRIMARY KEY,
+    ac_idx        NUMBER(10)      NOT NULL,
+    block_type    VARCHAR2(50)    NOT NULL,
+    block_order   NUMBER(3)       NOT NULL,
+    config        VARCHAR2(4000)
+);
+
 SELECT COUNT(*)
 FROM USER_TABLES;
-
-select *
-from useraccount;

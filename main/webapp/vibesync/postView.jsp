@@ -18,28 +18,25 @@
   <title>PostView</title>
   <link rel="icon" href="./sources/favicon.ico" />
   <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/script.js"></script>
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     $(document).ready(function() {
       // ▶ 중요: properties 파일에 매핑된 URL을 그대로 사용해야 함
       const ajaxUrl = '<%= contextPath %>' + '/vibesync/postView.do';
+      // contextPath 를 JS 변수로 사용
+      const ctx = '<%= contextPath %>';
       
-      // 페이지 로드시 data 속성 값들 확인
-      console.log("data-user-idx:", $('#followBtn').data('userIdx'));
-      console.log("data-writer-idx:", $('#followBtn').data('writerIdx'));
-      console.log("data-note-idx:", $('#followBtn').data('nidx'));
-      console.log("like data-user-idx:", $('#likeBtn').data('userIdx'));
-      console.log("like data-note-idx:", $('#likeBtn').data('noteIdx'));
+      // Follow/Unfollow AJAX (Owner only)
+      <c:if test="${sessionScope.userInfo != null && sessionScope.userInfo.ac_idx == note.upac_idx}">
 
-      // Follow/Unfollow AJAX
-      $('#followForm').on('submit', function(e) {
+       $('#followForm').on('submit', function(e) {
         e.preventDefault();
-        const userIdx = $('#followBtn').data('userIdx');
+        const userIdx   = $('#followBtn').data('userIdx');
         const writerIdx = $('#followBtn').data('writerIdx');
-        const nidx = $('#followBtn').data('nidx');
-        console.log("[AJAX-FOLLOW] 보내기 전 userIdx:", userIdx,
-                    "writerIdx:", writerIdx, "noteIdx:", nidx);
+        const nidx      = $('#followBtn').data('nidx');
+        console.log("[AJAX-FOLLOW] 보내기 전", { userIdx, writerIdx, nidx });
 
         $.ajax({
           url: ajaxUrl,
@@ -54,18 +51,14 @@
           cache: false,
           success: function(data) {
             console.log("[AJAX-FOLLOW] 응답:", data);
-            if (data.following) {
-              $('#followBtn').text('Unfollow');
-            } else {
-              $('#followBtn').text('Follow');
-            }
+             $('#followBtn').text(data.following ? 'Unfollow' : 'Follow');
           },
           error: function(xhr, status, error) {
             console.error('[AJAX-FOLLOW] 에러 발생:', error);
           }
         });
       });
-
+    </c:if>
       // Like/Unlike AJAX
       $('#likeForm').on('submit', function(e) {
         e.preventDefault();
@@ -87,10 +80,10 @@
           success: function(data) {
             console.log("[AJAX-LIKE] 응답:", data);
             if (data.liked) {
-              $('#likeImg').attr('src', '<%= contextPath %>' + '/vibesync/sources/icons/fill_heart.png');
+              $('#likeImg').attr('src', ctx + '/vibesync/sources/icons/fill_heart.png');
               $('#likeCount').text(currentCount + 1);
             } else {
-              $('#likeImg').attr('src', '<%= contextPath %>' + '/vibesync/sources/icons/heart.svg');
+              $('#likeImg').attr('src', ctx + '/vibesync/sources/icons/heart.svg');
               $('#likeCount').text(currentCount - 1);
             }
           },
@@ -99,6 +92,14 @@
           }
         });
       });
+      // 1) 텍스트 내용 내 img 태그 src에 contextPath를 prefix
+      $('.text_content img').each(function() {
+        const src = $(this).attr('src');
+        // modified: contextPath 가 붙어있지 않으면 prefix
+        if (src && !src.startsWith('http') && !src.startsWith(ctx)) {
+          $(this).attr('src', ctx + '/' + src); // modified
+        }
+      });   
     });
   </script>
 </head>
@@ -112,23 +113,31 @@
       <div id="content_wrapper">
         <section id="content">
           <div class="back_icon">
-            <a href="#"><img src="./sources/icons/arrow_back.svg" alt="arrow_back"></a>
+            <a onclick="history.back()"><img src="./sources/icons/arrow_back.svg" alt="arrow_back"></a>
           </div>
 
           <div id="postview_Wrapper">
-            <p>${note.title}</p>
-            <div class="writer_info">
-              <div class="writer">
+            <div class="title">
+              <p>${note.title}</p>
+              <c:if test="${sessionScope.userInfo != null && sessionScope.userInfo.ac_idx == note.upac_idx}">
+              <div>
+                <button><a href="noteedit.do?noteidx=${note.note_idx}">edit</a></button>
+                <button><a href="notedelete.do?noteidx=${note.note_idx}">delete</a></button>
+              </div>
+              </c:if>
+            </div>
+              <div class="writer_info">
+               <div class="writer">
                 <img src="${note.img}" alt="writer_profile">
                 <p>${note.nickname}</p>
 
                 <!-- follow 버튼 -->
-               <c:if test="${user != null && user.ac_idx != note.upac_idx}">
+               <c:if test="${sessionScope.userInfo != null && sessionScope.userInfo.ac_idx != note.upac_idx}">
                 <form id="followForm" style="display:inline; margin:0; padding:0;">
                   <button
                     id="followBtn"
                     type="submit"
-                    data-user-idx="<%= user.getAc_idx() %>"
+                    data-user-idx="${ sessionScope.userInfo.ac_idx }"
                     data-writer-idx="${note.upac_idx}"
                     data-nidx="${note.note_idx}"
                     style="background:#99bc85; border-radius:5px; border:none; cursor:pointer; padding:5px 10px;">
@@ -137,8 +146,12 @@
                 </form>
                 </c:if>
               </div>
-
+			   <!-- like + share -->
               <div class="like_share">
+              	<div>
+	               <p><span>view : </span><span>${note.view_count}</span></p>
+	            </div>
+              	
                 <!-- like 버튼 -->
                 <form id="likeForm" style="display:inline; margin:0; padding:0;">
                   <button
@@ -160,7 +173,7 @@
 
             <div class="line"></div>
             <div class="text_content">
-              <p>${note.text}</p>
+              <c:out value="${note.text}" escapeXml="false"/> <!-- modified -->
             </div>
           </div>
         </section>

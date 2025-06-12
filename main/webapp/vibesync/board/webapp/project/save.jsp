@@ -71,7 +71,7 @@
         String imagesForDB = String.join("|", dbRelativePaths);
 
         String url = "jdbc:oracle:thin:@localhost:1521:xe";
-        String user = "netflix";
+        String user = "vibesync";
         String password = "1234";
         String className = "oracle.jdbc.driver.OracleDriver";
 

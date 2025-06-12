@@ -1,7 +1,10 @@
 package com.util;
 
 public enum BlockAction {
-    CategoryPosts,
+    refresh,
+    add,
+    delete,
+	CategoryPosts,
     WatchParties,
     UserStats
 }

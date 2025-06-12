@@ -22,8 +22,6 @@ public class WorkspaceDTO {
     private List<NoteSummaryDTO> myPosts;
     private List<NoteSummaryDTO> likedPosts;
     private List<MessageListDTO> unreadMessages;
-    // private List<NoteSummaryDTO> postsByCategory;
-    // private List<WatchPartyDTO> followingWatchParties;
-    // private NoteStatsDTO userNoteStats;
+    private List<BlockDTO> blocks;
     
 }

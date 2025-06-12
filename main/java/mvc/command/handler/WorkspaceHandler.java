@@ -13,7 +13,9 @@ import mvc.command.service.PostViewService;
 import mvc.command.service.UserPageService;
 import mvc.command.service.WatchPartyService;
 import mvc.command.service.WorkspaceService;
+import mvc.domain.dto.BlockDTO;
 import mvc.domain.dto.UserPageDataDTO;
+import mvc.domain.dto.UserStatsBlockDTO;
 import mvc.domain.dto.WorkspaceDTO;
 import mvc.domain.vo.UserVO;
 
@@ -46,7 +48,16 @@ public class WorkspaceHandler implements CommandHandler {
         }
         
     	WorkspaceDTO initialData = workspaceService.getInitialData(ac_idx);
-        request.setAttribute("initialData", initialData);
+    	
+    	Gson gson = new Gson();
+    	for (BlockDTO block : initialData.getBlocks()) {
+    	    if (block instanceof UserStatsBlockDTO) {
+    	        String json = gson.toJson(((UserStatsBlockDTO) block).getChartData());
+    	        ((UserStatsBlockDTO) block).setChartDataJson(json);
+    	    }
+    	}
+    	
+        request.setAttribute("workspaceData", initialData);
         return "workspace.jsp";
     }
 }

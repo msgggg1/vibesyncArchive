@@ -569,6 +569,7 @@
 	
 	/* + 버튼만 강조 색상 */
 	#content_plus.contents_item {
+	  display: flex;
 	  background: #f3f6fa;
 	  border: 2.5px dashed #e3e9f2;
 	  color: #6cb7e6;

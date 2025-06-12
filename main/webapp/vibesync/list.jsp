@@ -57,54 +57,7 @@
   <div id="notion-app">
     <input type="hidden" id="mode" value="board">
     <div class="notion-app-inner">
-      <button id="toggle-btn"><</button>
-      <!-- sidebar -->
-      <nav class="notion-sidebar-container" id="sidebar">
-        <div class="notion-sidebar">
-          <div class="menu_content">
-              <span>Duck Hammer</span>
-            </a>
-
-            <div class="search icon_wrap">
-              <img src="./sources/icons/search.svg" alt="search icon" class="sidebar_icon">
-              <input type="text" class="search-input" placeholder="Search…">
-            </div>
-
-            <a href="main.html" class="home icon_wrap">
-              <img src="./sources/icons/home.svg" alt="" class="sidebar_icon">
-              <span>HOME</span>
-            </a>
-
-            <a href="workspace.html" class="workspace icon_wrap">
-              <img src="./sources/icons/work.svg" alt="" class="sidebar_icon">
-              <span>WORKSPACE</span>
-            </a>
-
-            <div id="follow">
-              <div class="follow_list">
-                <div class="follow_tag icon_wrap">
-                  <img src="./sources/icons/follow.svg" alt="follow icon" class="sidebar_icon">
-                  <!-- label 클릭 시 체크박스 토글 -->
-                  <label for="follow_toggle">FOLLOW</label>
-                </div>
-                <!-- 체크박스를 follow_items 형제 요소로 이동 -->
-                <input type="checkbox" id="follow_toggle">
-                <ul class="follow_items">
-                  <li><a href="postView.html">PostView</a></li>
-                  <li><a href="list.html">List</a></li>
-                </ul>
-              </div>
-            </div>
-
-          </div>
-
-          <div id="logout">
-            <button>Logout</button>
-          </div>
-
-        </div>
-      </nav>
-
+      <jsp:include page="./includes/sidebar.jsp" flush="true"></jsp:include>
       <!-- content -->
       <div id="content_wrapper">
         <section id="content">

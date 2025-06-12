@@ -20,31 +20,58 @@ INSERT INTO genre (genre_idx, gen_name) VALUES (10, '힙합');
 INSERT INTO genre (genre_idx, gen_name) VALUES (11, '전쟁');
 
 -- 3. userAccount 테이블 데이터 삽입 (ac_idx: 1 ~ 25)
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (1, 'teen_hero@example.com', 'pw123', '날쎈돌이16', 'profile001.jpg', '김철수', TO_TIMESTAMP('2024-01-15 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), 1);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (2, 'movie_lover@example.com', 'pw456', '영화광팬', 'profile002.jpg', '이영희', TO_TIMESTAMP('2024-01-20 11:30:00', 'YYYY-MM-DD HH24:MI:SS'), 2);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (3, 'music_holic@example.com', 'pw789', '음악없인못살아', 'profile003.jpg', '박민준', TO_TIMESTAMP('2024-02-01 14:00:00', 'YYYY-MM-DD HH24:MI:SS'), 3);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (4, 'webtoon_master@example.com', 'pw101', '웹툰장인17', 'profile004.jpg', '최유리', TO_TIMESTAMP('2024-02-10 16:45:00', 'YYYY-MM-DD HH24:MI:SS'), 4);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (5, 'drama_addict@example.com', 'pw112', '드라마덕후', 'profile005.jpg', '정수민', TO_TIMESTAMP('2024-02-15 09:30:00', 'YYYY-MM-DD HH24:MI:SS'), 5);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (6, 'sf_fanatic@example.com', 'pw131', 'SF매니아', 'profile006.jpg', '강지훈', TO_TIMESTAMP('2024-03-01 13:10:00', 'YYYY-MM-DD HH24:MI:SS'), 1);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (7, 'hiphop_teen@example.com', 'pw415', '힙합꿈나무18', 'profile007.jpg', '윤서아', TO_TIMESTAMP('2024-03-05 17:00:00', 'YYYY-MM-DD HH24:MI:SS'), 3);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (8, 'action_junkie@example.com', 'pw617', '액션중독자', 'profile008.jpg', '임도현', TO_TIMESTAMP('2024-03-10 10:20:00', 'YYYY-MM-DD HH24:MI:SS'), 5);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (9, 'romance_dreamer@example.com', 'pw819', '로맨스빌런', 'profile009.jpg', '황보라', TO_TIMESTAMP('2024-03-15 12:00:00', 'YYYY-MM-DD HH24:MI:SS'), 2);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (10, 'kpop_stan@example.com', 'pw202', 'K팝지킴이', 'profile010.jpg', '서예준', TO_TIMESTAMP('2024-03-20 15:50:00', 'YYYY-MM-DD HH24:MI:SS'), 4);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (11, 'user11_teen@example.com', 'pw_new1', '새싹개발자15', 'profile011.jpg', '박현우', TO_TIMESTAMP('2024-04-01 09:00:00', 'YYYY-MM-DD HH24:MI:SS'), 2);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (12, 'user12@example.com', 'pw_new2', '고독한미식가', 'profile012.jpg', '이지은', TO_TIMESTAMP('2024-04-02 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), 3);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (13, 'user13_teen@example.com', 'pw_new3', '게임스트리머19', 'profile013.jpg', '최민식', TO_TIMESTAMP('2024-04-03 11:00:00', 'YYYY-MM-DD HH24:MI:SS'), 1);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (14, 'user14@example.com', 'pw_new4', '여행가고싶다', 'profile014.jpg', '한지민', TO_TIMESTAMP('2024-04-04 12:00:00', 'YYYY-MM-DD HH24:MI:SS'), 5);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (15, 'user15_teen@example.com', 'pw_new5', '댄스신동14', 'profile015.jpg', '김민서', TO_TIMESTAMP('2024-04-05 13:00:00', 'YYYY-MM-DD HH24:MI:SS'), 3);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (16, 'user16@example.com', 'pw_new6', '냥집사그램', 'profile016.jpg', '송강호', TO_TIMESTAMP('2024-04-06 14:00:00', 'YYYY-MM-DD HH24:MI:SS'), 2);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (17, 'user17_teen@example.com', 'pw_new7', '코딩천재17', 'profile017.jpg', '배수지', TO_TIMESTAMP('2024-04-07 15:00:00', 'YYYY-MM-DD HH24:MI:SS'), 2);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (18, 'user18@example.com', 'pw_new8', '패피의일상', 'profile018.jpg', '유해진', TO_TIMESTAMP('2024-04-08 16:00:00', 'YYYY-MM-DD HH24:MI:SS'), 5);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (19, 'user19_teen@example.com', 'pw_new9', '인싸의삶16', 'profile019.jpg', '전지현', TO_TIMESTAMP('2024-04-09 17:00:00', 'YYYY-MM-DD HH24:MI:SS'), 4);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (20, 'user20@example.com', 'pw_new10', '독서왕김독서', 'profile020.jpg', '이병헌', TO_TIMESTAMP('2024-04-10 18:00:00', 'YYYY-MM-DD HH24:MI:SS'), 3);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (21, 'user21_teen@example.com', 'pw_new11', '뷰티유튜버18', 'profile021.jpg', '김고은', TO_TIMESTAMP('2024-04-11 10:00:00', 'YYYY-MM-DD HH24:MI:SS'), 3);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (22, 'user22@example.com', 'pw_new12', '요리하는남자', 'profile022.jpg', '박보검', TO_TIMESTAMP('2024-04-12 11:00:00', 'YYYY-MM-DD HH24:MI:SS'), 2);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (23, 'user23_teen@example.com', 'pw_new13', '축구광팬15', 'profile023.jpg', '손예진', TO_TIMESTAMP('2024-04-13 12:00:00', 'YYYY-MM-DD HH24:MI:SS'), 3);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (24, 'user24@example.com', 'pw_new14', '자전거라이더', 'profile024.jpg', '정우성', TO_TIMESTAMP('2024-04-14 13:00:00', 'YYYY-MM-DD HH24:MI:SS'), 1);
-INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at, category_idx) VALUES (25, 'user25@example.com', 'pw_new15', '프로캠핑러', 'profile025.jpg', '김혜수', TO_TIMESTAMP('2024-04-15 14:00:00', 'YYYY-MM-DD HH24:MI:SS'), 1);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (1,'teen_hero@example.com','d40c714f98d1972faa30b68084fb7ed477422b4f983b4ef6aba2d13849a24c08','날쎈돌이16','profile001.jpg','김철수',to_timestamp('24/01/15 10:00:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'/NeVrALedLbRoz5R7KW3GQ==',1);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (2,'movie_lover@example.com','d64bb596a4ad5d4fb324d3e877ba2392ba7b5ecccbf3dd3cc1146939d5cd162b','영화광팬','profile002.jpg','이영희',to_timestamp('24/01/20 11:30:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'CV/Ralxff+th0mDzJrPHDg==',2);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (3,'music_holic@example.com','51347b11baaa66e167dfde4d6092ecb24a6d9244595da78b1fdae7ab8738e6c8','음악없인못살아','profile003.jpg','박민준',to_timestamp('24/02/01 14:00:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'peo8jL14gUgAGks4f8YOQg==',3);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (4,'webtoon_master@example.com','fe87f870c5f85c162741a81d0a7dd2d25def1654b3e94f347b1dc3dc1c664843','웹툰장인17','profile004.jpg','최유리',to_timestamp('24/02/10 16:45:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'JZMcZo31L6YA2uAJXlXW8g==',4);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (5,'drama_addict@example.com','d0609d8d674e0629e1124d41d227f3c9f464e35f135c3bb9f464c17f7c5fad5e','드라마덕후','profile005.jpg','정수민',to_timestamp('24/02/15 09:30:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'1Vrr9NbOvyZ2xEkacbgEYg==',5);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (6,'sf_fanatic@example.com','f01a60f82163530f9186f9133ac63e90fd57d2e44b590151b6da92b0cb0d69c5','SF매니아','profile006.jpg','강지훈',to_timestamp('24/03/01 13:10:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'AQybt5Ys0V7uVf5V5YFCnQ==',1);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (7,'hiphop_teen@example.com','26560f2e2b98ee02b1668409596df4f80da99a446a4c9c2a5238ce200d190814','힙합꿈나무18','profile007.jpg','윤서아',to_timestamp('24/03/05 17:00:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'kAd+197xLcGWLd0NInGrFA==',3);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (8,'action_junkie@example.com','835e9c5526bb34c9aa31b3ec863380f091273bf603d72e3100394d591d7a9818','액션중독자','profile008.jpg','임도현',to_timestamp('24/03/10 10:20:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'TRuOtJV/ofg5bgqZmR6/0g==',5);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (9,'romance_dreamer@example.com','e4e925faaae0ab22c2b16459dd104813e7e9495f348cbbd3f0b428b511e105e6','로맨스빌런','profile009.jpg','황보라',to_timestamp('24/03/15 12:00:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'TtTqgCPL+9id6eDc9xxOvA==',2);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (10,'kpop_stan@example.com','a352d43b583d78f51cff9fc1fab17b97b30761a9014959b4c14efab56cf21c32','K팝지킴이','profile010.jpg','서예준',to_timestamp('24/03/20 15:50:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'JWS93+Xnl++IpZV/MhJ7wg==',4);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (11,'user11_teen@example.com','0ef6e57d2c7dcd752e0bb0e3427276cee1ee17fe6208127e2d59767781d832b4','새싹개발자15','profile011.jpg','박현우',to_timestamp('24/04/01 09:00:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'1AHNmf26nF2PvX21IziVQQ==',2);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (12,'user12@example.com','769bc8b5fcf9cfc42b7ac5e587582ebdd022765b8741380098e46785c5b0ceb6','고독한미식가','profile012.jpg','이지은',to_timestamp('24/04/02 10:00:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'aUgINdE9KAuKIKXm+4eg4A==',3);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (13,'user13_teen@example.com','a82e6c18ce4b41a48e1e3d3c8471332167363def5f2abdfbd03c4338861523d7','게임스트리머19','profile013.jpg','최민식',to_timestamp('24/04/03 11:00:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'G/n5p1hkBpEmpyxE9tuWiQ==',1);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (14,'user14@example.com','2b066b103ae740e3ce1bddf27401809d5ff102a5fbe087654850804acef4636e','여행가고싶다','profile014.jpg','한지민',to_timestamp('24/04/04 12:00:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'KhH9pdxZypve9cW2e98ouw==',5);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (15,'user15_teen@example.com','6ad529d6c01ef874177512bc0f961d773ebd0185660f24edf7af7cee214d1583','댄스신동14','profile015.jpg','김민서',to_timestamp('24/04/05 13:00:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'uJyrHJCnC4paStPAQyKJnA==',3);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (16,'user16@example.com','81381020e335af528c226ba7494126e5d7b7ac845f5dbc2e2579e3e6c56bc6e7','냥집사그램','profile016.jpg','송강호',to_timestamp('24/04/06 14:00:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'qbf4l9IzDpBg6xupvJYe5A==',2);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (17,'user17_teen@example.com','1e12af2cf391d2fc8c9431109dd7df0b26fb4c64381bb232c666bc9d5d5ca094','코딩천재17','profile017.jpg','배수지',to_timestamp('24/04/07 15:00:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'2l+LAB1Nw2x8alPRBg+zCw==',2);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (18,'user18@example.com','cd08710f8e12f418396049019112876bfccebeb16a18aace6dd53502f691de5f','패피의일상','profile018.jpg','유해진',to_timestamp('24/04/08 16:00:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'U5RcmjqGejMbtU7tLeu6VA==',5);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (19,'user19_teen@example.com','1c61e0983875ea89975ffce5b01fdb8f4538f5c1c5785c0fa3c356bb28df4f28','인싸의삶16','profile019.jpg','전지현',to_timestamp('24/04/09 17:00:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'rp6eiTLOgp99KxqUEUkawg==',4);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (20,'user20@example.com','bc83159ba180647e862187b2c86c5e7ec89121c2d06d21e1aba2a4a228596f4b','독서왕김독서','profile020.jpg','이병헌',to_timestamp('24/04/10 18:00:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'yH571Hz7qV9IaSMKeCPl5w==',3);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (21,'user21_teen@example.com','3f97b2dc1913a802971328ca3dffb98a98e7254cccadf858be1b913f4a226dac','뷰티유튜버18','profile021.jpg','김고은',to_timestamp('24/04/11 10:00:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'eJxInYbjMlTPSwpRJngGKA==',3);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (22,'user22@example.com','f8c40a3bcd79999ca310bd6629d6fd5ce69e77def6d7498b3194f67e7c852d69','요리하는남자','profile022.jpg','박보검',to_timestamp('24/04/12 11:00:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'EZEDy+1tN6G3gND+h2j4lg==',2);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (23,'user23_teen@example.com','e1018e0b1f911e44638fa546eba6f021c07400248dddc65ef4deaaefcfc83c95','축구광팬15','profile023.jpg','손예진',to_timestamp('24/04/13 12:00:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'fRA2pF2VPregrOoHR4GnsQ==',3);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (24,'user24@example.com','87f1788cbb5192b41eedcadd0a3175b57d5722f1a7abd8a739c097fb552a3a03','자전거라이더','profile024.jpg','정우성',to_timestamp('24/04/14 13:00:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'mteqR3kyVQz6ZBGciKCQ5w==',1);
+Insert into USERACCOUNT (AC_IDX,EMAIL,PW,NICKNAME,IMG,NAME,CREATED_AT,SALT,category_idx) values (25,'user25@example.com','07a8e6a49548883dae484de48633d130116fbea3ae93915b05ecc1b2921d4d8b','프로캠핑러','profile025.jpg','김혜수',to_timestamp('24/04/15 14:00:00.000000000','RR/MM/DD HH24:MI:SSXFF'),'EVJbvbEROivmjSvbW+exDg==',1);
+
+-- 해시 전
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (1, 'teen_hero@example.com', 'Pw123!!!', '날쎈돌이16', 'profile001.jpg', '김철수', TO_TIMESTAMP('2024-01-15 10:00:00', 'YYYY-MM-DD HH24:MI:SS')); --Pw123!!!
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (2, 'movie_lover@example.com', 'Pw456!!!', '영화광팬', 'profile002.jpg', '이영희', TO_TIMESTAMP('2024-01-20 11:30:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (3, 'music_holic@example.com', 'Pw789!!!', '음악없인못살아', 'profile003.jpg', '박민준', TO_TIMESTAMP('2024-02-01 14:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (4, 'webtoon_master@example.com', 'Pw101!!!', '웹툰장인17', 'profile004.jpg', '최유리', TO_TIMESTAMP('2024-02-10 16:45:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (5, 'drama_addict@example.com', 'Pw112!!!', '드라마덕후', 'profile005.jpg', '정수민', TO_TIMESTAMP('2024-02-15 09:30:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (6, 'sf_fanatic@example.com', 'Pw131!!!', 'SF매니아', 'profile006.jpg', '강지훈', TO_TIMESTAMP('2024-03-01 13:10:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (7, 'hiphop_teen@example.com', 'Pw415!!!', '힙합꿈나무18', 'profile007.jpg', '윤서아', TO_TIMESTAMP('2024-03-05 17:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (8, 'action_junkie@example.com', 'Pw617!!!', '액션중독자', 'profile008.jpg', '임도현', TO_TIMESTAMP('2024-03-10 10:20:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (9, 'romance_dreamer@example.com', 'Pw819!!!', '로맨스빌런', 'profile009.jpg', '황보라', TO_TIMESTAMP('2024-03-15 12:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (10, 'kpop_stan@example.com', 'Pw202!!!', 'K팝지킴이', 'profile010.jpg', '서예준', TO_TIMESTAMP('2024-03-20 15:50:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (11, 'user11_teen@example.com', 'Pw_new1!!!', '새싹개발자15', 'profile011.jpg', '박현우', TO_TIMESTAMP('2024-04-01 09:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (12, 'user12@example.com', 'Pw_new2!!!', '고독한미식가', 'profile012.jpg', '이지은', TO_TIMESTAMP('2024-04-02 10:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (13, 'user13_teen@example.com', 'Pw_new3!!!', '게임스트리머19', 'profile013.jpg', '최민식', TO_TIMESTAMP('2024-04-03 11:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (14, 'user14@example.com', 'Pw_new4!!!', '여행가고싶다', 'profile014.jpg', '한지민', TO_TIMESTAMP('2024-04-04 12:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (15, 'user15_teen@example.com', 'Pw_new5!!!', '댄스신동14', 'profile015.jpg', '김민서', TO_TIMESTAMP('2024-04-05 13:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (16, 'user16@example.com', 'Pw_new6!!!', '냥집사그램', 'profile016.jpg', '송강호', TO_TIMESTAMP('2024-04-06 14:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (17, 'user17_teen@example.com', 'Pw_new7!!!', '코딩천재17', 'profile017.jpg', '배수지', TO_TIMESTAMP('2024-04-07 15:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (18, 'user18@example.com', 'Pw_new8!!!', '패피의일상', 'profile018.jpg', '유해진', TO_TIMESTAMP('2024-04-08 16:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (19, 'user19_teen@example.com', 'Pw_new9!!!', '인싸의삶16', 'profile019.jpg', '전지현', TO_TIMESTAMP('2024-04-09 17:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (20, 'user20@example.com', 'Pw_new10!!!', '독서왕김독서', 'profile020.jpg', '이병헌', TO_TIMESTAMP('2024-04-10 18:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (21, 'user21_teen@example.com', 'Pw_new11!!!', '뷰티유튜버18', 'profile021.jpg', '김고은', TO_TIMESTAMP('2024-04-11 10:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (22, 'user22@example.com', 'Pw_new12!!!', '요리하는남자', 'profile022.jpg', '박보검', TO_TIMESTAMP('2024-04-12 11:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (23, 'user23_teen@example.com', 'Pw_new13!!!', '축구광팬15', 'profile023.jpg', '손예진', TO_TIMESTAMP('2024-04-13 12:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (24, 'user24@example.com', 'Pw_new14!!!', '자전거라이더', 'profile024.jpg', '정우성', TO_TIMESTAMP('2024-04-14 13:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+-- INSERT INTO userAccount (ac_idx, email, pw, nickname, img, name, created_at) VALUES (25, 'user25@example.com', 'Pw_new15!!!', '프로캠핑러', 'profile025.jpg', '김혜수', TO_TIMESTAMP('2024-04-15 14:00:00', 'YYYY-MM-DD HH24:MI:SS'));
 
 -- 4. contents 테이블 데이터 삽입 (content_idx: 1 ~ 25)
 INSERT INTO contents (content_idx, title, img, dsc, category_idx) VALUES (1, '우주 대전쟁: 새로운 희망', 'content_img001.jpg', '은하계를 지키기 위한 최후의 전투가 시작된다!', 1);
@@ -499,3 +526,85 @@ INSERT INTO commentlist (commentlist_idx, text, like_count, create_at, re_commen
 INSERT INTO commentlist (commentlist_idx, text, like_count, create_at, re_commentlist_idx, note_idx, ac_idx) VALUES (50, '이런 애니메이션 더 많이 나왔으면 좋겠어요! 힐링 그 자체! 😌', 12, TO_TIMESTAMP('2024-05-26 14:05:00', 'YYYY-MM-DD HH24:MI:SS'), NULL, 15, 2);
 
 commit;
+
+-- 16. watchParty 테이블 데이터 삽입 (watchParty_idx: 1 ~ 20)
+INSERT INTO watchParty (watchParty_idx, title, video_id, created_at, host) VALUES ( 1, '우주 대전쟁 시청 파티',            'vid001', TO_TIMESTAMP('2024-06-01 20:00:00', 'YYYY-MM-DD HH24:MI:SS'),  1);
+INSERT INTO watchParty (watchParty_idx, title, video_id, created_at, host) VALUES ( 2, '심장이 멎을 듯한 로맨스 감상',      'vid002', TO_TIMESTAMP('2024-06-02 20:00:00', 'YYYY-MM-DD HH24:MI:SS'),  2);
+INSERT INTO watchParty (watchParty_idx, title, video_id, created_at, host) VALUES ( 3, 'K-POP 논스톱 리믹스 파티',          'vid003', TO_TIMESTAMP('2024-06-03 20:00:00', 'YYYY-MM-DD HH24:MI:SS'),  3);
+INSERT INTO watchParty (watchParty_idx, title, video_id, created_at, host) VALUES ( 4, '시간여행자 애니 어드벤처 정주행',   'vid004', TO_TIMESTAMP('2024-06-04 20:00:00', 'YYYY-MM-DD HH24:MI:SS'),  4);
+INSERT INTO watchParty (watchParty_idx, title, video_id, created_at, host) VALUES ( 5, '일상 브이로그 감상 모임',            'vid005', TO_TIMESTAMP('2024-06-05 20:00:00', 'YYYY-MM-DD HH24:MI:SS'),  5);
+INSERT INTO watchParty (watchParty_idx, title, video_id, created_at, host) VALUES ( 6, 'AI 대결 SF 토론 파티',              'vid006', TO_TIMESTAMP('2024-06-06 20:00:00', 'YYYY-MM-DD HH24:MI:SS'),  6);
+INSERT INTO watchParty (watchParty_idx, title, video_id, created_at, host) VALUES ( 7, '쇼미더비트 파이널 직관 회고',        'vid007', TO_TIMESTAMP('2024-06-07 20:00:00', 'YYYY-MM-DD HH24:MI:SS'),  7);
+INSERT INTO watchParty (watchParty_idx, title, video_id, created_at, host) VALUES ( 8, '일상 코믹 시트콤 옆집 사람들 함께 보기', 'vid008', TO_TIMESTAMP('2024-06-08 20:00:00', 'YYYY-MM-DD HH24:MI:SS'),  8);
+INSERT INTO watchParty (watchParty_idx, title, video_id, created_at, host) VALUES ( 9, '스릴러 사라진 기억 분석회',          'vid009', TO_TIMESTAMP('2024-06-09 20:00:00', 'YYYY-MM-DD HH24:MI:SS'),  9);
+INSERT INTO watchParty (watchParty_idx, title, video_id, created_at, host) VALUES (10, '판타지 드래곤 슬레이어 액션 모음',    'vid010', TO_TIMESTAMP('2024-06-10 20:00:00', 'YYYY-MM-DD HH24:MI:SS'), 10);
+INSERT INTO watchParty (watchParty_idx, title, video_id, created_at, host) VALUES (11, '미래 도시의 그림자 리뷰',            'vid011', TO_TIMESTAMP('2024-06-11 20:00:00', 'YYYY-MM-DD HH24:MI:SS'), 11);
+INSERT INTO watchParty (watchParty_idx, title, video_id, created_at, host) VALUES (12, '캠퍼스 로맨틱 코미디 정주행',       'vid012', TO_TIMESTAMP('2024-06-12 20:00:00', 'YYYY-MM-DD HH24:MI:SS'), 12);
+INSERT INTO watchParty (watchParty_idx, title, video_id, created_at, host) VALUES (13, '인디 밴드 명곡 플레이리스트 감상',     'vid013', TO_TIMESTAMP('2024-06-13 20:00:00', 'YYYY-MM-DD HH24:MI:SS'), 13);
+INSERT INTO watchParty (watchParty_idx, title, video_id, created_at, host) VALUES (14, '무협 액션 절대고수 하이라이트',        'vid014', TO_TIMESTAMP('2024-06-14 20:00:00', 'YYYY-MM-DD HH24:MI:SS'), 14);
+INSERT INTO watchParty (watchParty_idx, title, video_id, created_at, host) VALUES (15, '판타지 애니 이세계 전생 파티',        'vid015', TO_TIMESTAMP('2024-06-15 20:00:00', 'YYYY-MM-DD HH24:MI:SS'), 15);
+INSERT INTO watchParty (watchParty_idx, title, video_id, created_at, host) VALUES (16, '사이버펑크 코드 제로 토론',           'vid016', TO_TIMESTAMP('2024-06-16 20:00:00', 'YYYY-MM-DD HH24:MI:SS'), 16);
+INSERT INTO watchParty (watchParty_idx, title, video_id, created_at, host) VALUES (17, '감성 발라드 새벽 감성 플레이리스트',   'vid017', TO_TIMESTAMP('2024-06-17 20:00:00', 'YYYY-MM-DD HH24:MI:SS'), 17);
+INSERT INTO watchParty (watchParty_idx, title, video_id, created_at, host) VALUES (18, '육아 드라마 슈퍼맘 다이어리 공감회',   'vid018', TO_TIMESTAMP('2024-06-18 20:00:00', 'YYYY-MM-DD HH24:MI:SS'), 18);
+INSERT INTO watchParty (watchParty_idx, title, video_id, created_at, host) VALUES (19, '학원 미스터리 학교의 비밀 탐구',      'vid019', TO_TIMESTAMP('2024-06-19 20:00:00', 'YYYY-MM-DD HH24:MI:SS'), 19);
+INSERT INTO watchParty (watchParty_idx, title, video_id, created_at, host) VALUES (20, '메카 워리어즈 로봇 액션 토크',        'vid020', TO_TIMESTAMP('2024-06-20 20:00:00', 'YYYY-MM-DD HH24:MI:SS'), 20);
+
+COMMIT;
+
+INSERT ALL
+  INTO wa_sync (sync_idx, timeline, play, watchParty_idx) VALUES (  1,  0.000, 'PLAY',  1)
+  INTO wa_sync (sync_idx, timeline, play, watchParty_idx) VALUES (  2, 15.000, 'PAUSE', 1)
+  INTO wa_sync (sync_idx, timeline, play, watchParty_idx) VALUES (  3, 30.000, 'PLAY',  1)
+  INTO wa_sync (sync_idx, timeline, play, watchParty_idx) VALUES (  4, 45.000, 'PAUSE', 1)
+  INTO wa_sync (sync_idx, timeline, play, watchParty_idx) VALUES (  5, 60.000, 'PLAY',  1)
+  INTO wa_sync (sync_idx, timeline, play, watchParty_idx) VALUES (  6,  0.000, 'PLAY',  2)
+  INTO wa_sync (sync_idx, timeline, play, watchParty_idx) VALUES (  7, 15.000, 'PAUSE', 2)
+  INTO wa_sync (sync_idx, timeline, play, watchParty_idx) VALUES (  8, 30.000, 'PLAY',  2)
+  INTO wa_sync (sync_idx, timeline, play, watchParty_idx) VALUES (  9, 45.000, 'PAUSE', 2)
+  INTO wa_sync (sync_idx, timeline, play, watchParty_idx) VALUES ( 10, 60.000, 'PLAY',  2)
+  INTO wa_sync (sync_idx, timeline, play, watchParty_idx) VALUES ( 11,  0.000, 'PLAY',  3)
+  INTO wa_sync (sync_idx, timeline, play, watchParty_idx) VALUES ( 12, 15.000, 'PAUSE', 3)
+  INTO wa_sync (sync_idx, timeline, play, watchParty_idx) VALUES ( 13, 30.000, 'PLAY',  3)
+  INTO wa_sync (sync_idx, timeline, play, watchParty_idx) VALUES ( 14, 45.000, 'PAUSE', 3)
+  INTO wa_sync (sync_idx, timeline, play, watchParty_idx) VALUES ( 15, 60.000, 'PLAY',  3)
+SELECT * FROM dual;
+
+
+-- 16-2. wa_comment 테이블 데이터 삽입 (wac_idx: 1 ~ 40, 각 watchParty에 2개씩)
+INSERT ALL
+  INTO wa_comment (wac_idx, nickname, chatting, timeline, watchParty_idx) VALUES ( 1, '날쎈돌이16',    '시작부터 재미있네요!',      5.000,  1)
+  INTO wa_comment (wac_idx, nickname, chatting, timeline, watchParty_idx) VALUES ( 2, '영화광팬',      '이 부분이 특히 인상적이에요!', 55.000, 1)
+  INTO wa_comment (wac_idx, nickname, chatting, timeline, watchParty_idx) VALUES ( 3, '음악없인못살아','시작부터 재미있네요!',      5.000,  2)
+  INTO wa_comment (wac_idx, nickname, chatting, timeline, watchParty_idx) VALUES ( 4, '웹툰장인17',    '이 부분이 특히 인상적이에요!', 55.000, 2)
+  INTO wa_comment (wac_idx, nickname, chatting, timeline, watchParty_idx) VALUES ( 5, '드라마덕후',    '시작부터 재미있네요!',      5.000,  3)
+  INTO wa_comment (wac_idx, nickname, chatting, timeline, watchParty_idx) VALUES ( 6, 'SF매니아',      '이 부분이 특히 인상적이에요!', 55.000, 3)
+SELECT * FROM dual;
+
+COMMIT;
+
+-- 17. workspace_blocks 테이블 데이터 삽입
+-- 사용자 1번의 블록 데이터
+-- 1. 카테고리 인기글 (카테고리 ID: 1, 이름: 영화)
+INSERT INTO workspace_blocks (block_id, ac_idx, block_type, block_order, config)
+VALUES (1, 1, 'CategoryPosts', 1, '{"category_idx":1,"category_name":"영화","sort_type":"popular"}');
+
+-- 2. 사용자 활동 통계
+INSERT INTO workspace_blocks (block_id, ac_idx, block_type, block_order, config)
+VALUES (2, 1, 'UserStats', 2, '{}');
+
+-- 3. 구독 워치파티
+INSERT INTO workspace_blocks (block_id, ac_idx, block_type, block_order, config)
+VALUES (3, 1, 'WatchParties', 3, '{}');
+
+
+-- 사용자 2번의 블록 데이터
+-- 1. 구독 워치파티
+INSERT INTO workspace_blocks (block_id, ac_idx, block_type, block_order, config)
+VALUES (4, 2, 'WatchParties', 1, '{}');
+
+-- 2. 카테고리 최신글 (카테고리 ID: 3, 이름: 음악)
+INSERT INTO workspace_blocks (block_id, ac_idx, block_type, block_order, config)
+VALUES (5, 2, 'CategoryPosts', 2, '{"category_idx":3,"category_name":"음악","sort_type":"latest"}');
+
+-- 커밋
+COMMIT;

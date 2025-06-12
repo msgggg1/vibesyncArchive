@@ -33,14 +33,6 @@ public class TodoDAOImpl implements TodoDAO {
 
             while (rs.next()) {
             	
-            	 // ============= ★★★★★ 디버깅 로그 추가 ★★★★★ =============
-                int idx = rs.getInt("todo_idx");
-                String group = rs.getString("todo_group");
-                
-                // DB에서 읽어온 값을 가공 없이 즉시 출력합니다.
-                System.out.println("DB에서 직접 읽은 값 -> todo_idx: [" + idx + "], todo_group: [" + group + "]");
-                // ==============
-                
                 TodoVO todo = TodoVO.builder()
                         .todo_idx(rs.getInt("todo_idx"))
                         .created_at(rs.getTimestamp("created_at"))
@@ -83,7 +75,7 @@ public class TodoDAOImpl implements TodoDAO {
         String sql = "UPDATE todolist SET text = ?, todo_group = ?, color = ? WHERE todo_idx = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, todo.getText());
-            pstmt.setInt(2, todo.getTodo_idx());
+            pstmt.setString(2, todo.getTodo_group());
             pstmt.setString(3, todo.getColor()); 
             pstmt.setInt(4, todo.getTodo_idx());
             return pstmt.executeUpdate();

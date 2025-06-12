@@ -3,14 +3,16 @@ package mvc.command.handler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.Enumeration;
+import java.util.HashSet; // 수정: 세션에 저장할 Set 사용
+import java.util.Set;      // 수정: 세션에 저장할 Set 사용
 
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession; // 수정: 세션 사용을 위한 import
 
 import com.util.ConnectionProvider;
-
 import mvc.command.service.PostViewService;
 import mvc.domain.dto.UserNoteDTO;
 import mvc.domain.vo.UserNoteVO;
@@ -28,6 +30,16 @@ public class postViewHandler implements CommandHandler {
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		        
+        Enumeration<String> names = request.getParameterNames();
+        
+        while (names.hasMoreElements()) {
+			String name = (String) names.nextElement();
+			System.out.println(name +" | ");
+		}
+        
+        String page = request.getParameter("userPgIdx");
+        System.out.println("page : " + page);
 		
 		// AJAX 처리: action 파라미터 확인
 		String action = request.getParameter("action");
@@ -51,11 +63,26 @@ public class postViewHandler implements CommandHandler {
 			note_idx = Integer.parseInt(note_idx_str);
 		}
 		System.out.println("noteidx : " + note_idx_str);
+
+        HttpSession session = request.getSession(); // 수정: 세션 가져오기 
+        // 수정: accessPage 세션 속성에서 방문 노트 목록 관리
+        @SuppressWarnings("unchecked")
+        Set<Integer> accessPage = (Set<Integer>) session.getAttribute("accessPage");
+        if (accessPage == null) {
+            accessPage = new HashSet<>();
+            session.setAttribute("accessPage", accessPage);
+        }
+        // 수정: 이전에 조회한 적이 없다면 조회수 증가
+        if (!accessPage.contains(note_idx)) {
+            postviews.updateViewCount(note_idx); // 수정: 조회수 업데이트 서비스 호출
+            accessPage.add(note_idx);
+            System.out.println("accessPage : " + accessPage);
+        }
 		
 		UserNoteVO note = postviews.getUserNoteInfo(note_idx);
 		System.out.println(">>> PostView 데이터: " + note);
 		
-        HttpSession session = request.getSession(false);
+        //HttpSession session = request.getSession(false);
         UserVO user = null;
         if (session != null && session.getAttribute("userInfo") != null) {
         	user = (UserVO) session.getAttribute("userInfo");

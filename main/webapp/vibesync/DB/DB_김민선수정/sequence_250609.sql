@@ -161,9 +161,16 @@ CREATE SEQUENCE seq_wa_comment
   
 -- 19. schedule 시퀀스
 CREATE SEQUENCE schedule_seq 
-	START WITH 1
+	START WITH 31
     INCREMENT BY 1
 	NOCACHE
+    NOCYCLE;
+ 
+-- workspace_blocks
+CREATE SEQUENCE workspace_blocks_seq
+    START WITH 6     -- 이후 실제 MAX(block_id)+1 로 조정
+    INCREMENT BY 1
+    NOCACHE
     NOCYCLE;
 
 SELECT COUNT(*) AS sequence_count FROM user_sequences;

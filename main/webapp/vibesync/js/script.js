@@ -267,7 +267,8 @@ document.addEventListener('DOMContentLoaded', () => {
       
       renderPage(1);
     }
-  }*/ else if (mode.value === 'user') {
+  }*/
+   else if (mode.value === 'user') {
     setOffsetHeight();
     function setOffsetHeight() {
       console.log('user resize')

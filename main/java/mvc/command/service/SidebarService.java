@@ -18,7 +18,6 @@ public class SidebarService {
 
     public SidebarDTO loadSidebar(int ac_idx) {
     	SidebarDTO sidebarDTO = null;
-    	
     	List<UserSummaryVO> followingList = null;
     	
     	Connection conn = null;

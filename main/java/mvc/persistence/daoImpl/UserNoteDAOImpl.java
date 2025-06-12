@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 
 import com.util.DBConn_vibesync;
 
+import mvc.domain.vo.NoteVO;
 import mvc.domain.vo.UserNoteVO;
 import mvc.persistence.dao.UserNoteDAO;
 
@@ -95,7 +96,24 @@ public class UserNoteDAOImpl implements UserNoteDAO {
         return vo;
     }
     
-    /**
+    // 추가
+    @Override
+	public void updateViewCount(int noteIdx) {	
+    	String sql =
+            "update note set view_count = view_count + 1 where note_idx = ?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, noteIdx);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (pstmt != null) try { pstmt.close(); } catch (Exception ignored) {}
+        }
+	}
+
+
+	/**
      * likes 테이블에 새로운 좋아요 레코드를 추가한다.
      *
      * @param userIdx 좋아요를 누른 사용자 ac_idx
@@ -244,6 +262,94 @@ public class UserNoteDAOImpl implements UserNoteDAO {
         } finally {
             if (pstmt != null) try { pstmt.close(); } catch (Exception ignored) {}
         }
+    }
+    
+    @Override
+    public void createNote(NoteVO note) {
+        String sql = "INSERT INTO note "
+                   + " (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx) "
+                   + " VALUES (note_seq.NEXTVAL, ?, ?, ?, SYSDATE, SYSDATE, 0, ?, ?, ?, ?)";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, note.getTitle());
+            pstmt.setString(2, note.getText());
+            pstmt.setString(3, note.getImg());
+            pstmt.setInt(4, note.getContent_idx());
+            pstmt.setInt(5, note.getGenre_idx());
+            pstmt.setInt(6, note.getCategory_idx());
+            pstmt.setInt(7, note.getUserPg_idx());
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (pstmt != null) try { pstmt.close(); } catch (Exception ignored) {}
+        }
+    }
+
+    @Override
+    public void updateNote(NoteVO note) {
+        String sql = "UPDATE note SET title = ?, text = ?, img = ?, edit_at = SYSDATE, "
+                   + " content_idx = ?, genre_idx = ?, category_idx = ? "
+                   + " WHERE note_idx = ?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, note.getTitle());
+            pstmt.setString(2, note.getText());
+            pstmt.setString(3, note.getImg());
+            pstmt.setInt(4, note.getContent_idx());
+            pstmt.setInt(5, note.getGenre_idx());
+            pstmt.setInt(6, note.getCategory_idx());
+            pstmt.setInt(7, note.getNote_idx());
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (pstmt != null) try { pstmt.close(); } catch (Exception ignored) {}
+        }        
+    }
+    
+    @Override
+    public void deleteNote(int noteIdx) {
+        String sql = "DELETE FROM note WHERE note_idx = ?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, noteIdx);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (pstmt != null) try { pstmt.close(); } catch (Exception ignored) {}
+        }
+    }
+    
+    @Override
+    public NoteVO getNote(int noteIdx) {
+    	NoteVO note = null;
+    	String sql = "select * FROM note WHERE note_idx = ?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, noteIdx);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                note = NoteVO.builder()
+                    .note_idx(         rs.getInt("note_idx"))
+                    .title(            rs.getString("title"))
+                    .text(             rs.getString("text"))
+                    .img(        	   rs.getString("img"))
+                    .view_count(       rs.getInt("view_count"))
+                    .content_idx(      rs.getInt("content_idx"))
+                    .genre_idx(        rs.getInt("genre_idx"))
+                    .category_idx(     rs.getInt("category_idx"))
+                    .userPg_idx(       rs.getInt("userPg_idx"))
+                    .build();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (pstmt != null) try { pstmt.close(); } catch (Exception ignored) {}
+        }
+        return note;
     }
     
 }

@@ -221,6 +221,12 @@ input:focus {
         <img src="./sources/icons/work.svg" alt="workspace icon" class="sidebar_icon">
         <span>WORKSPACE</span>
       </a>
+      
+      <!-- FULL PAGE -->
+      <a href="page.do" class="workspace icon_wrap">
+        <img src="./sources/icons/page.svg" alt="workspace icon" class="sidebar_icon">
+        <span>PAGES</span>
+      </a>
 
       <!-- FOLLOW 목록 -->
       <div id="follow">
@@ -286,7 +292,9 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: '<%= request.getContextPath() %>/sidebar.do',
+            // 확인 필요
+            //url: '<%= request.getContextPath() %>/sidebar.do',
+            url: '<%= request.getContextPath() %>/common.do',
             data: formData,
             dataType: 'json',
             success: function(response) {
