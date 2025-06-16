@@ -15,7 +15,6 @@ import com.util.ConnectionProvider;
 public class pageCreateHandler implements CommandHandler {
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.setCharacterEncoding("UTF-8");
         // 세션에서 ac_idx 가져오기
         UserVO user = (UserVO) request.getSession().getAttribute("userInfo");
         int acIdx = user.getAc_idx();

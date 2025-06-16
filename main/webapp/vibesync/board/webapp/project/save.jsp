@@ -2,7 +2,6 @@
 <%@ page import="java.io.*, java.util.Base64, java.sql.*, java.util.ArrayList, java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
-    request.setCharacterEncoding("UTF-8");
 
     String message = null;
     List<String> savedImagePathsForDB = new ArrayList<>(); // DB에 저장할 이미지 경로 리스트

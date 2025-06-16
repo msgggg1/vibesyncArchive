@@ -28,11 +28,6 @@ public class MessageHandler implements CommandHandler {
 	    Gson gson = new Gson();
 
 	    HttpSession session = request.getSession(false);
-	    if (session == null || session.getAttribute("userInfo") == null) {
-	        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-	        out.print(gson.toJson(Map.of("success", false, "message", "로그인 필요")));
-	        return null;
-	    }
 	    UserVO userInfo = (UserVO) session.getAttribute("userInfo");
 	    int senderIdx = userInfo.getAc_idx();
 

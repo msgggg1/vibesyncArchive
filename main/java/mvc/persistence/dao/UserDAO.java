@@ -21,11 +21,13 @@ public interface UserDAO {
 	// 회원가입 시 중복 검사 : 닉네임, 이메일 한번에
 	String[] duplicateTest(String nickname, String email);
 	
+	/*
 	// 닉네임 중복 검사
 	boolean isNicknameExists(String nickname);
 	
 	// 이메일 중복 검사
 	boolean isEmailExists(String email);
+	*/
 	
 	//////회원 활동 관련
 	int preferredCategoryIdx(int acIdx) throws SQLException;

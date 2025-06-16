@@ -1,7 +1,6 @@
 package mvc.command.service;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 import com.util.ConnectionProvider;
 

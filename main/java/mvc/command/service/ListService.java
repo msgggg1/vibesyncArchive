@@ -1,54 +1,29 @@
 package mvc.command.service;
 
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.List;
-
-import javax.naming.NamingException;
+import java.util.List; 
 
 import com.util.ConnectionProvider;
-
-import mvc.domain.dto.PageResultDTO;
-import mvc.domain.vo.NoteVO;    // 추가
-import mvc.domain.vo.PageVO;
-import mvc.persistence.dao.ListDAO;
-import mvc.persistence.daoImpl.ListDAOImpl;
+import mvc.domain.dto.NoteListDTO;
+import mvc.domain.dto.NotePageResultDTO;
+import mvc.persistence.dao.NoteDAO;
+import mvc.persistence.daoImpl.NoteDAOImpl;
 
 public class ListService {
-    private static final int DEFAULT_PAGE_SIZE = 10;
 
-    /**
-     * 페이징·검색 조건에 맞는 결과를 반환한다.
-     */
-    public PageResultDTO getPageResult(int page, int size, String searchType, String keyword)
-            throws SQLException {
-        int offset = (page - 1) * size;
-        List<PageVO> fullList;
-        int totalCount;
-
+    public NotePageResultDTO getNoteListPage(int categoryIdx, int page, int size, String searchType, String keyword) throws Exception {
         try (Connection conn = ConnectionProvider.getConnection()) {
-            ListDAO dao = new ListDAOImpl(conn);
-            totalCount = dao.selectCount(searchType, keyword);
-            fullList = dao.selectAll(searchType, keyword);
-        } catch (NamingException e) {
-            throw new SQLException("DB 연결 오류", e);
-        }
+            NoteDAO dao = new NoteDAOImpl(conn);
 
-        int fromIndex = Math.min(offset, fullList.size());
-        int toIndex = Math.min(offset + size, fullList.size());
-        List<PageVO> pageList = fullList.subList(fromIndex, toIndex);
-        return new PageResultDTO(pageList, totalCount, fullList);
-    }
+            // 1. 전체 게시물 수 조회
+            int totalCount = dao.selectNoteCount(categoryIdx, searchType, keyword);
 
-    /**
-     * AJAX용: 특정 userPg_idx 의 노트 리스트를 반환한다.
-     */
-    public List<NoteVO> getNotesByPage(int userPgIdx) throws SQLException {
-        try (Connection conn = ConnectionProvider.getConnection()) {
-            ListDAO dao = new ListDAOImpl(conn);
-            return dao.selectNotesByPage(userPgIdx);
-        } catch (NamingException e) {
-            throw new SQLException("DB 연결 오류", e);
+            // 2. 페이징 처리된 게시물 목록 조회
+            int offset = (page - 1) * size;
+            List<NoteListDTO> list = dao.selectNotes(categoryIdx, offset, size, searchType, keyword);
+
+            // 3. 페이징 결과 DTO 생성
+            return new NotePageResultDTO(totalCount, page, size, list);
         }
     }
 }

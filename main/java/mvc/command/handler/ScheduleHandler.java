@@ -25,10 +25,6 @@ public class ScheduleHandler implements CommandHandler {
     public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
         
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("userInfo") == null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-            return null;
-        }
         UserVO loginUser = (UserVO) session.getAttribute("userInfo");
         int acIdx = loginUser.getAc_idx();
 

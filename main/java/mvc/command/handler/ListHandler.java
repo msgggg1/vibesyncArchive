@@ -1,58 +1,36 @@
 package mvc.command.handler;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import mvc.command.service.ListService;
-import mvc.domain.dto.PageResultDTO;
-import mvc.domain.vo.NoteVO;
-import mvc.domain.vo.PageVO;
+import mvc.domain.dto.NotePageResultDTO;
 
 public class ListHandler implements CommandHandler {
-    private static final int DEFAULT_PAGE_SIZE = 10;
-    private ListService service = new ListService();
+    private ListService listService = new ListService();
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        // 페이징·검색 파라미터
-        String pageParam   = request.getParameter("page");
-        String sizeParam   = request.getParameter("size");
-        String searchType  = request.getParameter("searchType");
-        String keyword     = request.getParameter("keyword");
+        // 1. 파라미터 수신 및 기본값 설정
+        String categoryParam = request.getParameter("category_idx");
+        String pageParam = request.getParameter("page");
+        String sizeParam = request.getParameter("size");
+        String searchType = request.getParameter("searchType");
+        String keyword = request.getParameter("keyword");
 
-        int page = pageParam != null ? Integer.parseInt(pageParam) : 1;
-        int size = sizeParam != null ? Integer.parseInt(sizeParam) : DEFAULT_PAGE_SIZE;
+        int categoryIdx = (categoryParam != null && !categoryParam.isEmpty()) ? Integer.parseInt(categoryParam) : 0; // 0: 전체
+        int page = (pageParam != null && !pageParam.isEmpty()) ? Integer.parseInt(pageParam) : 1;
+        int size = (sizeParam != null && !sizeParam.isEmpty()) ? Integer.parseInt(sizeParam) : 10; // 페이지 당 10개
 
-        // 게시물 리스트 조회
-        PageResultDTO dto = service.getPageResult(page, size, searchType, keyword);
-        request.setAttribute("list", dto.getList());
-        request.setAttribute("totalCount", dto.getFulllist().size());
-        request.setAttribute("currentPage", page);
-        request.setAttribute("pageSize", size);
+        // 2. 서비스 호출
+        NotePageResultDTO resultDTO = listService.getNoteListPage(categoryIdx, page, size, searchType, keyword);
+
+        // 3. 결과(Model)를 request에 저장
+        request.setAttribute("result", resultDTO);
         request.setAttribute("searchType", searchType);
         request.setAttribute("keyword", keyword);
-
-        // 만약 userPgIdx 파라미터가 있으면, 해당 노트들 조회
-        String noteParam = request.getParameter("userPgIdx");
-        if (noteParam != null) {
-        	int upidx = Integer.parseInt(noteParam);
-        	String title = null;
-        	List<PageVO> pageList = dto.getList();
-        	for (int i = 0; i < pageList.size(); i++) {
-        		if (pageList.get(i).getAc_idx() == upidx) {
-        			title = pageList.get(i).getSubject();
-        		}
-			}
-        	
-            int userPgIdx = Integer.parseInt(noteParam);
-            List<NoteVO> notes = service.getNotesByPage(userPgIdx);
-            request.setAttribute("notes", notes);
-            request.setAttribute("pagetitle", title);
-            request.setAttribute("selectedUserPgIdx", userPgIdx);
-        }
-        // 항상 page.jsp 로 포워딩
-        return "page.jsp";
+        request.setAttribute("category_idx", categoryIdx);
+        
+        // 4. 뷰 경로 반환
+        return "list.jsp";
     }
 }

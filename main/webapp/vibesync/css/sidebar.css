@@ -1,0 +1,159 @@
+/* sidebar */
+.notion-sidebar a:hover{
+	text-decoration: none !important;
+	color: var(--font-color) !important;
+}
+
+.notion-sidebar .sidebar_icon{
+  filter: var(--icon-filter);
+}
+
+.notion-app-inner .notion-sidebar-container {
+  /* box-shadow: -8px 0 10px 0px #000; */
+  position: fixed;
+  height: 100%;
+  background: var(--sidebar-color);
+  background-image: url(./back4.png);
+  width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 10px;
+  z-index: 111;
+  transition: transform 0.3s ease;
+}
+
+.notion-app-inner .notion-sidebar-container .notion-sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+
+.notion-app-inner .notion-sidebar-container .notion-sidebar .menu_content {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  gap: 40px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-block: 60px;
+}
+.notion-app-inner .notion-sidebar-container .notion-sidebar .menu_content .nickname {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: var(--font-color);
+}
+
+.notion-sidebar .search {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+/* 입력창 숨김 상태 */
+.notion-sidebar .search-input {
+  width: 100px;
+  height: 22px;
+  background: none;
+  border: none;
+  border-bottom: var(--border-color) 2px solid;
+  color: var(--font-color);
+}
+
+.notion-sidebar input:focus {
+  outline: none;
+}
+
+.notion-sidebar #follow {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  padding: 0;
+}
+
+/* 레이블 스타일 */
+.notion-sidebar .follow_list label {
+  text-decoration: none;
+  color: var(--font-color);
+  cursor: pointer;
+}
+
+/* 체크박스 숨김 */
+.notion-sidebar #follow_toggle {
+  display: none;
+}
+
+/* 토글 메뉴 숨김 상태 */
+.notion-sidebar .follow_items {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+/* 체크되면 메뉴 확장 */
+.notion-sidebar #follow_toggle:checked ~ .follow_items {
+  max-height: 200px;
+  transition: max-height 0.3s ease-in;
+}
+
+.notion-sidebar .follow_items li {
+  margin: 4px 0;
+}
+
+.notion-sidebar .icon_wrap {
+  display: flex;
+  gap: 10px;
+}
+
+.notion-sidebar #logout form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 40px;
+  margin-bottom: 20px;
+}
+
+.notion-sidebar #logout form > button {
+  width: 150px;
+  border: none;
+  background-color: red;
+  border-radius: 5px;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: var(--w-fff);
+  cursor: pointer;
+}
+
+#toggle-btn {
+  display: none;
+  position: absolute;
+  font-size: 24px;
+  font-weight: bold;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border: none;
+  color: var(--font-color);
+  z-index: 112;
+  cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+  #toggle-btn {
+    display: block;
+    background-color: var(--card-back);
+    border: solid 2px var(--border-color);
+    border-radius: 0 0 10px 0;
+    border-left: none;
+    border-top: none;
+  }}

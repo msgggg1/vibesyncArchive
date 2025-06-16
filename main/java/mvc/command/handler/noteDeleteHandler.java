@@ -12,7 +12,6 @@ import java.sql.Connection;
 public class noteDeleteHandler implements CommandHandler {
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.setCharacterEncoding("UTF-8");
         String noteIdxStr = request.getParameter("noteidx");
         int noteIdx = Integer.parseInt(noteIdxStr);
 

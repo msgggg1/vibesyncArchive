@@ -1,9 +1,12 @@
 package mvc.command.handler;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import mvc.command.service.UserPageService;
+import mvc.domain.dto.NoteSummaryDTO;
 import mvc.domain.dto.UserPageDataDTO;
 import mvc.domain.vo.UserVO;
 
@@ -27,12 +30,8 @@ public class UserPageHandler implements CommandHandler {
 
         // 2. 세션에서 현재 로그인한 사용자 ID 가져오기
         HttpSession session = request.getSession(false);
-        UserVO userInfo = null;
-        Integer loggedInUserAcIdx = null;
-        if (session != null && session.getAttribute("userInfo") != null) {
-        	userInfo = (UserVO) session.getAttribute("userInfo");
-        	loggedInUserAcIdx = userInfo.getAc_idx();
-        }
+        UserVO userInfo = (UserVO) session.getAttribute("userInfo");
+        int loggedInUserAcIdx = userInfo.getAc_idx();
         
         // 3. 초기 페이지 번호 (무한 스크롤용)
         int pageNumber = 1; // 항상 첫 페이지 로드
@@ -40,6 +39,12 @@ public class UserPageHandler implements CommandHandler {
         // 4. 서비스 호출하여 사용자 페이지 데이터 가져오기
         UserPageDataDTO userPageData = userPageService.getUserPageData(profileUserAcIdx, loggedInUserAcIdx, pageNumber);
 
+        List<NoteSummaryDTO> temp = userPageData.getPosts();
+        for (NoteSummaryDTO note : temp) {
+            System.out.println("note img : " + note.getThumbnail_img()); // This will call note.toString()
+        }
+        
+        System.out.println("getPosts : " + userPageData.getPosts());
         if (userPageData == null || userPageData.getUserProfile() == null) {
             // 해당 사용자가 없거나 데이터를 가져올 수 없는 경우
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "사용자 정보를 찾을 수 없습니다.");

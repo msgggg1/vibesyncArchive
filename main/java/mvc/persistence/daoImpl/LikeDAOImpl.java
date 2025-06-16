@@ -128,24 +128,25 @@ public class LikeDAOImpl implements LikeDAO {
 		PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 
-	    String sql = " SELECT TO_CHAR(TRUNC(l.created_at), 'YYYY-MM-DD') AS stat_date, COUNT(likes_idx) AS like_count "
+	    String sql = " SELECT "
+	    		   + " TO_CHAR(TRUNC(l.created_at), 'YYYY-M-d (E)') AS stat_date, "
+	    		   + " COUNT(likes_idx) AS like_count "
 	               + " FROM likes l "
 	               + " JOIN note n "
 	               + " ON l.note_idx = n.note_idx "
 	    		   + " JOIN userPage u "
 	    		   + " ON u.userPg_idx = n.userPg_idx "
-	               + " WHERE u.ac_idx = ? AND l.created_at >= TRUNC(SYSDATE) - ? "
-	               + " GROUP BY TRUNC(l.created_at), TO_CHAR(TRUNC(l.created_at), 'YYYY-MM-DD') "
-	               + " ORDER BY TRUNC(l.created_at) ";
+                   + " WHERE u.ac_idx = ? "
+                   + " AND l.created_at >= TRUNC(SYSDATE) - ? "
+	               + " GROUP BY TRUNC(l.created_at) "
+	               + " ORDER BY stat_date ";
 	    try {
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setInt(1, acIdx);
 	        pstmt.setInt(2, days - 1);
 	        rs = pstmt.executeQuery();
 	        while (rs.next()) {
-	            String statDate = rs.getString("stat_date");
-	            long likeCount = rs.getLong("like_count");
-	            dailyStats.add(new DailyStatsDTO(statDate, likeCount));
+	            dailyStats.add(new DailyStatsDTO(rs.getString("stat_date"), rs.getLong("like_count")));
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
@@ -157,4 +158,99 @@ public class LikeDAOImpl implements LikeDAO {
 	    return dailyStats;
 	    
 	}
+	
+	// 특정 사용자의 최근 N주간의 주별 게시글 좋아요 수 (주별 통계)
+	@Override
+	public List<DailyStatsDTO> getWeeklyLikeCountsForUserPosts(int acIdx, int weeks) throws SQLException {
+		List<DailyStatsDTO> weeklyStats = new ArrayList<>();
+		
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    
+	    String sql = " SELECT "
+	    		   + " TO_CHAR(TRUNC(l.created_at, 'IW'), 'YYYY-MM-DD') AS stat_date, "
+	    		   + " COUNT(likes_idx) AS like_count "
+	    		   + " FROM likes l "
+	               + " JOIN note n ON l.note_idx = n.note_idx "
+	               + " JOIN userPage u ON u.userPg_idx = n.userPg_idx "
+	               + " WHERE u.ac_idx = ? AND l.created_at >= TRUNC(SYSDATE, 'IW') - (? * 7) "
+	               + " GROUP BY TRUNC(l.created_at, 'IW') "
+	               + " ORDER BY stat_date ";
+	    
+	    pstmt = conn.prepareStatement(sql);
+	    pstmt.setInt(1, acIdx);
+	    pstmt.setInt(2, weeks - 1);
+	    rs = pstmt.executeQuery();
+	    while (rs.next()) {
+         weeklyStats.add(new DailyStatsDTO(rs.getString("stat_date"), rs.getLong("like_count")));
+	    }
+	    JdbcUtil.close(rs);
+	    JdbcUtil.close(pstmt);
+		
+		return weeklyStats;
+	}
+
+	// 특정 사용자의 최근 N달간의 월별 게시글 좋아요 수 (월별 통계)
+	@Override
+	public List<DailyStatsDTO> getMonthlyLikeCountsForUserPosts(int acIdx, int months) throws SQLException {
+        List<DailyStatsDTO> monthlyStats = new ArrayList<>();
+        
+		PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+        
+        // months가 -1이면 전체 기간 조회
+        String sql = " SELECT TO_CHAR(l.created_at, 'YYYY-MM') AS stat_date, COUNT(l.likes_idx) AS like_count "
+                   + " FROM likes l "
+                   + " JOIN note n ON l.note_idx = n.note_idx "
+                   + " JOIN userPage u ON u.userPg_idx = n.userPg_idx "
+                   + " WHERE u.ac_idx = ? "
+                   + "AND l.created_at >= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -?) "
+                   + " GROUP BY TO_CHAR(l.created_at, 'YYYY-MM') "
+                   + " ORDER BY stat_date ";
+
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, acIdx);
+        pstmt.setInt(2, months - 1);
+        
+        rs = pstmt.executeQuery();
+        while (rs.next()) {
+            monthlyStats.add(new DailyStatsDTO(rs.getString("stat_date"), rs.getLong("like_count")));
+        }
+        
+        JdbcUtil.close(rs);
+        JdbcUtil.close(pstmt);
+        
+        return monthlyStats;
+	}
+	
+	// 특정 사용자의 최근 N년간의 연도별 게시글 좋아요 수 (연도별 통계)
+	@Override
+	public List<DailyStatsDTO> getYearlyLikeCountsForUserPosts(int acIdx, int years) throws SQLException {
+	    List<DailyStatsDTO> yearlyStats = new ArrayList<>();
+	    
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    
+	    String sql = " SELECT TO_CHAR(l.created_at, 'YYYY') AS stat_date, COUNT(l.likes_idx) AS like_count "
+		 		   + " FROM likes l "
+		           + " JOIN note n ON l.note_idx = n.note_idx "
+		           + " JOIN userPage u ON u.userPg_idx = n.userPg_idx "
+		           + " WHERE u.ac_idx = ? AND l.created_at >= ADD_MONTHS(TRUNC(SYSDATE, 'YYYY'), -((?-1)*12)) "
+		           + " GROUP BY TO_CHAR(l.created_at, 'YYYY') "
+		           + " ORDER BY stat_date ";
+	    
+	    pstmt = conn.prepareStatement(sql);
+	    pstmt.setInt(1, acIdx);
+	    pstmt.setInt(2, years);
+	    rs = pstmt.executeQuery();
+	    while (rs.next()) {
+            yearlyStats.add(new DailyStatsDTO(rs.getString("stat_date"), rs.getLong("like_count")));
+        }
+	    
+        JdbcUtil.close(rs);
+        JdbcUtil.close(pstmt);
+	    
+	    return yearlyStats;
+	}
+	
 }

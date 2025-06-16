@@ -28,24 +28,14 @@ public class WorkspaceHandler implements CommandHandler {
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
-        
-        HttpSession session = request.getSession(false);
-        
+       
         // 현재 링크 위치 : 이후 페이지 리디렉션에 활용
         String contextPath = request.getContextPath();
         
-        UserVO userInfo = null; // 로그인된 사용자 정보
-        int ac_idx = 0; // 로그인된 사용자 idx
-    	
-        if(session.getAttribute("userInfo") != null) {
-        	userInfo = (UserVO) session.getAttribute("userInfo");
-        	ac_idx = userInfo.getAc_idx();
-        } else { // 로그인 안되어 있으면 로그인 페이지로
-        	response.sendRedirect(contextPath + "/vibesync/user.do"); // 로그인 페이지로 리디렉션
-        	return null;
-        }
+        HttpSession session = request.getSession(false);
+        UserVO userInfo = (UserVO) session.getAttribute("userInfo");
+        int ac_idx = userInfo.getAc_idx();
         
     	WorkspaceDTO initialData = workspaceService.getInitialData(ac_idx);
     	
@@ -58,6 +48,7 @@ public class WorkspaceHandler implements CommandHandler {
     	}
     	
         request.setAttribute("workspaceData", initialData);
+        request.setAttribute("initialData", initialData);
         return "workspace.jsp";
     }
 }

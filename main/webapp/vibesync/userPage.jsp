@@ -1,7 +1,16 @@
+<%@page import="java.util.Enumeration"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"%>
 <%@ page import="java.net.URLEncoder"%>
 <% String contextPath = request.getContextPath() + "/vibesync"; %>
+<%
+Enumeration<String> names = request.getParameterNames();
+while (names.hasMoreElements()) {
+    String name = names.nextElement();
+    String name_val = request.getParameter(name);
+    System.out.println("name : " + name + "/ val : " + name_val);
+}
+%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -13,14 +22,14 @@
   <title>user</title>
   <link rel="icon" href="./sources/favicon.ico" />
   <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/sidebar.css">
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js"></script>
   <script defer src="./js/script.js"></script>
   <style>
     h3 {
       margin: 0;
     }
-
+	.wp_btn {background: black;}
     #pageCreateBtn {
       position: fixed;
       bottom: 20px;
@@ -132,7 +141,7 @@
                     <img src="<%=contextPath %>/${userPageData.userProfile.img}" alt="프로필">
                   </c:when>
                   <c:otherwise>
-                    <img src="<%=contextPath %>/sources/icons/default_profile.png" alt="기본 프로필">
+                    <img src="<%=contextPath %>/sources/default/default_user.jpg" alt="기본 프로필">
                   </c:otherwise>
                 </c:choose>
               </div>
@@ -150,7 +159,9 @@
                     </button>
                   </c:if>
                   <%-- Watch Party 버튼 (기능 구현 시 활성화) --%>
-                  <%-- <button class="btn_follow_2">Watch Party</button> --%>
+                  <c:if test="${sessionScope.userInfo != null && sessionScope.userInfo.ac_idx == userPageData.userProfile.ac_idx}">
+                     <button class="wp_btn" onclick="location.href='waList.jsp'">Watch Party</button>
+                  </c:if>
                 </div>
                 <div class="user_count">
                   <p>POST <span>${userPageData.userProfile.postCount}</span></p>
@@ -164,20 +175,18 @@
 
             <div id="con_wrapper">
               <c:forEach var="post" items="${userPageData.posts}">
-                <div class="con_item">
                   <a href="<%=contextPath %>/postView.do?nidx=${post.note_idx}">
+                	<div class="con_item">
                     <c:choose>
                       <c:when test="${not empty post.thumbnail_img}">
-                        <img src="<%=contextPath %>/${post.thumbnail_img}" alt="${post.title} 썸네일">
+                        <img src="${pageContext.request.contextPath}/${post.thumbnail_img}" alt="${post.title} 썸네일" style="width: 100%; height: 100%; object-fit:cover;" >
                       </c:when>
                       <c:otherwise>
-                        <img src="<%=contextPath %>/sources/images/default_thumbnail.png" alt="기본 썸네일">
-                        <%-- 기본 썸네일 이미지 경로 --%>
+                        <img src="${pageContext.request.contextPath}/sources/images/default_thumbnail.png" alt="기본 썸네일">
                       </c:otherwise>
-                    </c:choose>
-                    <p>${post.title}</p>
+                    </c:choose>             
+                   </div>
                   </a>
-                </div>
               </c:forEach>
             </div>
             <div id="loadingIndicator" style="display: none; text-align: center; padding: 20px;">로딩 중...</div>
@@ -188,7 +197,9 @@
   </div>
   
   <!-- 페이지 생성 모달 트리거 버튼 -->
-  <button id="pageCreateBtn">＋</button>
+  <c:if test="${sessionScope.userInfo != null && sessionScope.userInfo.ac_idx == userPageData.userProfile.ac_idx}">
+  	<button id="pageCreateBtn">＋</button>
+  </c:if>
 
   <!-- 모달 오버레이 및 컨텐츠 -->
   <div id="pageModalOverlay" class="modal-overlay">
@@ -202,11 +213,6 @@
 
   <script>
     $(document).ready(function() {
-      // 로그아웃
-      $("#logout").on("click", function(){
-        location.href = "${pageContext.request.contextPath}/logout.jsp"; // 예시
-      });
-
       // 프로필 페이지의 팔로우 버튼 처리
       $('#profileFollowBtn').on('click', function() {
         var $button = $(this);

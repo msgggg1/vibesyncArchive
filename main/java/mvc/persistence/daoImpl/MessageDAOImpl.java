@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
@@ -237,7 +238,7 @@ public class MessageDAOImpl implements MessageDAO {
 			do {
 				Timestamp sqlTime = rs.getTimestamp("time");
 				String time = sqlTime.toLocalDateTime().format(DateTimeFormatter.ofPattern("a h:mm"));
-				String date = sqlTime.toLocalDateTime().format(DateTimeFormatter.ofPattern("yyyy년 M월 d일"));
+				String date = sqlTime.toLocalDateTime().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
 				
 				MessageDTO message = MessageDTO.builder()
 											   .msg_idx(rs.getInt("msg_idx"))
@@ -316,6 +317,8 @@ public class MessageDAOImpl implements MessageDAO {
 		
 		int result = pstmt.executeUpdate();
 		isSent = result >= 1 ? true : false;
+		
+		JdbcUtil.close(pstmt);
 		
 		return isSent;
 	}

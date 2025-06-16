@@ -10,9 +10,7 @@ import javax.naming.NamingException;
 import com.util.ConnectionProvider;
 
 import mvc.persistence.dao.FollowDAO;
-import mvc.persistence.dao.UserDAO;
 import mvc.persistence.daoImpl.FollowDAOImpl;
-import mvc.persistence.daoImpl.UserDAOImpl;
 
 public class FollowService {
 	

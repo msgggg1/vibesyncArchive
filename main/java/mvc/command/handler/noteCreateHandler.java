@@ -33,18 +33,15 @@ public class noteCreateHandler implements CommandHandler {
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.setCharacterEncoding("UTF-8");
         String method = request.getMethod();
 
         String pageidx = null;
 
         if ("GET".equalsIgnoreCase(method)) {
-
+            // ... 기존 GET 로직과 동일 ...
             if (request.getParameter("pageidx") != null && !"".equals(request.getParameter("pageidx"))) {
                 pageidx = request.getParameter("pageidx");
             }
-
-            // 페이지 진입: 카테고리, 장르, 콘텐츠 리스트 조회
             Connection conn = null;
             try {
                 conn = ConnectionProvider.getConnection();
@@ -66,7 +63,6 @@ public class noteCreateHandler implements CommandHandler {
             } finally {
                 if (conn != null) try { conn.close(); } catch (Exception ignored) {}
             }
-            // 작성 폼 JSP로 포워드
             return "write.jsp";
 
         } else if ("POST".equalsIgnoreCase(method)) {
@@ -74,23 +70,42 @@ public class noteCreateHandler implements CommandHandler {
                 pageidx = request.getParameter("pageidx");
             }
 
-            // --- 변경된 부분 시작: Base64 이미지 저장 및 content 내 img src 수정 로직 ---
+            // --- 썸네일 및 Summernote 이미지 처리 로직 ---
             String title = request.getParameter("title");
             String processedContent = request.getParameter("content");
-            String base64Images = request.getParameter("images"); // '|' 구분된 Base64 이미지
-
-            System.out.println("processedContent : " + processedContent);
-            System.out.println("base64Images : " + base64Images);
-
-            // 이미지 저장 디렉터리 준비
-            String saveDirPath = request.getServletContext().getRealPath("/vibesync/sources/noteImg");
+            String base64Images = request.getParameter("images");
+            
+            // [추가] 썸네일 파라미터 받기
+            String thumbnailBase64 = request.getParameter("thumbnail_base64");
+            String thumbnailExt = request.getParameter("thumbnail_ext");
+            String thumbnailDbPath = null;
+            
+            String saveDirPath = request.getServletContext().getRealPath("/sources/noteImg");
             File saveDir = new File(saveDirPath);
             if (!saveDir.exists()) saveDir.mkdirs();
 
-            System.out.println("title : " + title);
-            String safeTitle = title.replaceAll("[^a-zA-Z0-9]", "_");
-            int imgCounter = 1;
+            String safeTitle = title.replaceAll("[^a-zA-Z0-9가-힣]", "_");
 
+            // [추가] 썸네일 이미지 저장 로직
+            if (thumbnailBase64 != null && !thumbnailBase64.isEmpty() && thumbnailExt != null) {
+                try {
+                    String[] parts = thumbnailBase64.split(",");
+                    if (parts.length == 2) {
+                        byte[] imageBytes = Base64.getDecoder().decode(parts[1]);
+                        String thumbnailFileName = "title_" + safeTitle + "." + thumbnailExt;
+                        File outFile = new File(saveDir, thumbnailFileName);
+                        try (FileOutputStream fos = new FileOutputStream(outFile)) {
+                            fos.write(imageBytes);
+                        }
+                        thumbnailDbPath = "sources/noteImg/" + thumbnailFileName;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace(); // 썸네일 저장 실패 시 에러 로깅
+                }
+            }
+            
+            // Summernote 본문 이미지 저장 로직
+            int imgCounter = 1;
             List<String> dbRelativePaths = new ArrayList<>();
             if (base64Images != null && !base64Images.isEmpty()) {
                 String[] imageDataArray = base64Images.split("\\|");
@@ -103,6 +118,7 @@ public class noteCreateHandler implements CommandHandler {
                         String imageType = parts[0].substring("data:image/".length(), parts[0].indexOf(";base64"));
                         byte[] imageBytes = Base64.getDecoder().decode(parts[1]);
 
+                        // 본문 이미지는 원래 이름 규칙 유지
                         String fileName = safeTitle + "_" + imgCounter + "." + imageType;
                         imgCounter++;
 
@@ -110,31 +126,18 @@ public class noteCreateHandler implements CommandHandler {
                         try (FileOutputStream fos = new FileOutputStream(outFile)) {
                             fos.write(imageBytes);
                         }
-
-                        dbRelativePaths.add("sources/noteImg/" + fileName);
-                    } catch (IllegalArgumentException | IOException e) {
+                        
+                        String relativePath = "sources/noteImg/" + fileName;
+                        dbRelativePaths.add(relativePath);
+                        // content 내의 base64 src를 실제 경로로 교체
+                        processedContent = processedContent.replace(base64Data, "./" + relativePath);
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             }
-
-            // img src 수정 로직 (패턴 오류 수정 적용)
-            String context = request.getContextPath().replaceFirst("^/", "");
-            String updated = processedContent;
-            Pattern imgPattern = Pattern.compile("<img[^>]*src=\"(?!vibesync/)([^\"]+)\"");
-            Matcher matcher = imgPattern.matcher(updated);
-
-            StringBuffer sb = new StringBuffer();
-            int replaceIndex = 0;
-            while (matcher.find() && replaceIndex < dbRelativePaths.size()) {
-                String replacement = "<img src=\"./vibesync/" + dbRelativePaths.get(replaceIndex++) + "\"";
-                matcher.appendReplacement(sb, Matcher.quoteReplacement(replacement));
-            }
-            matcher.appendTail(sb);
-            processedContent = sb.toString();
-
+            
             String imagesForDB = String.join("|", dbRelativePaths);
-            // --- 변경된 부분 끝 ---
 
             int categoryIdx = Integer.parseInt(request.getParameter("category_idx"));
             int genreIdx    = Integer.parseInt(request.getParameter("genre_idx"));
@@ -145,6 +148,7 @@ public class noteCreateHandler implements CommandHandler {
                 .title(title)
                 .text(processedContent)
                 .img(imagesForDB)
+                .titleImg(thumbnailDbPath) // [추가] 썸네일 경로 설정
                 .category_idx(categoryIdx)
                 .genre_idx(genreIdx)
                 .content_idx(contentIdx)
@@ -155,6 +159,8 @@ public class noteCreateHandler implements CommandHandler {
             UserNoteDAO dao = new UserNoteDAOImpl(conn);
             dao.createNote(note);
 
+            if(conn != null) conn.close();
+
             response.sendRedirect(request.getContextPath() + "/vibesync/page.do");
             return null;
         }
@@ -162,5 +168,3 @@ public class noteCreateHandler implements CommandHandler {
         return null;
     }
 }
-
-

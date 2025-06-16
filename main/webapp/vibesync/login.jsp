@@ -99,7 +99,7 @@
                     
                     <label for="category" class="sr-only">관심 카테고리</label>
                     <select id="category" name="category">
-	                    <c:forEach items="${ categoryVOList }" var="categoryVO">
+	                    <c:forEach items="${applicationScope.categoryVOList}" var="categoryVO">
 	                    	<option value="${ categoryVO.category_idx }">${ categoryVO.c_name }</option>
 	                    </c:forEach>
                     </select>

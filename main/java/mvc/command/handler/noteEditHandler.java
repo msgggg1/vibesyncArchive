@@ -2,14 +2,10 @@ package mvc.command.handler;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,155 +29,121 @@ public class noteEditHandler implements CommandHandler {
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.setCharacterEncoding("UTF-8");
         String method = request.getMethod();
 
         String pageidx = null;
-        int noteIdx = -1; // 기본값 설정
+        int noteIdx = -1; 
 
         if ("GET".equalsIgnoreCase(method)) {
-            if (request.getParameter("pageidx") != null && !"".equals(request.getParameter("pageidx"))) {
-                pageidx = request.getParameter("pageidx");
-            }
-            if (request.getParameter("noteidx") != null && !"".equals(request.getParameter("noteidx"))) {
-                noteIdx = Integer.parseInt(request.getParameter("noteidx"));
-            }
+            // --- GET 요청 처리 (수정 페이지 진입) ---
+            pageidx = request.getParameter("pageidx");
+            noteIdx = Integer.parseInt(request.getParameter("noteidx"));
 
             Connection conn = null;
             try {
                 conn = ConnectionProvider.getConnection();
+                UserNoteDAO unDao = new UserNoteDAOImpl(conn);
+                NoteVO note = unDao.getNote(noteIdx);
+
+                // [수정] DB에 저장된 이미지의 상대 경로를 절대 경로로 변환하여 에디터에 전달
+                if (note != null && note.getText() != null) {
+                    String text = note.getText();
+                    String contextPath = request.getContextPath();
+                    text = text.replaceAll("src=\"\\./", "src=\"" + contextPath + "/");
+                    note.setText(text);
+                }
+                
+                // 기타 카테고리, 장르 등 정보 조회
                 CategoryDAO cDao = new CategoryDAOImpl(conn);
                 GenreDAO gDao = new GenreDAOImpl(conn);
                 ContentsDAO ctDao = new ContentsDAOImpl(conn);
-                UserNoteDAO unDao = new UserNoteDAOImpl(conn);
-
-                List<CategoryVO> categoryList = cDao.CategoryAll();
-                List<GenreVO> genreList = gDao.GenreAll();
-                List<ContentsVO> contentList = ctDao.ContentsAll();
-                NoteVO note = null;
-                if (noteIdx != -1) {
-                    note = unDao.getNote(noteIdx); // getNote로 노트 정보 조회
-
-                    // --- 추가된 부분: img src에 /vibesync 제거 ---
-                    if (note != null && note.getText() != null) {
-                        String text = note.getText();
-                        // 여러 개의 img 태그에 대해 src="/vibesync/..." 부분을 제거
-                        text = text.replaceAll("(<img[^>]*src=\")./vibesync/", "$1");
-                        note.setText(text);
-                        System.out.println(note.getText());
-                    }
-                    // --- 추가된 부분 끝 ---
-                }
-
+                request.setAttribute("categoryList", cDao.CategoryAll());
+                request.setAttribute("genreList", gDao.GenreAll());
+                request.setAttribute("contentList", ctDao.ContentsAll());
+                
                 request.setAttribute("pageidx", pageidx);
-                request.setAttribute("categoryList", categoryList);
-                request.setAttribute("genreList", genreList);
-                request.setAttribute("contentList", contentList);
                 request.setAttribute("note", note);
 
-            } catch (NamingException | java.sql.SQLException e) {
-                throw new RuntimeException("리스트 조회 오류", e);
+            } catch (Exception e) {
+                throw new RuntimeException("수정 페이지 로드 오류", e);
             } finally {
                 if (conn != null) try { conn.close(); } catch (Exception ignored) {}
             }
-            // 작성 폼 JSP로 포워드
-            return "edit.jsp"; // 수정: "write.jsp" → "noteedit.jsp"
+            return "edit.jsp"; 
 
         } else if ("POST".equalsIgnoreCase(method)) {
-            if (request.getParameter("pageidx") != null && !"".equals(request.getParameter("pageidx"))) {
-                pageidx = request.getParameter("pageidx");
-            }
-            if (request.getParameter("noteidx") != null && !"".equals(request.getParameter("noteidx"))) {
-                noteIdx = Integer.parseInt(request.getParameter("noteidx"));
-            }
-
-            // --- 변경된 부분 시작: Base64 이미지 저장 및 content 내 img src 수정 로직 ---
+            // --- POST 요청 처리 (수정 내용 저장) ---
+            noteIdx = Integer.parseInt(request.getParameter("noteidx"));
             String title = request.getParameter("title");
-            String processedContent = request.getParameter("content");
-            String base64Images = request.getParameter("images"); // '|' 구분된 Base64 이미지
+            String content = request.getParameter("content");
+            String base64Images = request.getParameter("images");
 
-            System.out.println("processedContent : " + processedContent);
-            System.out.println("base64Images : " + base64Images);
-
-            // 이미지 저장 디렉터리 준비
-            String saveDirPath = request.getServletContext().getRealPath("/vibesync/sources/noteImg");
+            String saveDirPath = request.getServletContext().getRealPath("/sources/noteImg");
             File saveDir = new File(saveDirPath);
             if (!saveDir.exists()) saveDir.mkdirs();
 
-            System.out.println("title : " + title);
-            String safeTitle = title.replaceAll("[^a-zA-Z0-9]", "_");
-            int imgCounter = 1;
-
-            List<String> dbRelativePaths = new ArrayList<>();
+            String safeTitle = title.replaceAll("[^a-zA-Z0-9가-힣]", "_");
+            
+            // [수정] noteCreateHandler와 동일한 이미지 처리 로직 적용
             if (base64Images != null && !base64Images.isEmpty()) {
                 String[] imageDataArray = base64Images.split("\\|");
+                int imgCounter = (int) (System.currentTimeMillis() / 1000); // 파일명 중복 방지를 위해 시간 사용
+
                 for (String base64Data : imageDataArray) {
                     if (base64Data == null || base64Data.isEmpty()) continue;
                     try {
                         String[] parts = base64Data.split(",");
-                        if (parts.length != 2 || !parts[0].startsWith("data:image/")) continue;
+                        if (parts.length != 2) continue;
 
                         String imageType = parts[0].substring("data:image/".length(), parts[0].indexOf(";base64"));
                         byte[] imageBytes = Base64.getDecoder().decode(parts[1]);
-
-                        String fileName = safeTitle + "_" + imgCounter + "." + imageType;
-                        imgCounter++;
-
+                        String fileName = safeTitle + "_" + imgCounter++ + "." + imageType;
+                        
                         File outFile = new File(saveDir, fileName);
                         try (FileOutputStream fos = new FileOutputStream(outFile)) {
                             fos.write(imageBytes);
                         }
 
-                        dbRelativePaths.add("sources/noteImg/" + fileName);
-                    } catch (IllegalArgumentException | IOException e) {
+                        // content 안의 Base64 데이터를 실제 파일의 상대 경로로 교체
+                        String relativePath = "./sources/noteImg/" + fileName;
+                        content = content.replace(base64Data, relativePath);
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             }
 
-            // --- 수정된 부분: 모든 <img src="...">를 ./vibesync로 교체 ---
-            Pattern imgPattern = Pattern.compile("<img([^>]*?)src=\"(?!\\./vibesync/)(sources/noteImg/[^\"]+)\"");
-            Matcher matcher = imgPattern.matcher(processedContent);
-
-            StringBuffer sb = new StringBuffer();
-            while (matcher.find()) {
-                String attributes = matcher.group(1);
-                String originalSrc = matcher.group(2);
-                String replacement = "<img" + attributes + "src=\"./vibesync/" + originalSrc + "\"";
-                matcher.appendReplacement(sb, Matcher.quoteReplacement(replacement));
-            }
-            matcher.appendTail(sb);
-            processedContent = sb.toString();
-            // --- 수정된 부분 끝 ---
-
-            String imagesForDB = String.join("|", dbRelativePaths);
-            // --- 변경된 부분 끝 ---
-
+            // DB에 저장할 VO 객체 생성
             int categoryIdx = Integer.parseInt(request.getParameter("category_idx"));
             int genreIdx    = Integer.parseInt(request.getParameter("genre_idx"));
             int contentIdx  = Integer.parseInt(request.getParameter("content_idx"));
 
             NoteVO note = NoteVO.builder()
-                .note_idx(noteIdx) // 수정: noteIdx가 있으면 updateNote 호출
+                .note_idx(noteIdx)
                 .title(title)
-                .text(processedContent)
-                .img(imagesForDB)
+                .text(content)
+                //.img(imagesForDB) // img 필드는 본문에 포함되므로 별도 저장은 필요 없을 수 있음 (필요 시 로직 추가)
                 .category_idx(categoryIdx)
                 .genre_idx(genreIdx)
                 .content_idx(contentIdx)
                 .build();
 
-            Connection conn = ConnectionProvider.getConnection();
-            UserNoteDAO dao = new UserNoteDAOImpl(conn);
-            if (noteIdx != -1) {
-                dao.updateNote(note); // 수정: noteIdx가 있으면 updateNote 호출
-            } else {
-                dao.createNote(note);
+            Connection conn = null;
+            try {
+                conn = ConnectionProvider.getConnection();
+                UserNoteDAO dao = new UserNoteDAOImpl(conn);
+                dao.updateNote(note);
+            } catch (Exception e) {
+                throw new RuntimeException("노트 업데이트 오류", e);
+            } finally {
+                if (conn != null) conn.close();
             }
 
-            response.sendRedirect(request.getContextPath() + "/vibesync/page.do");
+            // 수정 완료 후 해당 게시글 보기 페이지로 리다이렉트
+            response.sendRedirect(request.getContextPath() + "/vibesync/postView.do?nidx=" + noteIdx);
             return null;
         }
+        
         response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
         return null;
     }

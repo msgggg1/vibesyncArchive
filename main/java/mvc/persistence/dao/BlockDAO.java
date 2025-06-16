@@ -2,6 +2,7 @@ package mvc.persistence.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import mvc.domain.vo.BlockVO;
 
@@ -18,8 +19,8 @@ public interface BlockDAO {
 	
 	// 블록 삭제
 	public boolean deleteBlock(int ac_idx,int blockId) throws SQLException;
-	
+
 	// 블록 순서 변경
-	// public void updateBlockOrder(...) throws SQLException;
+	public boolean updateBlockOrder(int acIdx, List<Map<String, Object>> orders);
 	
 }

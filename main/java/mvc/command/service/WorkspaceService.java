@@ -27,7 +27,11 @@ public class WorkspaceService {
         List<NoteSummaryDTO> likedPosts = noteService.getLikedPostsPreview(acIdx);
         List<NoteSummaryDTO> likedAllPosts = noteService.getAllLikedPosts(acIdx);
         List<MessageListDTO> unreadMessages = messageService.getUnreadMessageList(acIdx);
-        List<BlockDTO> blocks = blockService.getBlocksForUser(acIdx);
+        List<BlockDTO> blocks = blockService.getBlocksForUser(acIdx, null);
+        
+        System.out.println("MessageService가 반환한 안읽은 메시지 개수: " + (unreadMessages != null ? unreadMessages.size() : "null"));
+        
+        System.out.println("MessageService가 반환한 안읽은 메시지 개수: " + (unreadMessages != null ? unreadMessages.size() : "null"));
         
         dto = new WorkspaceDTO().builder()
         					    .todolists(todolists)

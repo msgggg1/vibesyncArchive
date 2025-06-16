@@ -24,6 +24,7 @@ public class NoteVO {
 	private Date create_at;
 	private Date edit_at;
 	private int view_count;
+	private String titleImg;
 	private int content_idx;
 	private int genre_idx;
 	private int category_idx;

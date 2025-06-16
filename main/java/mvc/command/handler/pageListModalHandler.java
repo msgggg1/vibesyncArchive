@@ -17,7 +17,6 @@ import mvc.persistence.daoImpl.PageDAOImpl;
 public class pageListModalHandler implements CommandHandler {
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.setCharacterEncoding("UTF-8");
         int acIdx = Integer.parseInt(request.getParameter("ac_idx"));
         System.out.println(acIdx);
         Connection conn = ConnectionProvider.getConnection();

@@ -266,18 +266,20 @@ public class UserNoteDAOImpl implements UserNoteDAO {
     
     @Override
     public void createNote(NoteVO note) {
+        // [수정] titleImg 컬럼 추가
         String sql = "INSERT INTO note "
-                   + " (note_idx, title, text, img, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx) "
-                   + " VALUES (note_seq.NEXTVAL, ?, ?, ?, SYSDATE, SYSDATE, 0, ?, ?, ?, ?)";
+                   + " (note_idx, title, text, img, titleImg, create_at, edit_at, view_count, content_idx, genre_idx, category_idx, userPg_idx) "
+                   + " VALUES (note_seq.NEXTVAL, ?, ?, ?, ?, SYSDATE, SYSDATE, 0, ?, ?, ?, ?)";
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, note.getTitle());
             pstmt.setString(2, note.getText());
             pstmt.setString(3, note.getImg());
-            pstmt.setInt(4, note.getContent_idx());
-            pstmt.setInt(5, note.getGenre_idx());
-            pstmt.setInt(6, note.getCategory_idx());
-            pstmt.setInt(7, note.getUserPg_idx());
+            pstmt.setString(4, note.getTitleImg()); // [추가] titleImg 값 설정
+            pstmt.setInt(5, note.getContent_idx());
+            pstmt.setInt(6, note.getGenre_idx());
+            pstmt.setInt(7, note.getCategory_idx());
+            pstmt.setInt(8, note.getUserPg_idx());
             pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -288,6 +290,7 @@ public class UserNoteDAOImpl implements UserNoteDAO {
 
     @Override
     public void updateNote(NoteVO note) {
+        // [수정] titleImg 컬럼 추가 (업데이트 기능에도 필요 시 추가)
         String sql = "UPDATE note SET title = ?, text = ?, img = ?, edit_at = SYSDATE, "
                    + " content_idx = ?, genre_idx = ?, category_idx = ? "
                    + " WHERE note_idx = ?";

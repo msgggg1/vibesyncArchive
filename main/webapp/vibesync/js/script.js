@@ -141,13 +141,13 @@ document.addEventListener('DOMContentLoaded', () => {
         initRotatingHighlight('popular_posts_container', 2800);
         initRotatingHighlight('popular_users_container', 2800);
         
-  } else if (mode.value === 'workspace') {
+  } /* else if (mode.value === 'workspace') {
     console.log(mode.value);
     const plusbtn = document.querySelector('#content_plus');
     const contentsGrid = document.querySelector('#contents_grid');
     const maxItems = 8; // 최대 아이템 개수
 
-   /* workspace.js와 중복
+    workspace.js와 중복
     plusbtn.addEventListener('click', function() {
       const contentsItems = contentsGrid.querySelectorAll('.contents_item');
 
@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log(contentsGrid.innerHTML);
       }
-    }); */
+    }); 
 
     // 페이지 로드시 아이템 개수 확인 및 plusbtn 초기 상태 설정
     function checkItemCount() {
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     checkItemCount();
-  } /*else if (mode.value === 'board') {
+  } *//*else if (mode.value === 'board') {
     loadFullBoardData(10);
     function loadFullBoardData(maxPage) {
       const posts = [];

@@ -3,6 +3,7 @@
 <%
     String contextPath = request.getContextPath(); // ex) "/MyApp"
 %>
+
 <!DOCTYPE html>
 <html>
 <head>

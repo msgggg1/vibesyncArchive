@@ -24,4 +24,14 @@ public interface LikeDAO {
     
     // 특정 사용자의 최근 N일간의 일별 게시글 좋아요 수 (일별 통계)
     List<DailyStatsDTO> getDailyLikeCountsForUserPosts(int acIdx, int days) throws SQLException;
+    
+    // 특정 사용자의 최근 N주간의 주별 게시글 좋아요 수 (주별 통계)
+    List<DailyStatsDTO> getWeeklyLikeCountsForUserPosts(int acIdx, int weeks) throws SQLException;
+    
+    // 특정 사용자의 최근 N달간의 월별 게시글 좋아요 수 (월별 통계)
+    List<DailyStatsDTO> getMonthlyLikeCountsForUserPosts(int acIdx, int months) throws SQLException;
+    
+    // 특정 사용자의 최근 N년간의 연도별 게시글 좋아요 수 (연도별 통계)
+    List<DailyStatsDTO> getYearlyLikeCountsForUserPosts(int acIdx, int years) throws SQLException;
+    
 }

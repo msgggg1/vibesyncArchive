@@ -27,7 +27,6 @@ public class UserHandler_KYJ implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
         
         System.out.println("> UserHandler.process()...");

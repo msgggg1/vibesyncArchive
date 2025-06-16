@@ -180,33 +180,30 @@ from watchParty;
 
 -- 26번 사용자가 보낸 메시지 (10개)
 -- 26 -> 27 (서로 주고받는 메시지)
-INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('안녕하세요! 워크스페이스에서 보고 쪽지 드려요.', SYSTIMESTAMP - INTERVAL '1' DAY, 1, 27, 26);
-INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('네, 반갑습니다! 어떤 일로 연락주셨나요?', SYSTIMESTAMP - INTERVAL '23' HOUR, 1, 26, 27);
-INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('다름이 아니라 혹시 주말에 같이 프로젝트 진행 가능할까요?', SYSTIMESTAMP - INTERVAL '22' HOUR, 1, 27, 26);
-INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('네 좋아요! 시간 맞춰보죠.', SYSTIMESTAMP - INTERVAL '21' HOUR, 0, 26, 27); -- 27번이 보낸 아직 안읽은 메시지
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('안녕하세요! 워크스페이스에서 보고 쪽지 드려요.', SYSTIMESTAMP - INTERVAL '1' DAY, 0, 27, 26);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('네, 반갑습니다! 어떤 일로 연락주셨나요?', SYSTIMESTAMP - INTERVAL '23' HOUR, 0, 26, 27);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('다름이 아니라 혹시 주말에 같이 프로젝트 진행 가능할까요?', SYSTIMESTAMP - INTERVAL '22' HOUR, 0, 27, 26);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('네 좋아요! 시간 맞춰보죠.', SYSTIMESTAMP - INTERVAL '21' HOUR, 1, 26, 27); -- 27번이 보낸 아직 안읽은 메시지
 
 -- 26 -> 그 외 사용자
-INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('선배님, 지난번에 말씀드린 자료 메일로 보냈습니다!', SYSTIMESTAMP - INTERVAL '2' DAY, 1, 1, 26);
-INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('친구야 오늘 저녁에 시간 돼?', SYSTIMESTAMP - INTERVAL '5' HOUR, 1, 2, 26);
-INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('사장님, 요청하신 시안 A, B 두 가지로 만들었습니다.', SYSTIMESTAMP - INTERVAL '3' DAY, 1, 3, 26);
-INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('스터디 자료 공유 감사합니다!', SYSTIMESTAMP - INTERVAL '1' DAY, 1, 4, 26);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('선배님, 지난번에 말씀드린 자료 메일로 보냈습니다!', SYSTIMESTAMP - INTERVAL '2' DAY, 0, 1, 26);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('친구야 오늘 저녁에 시간 돼?', SYSTIMESTAMP - INTERVAL '5' HOUR, 0, 2, 26);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('사장님, 요청하신 시안 A, B 두 가지로 만들었습니다.', SYSTIMESTAMP - INTERVAL '3' DAY, 0, 3, 26);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('스터디 자료 공유 감사합니다!', SYSTIMESTAMP - INTERVAL '1' DAY, 0, 4, 26);
 INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('혹시 이 부분 코드 좀 봐주실 수 있나요? 에러가 계속 나네요.', SYSTIMESTAMP - INTERVAL '10' HOUR, 1, 1, 26);
-INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('오늘 회의는 30분 늦게 시작한다고 합니다.', SYSTIMESTAMP - INTERVAL '2' HOUR, 0, 3, 26); -- 아직 안읽은 메시지
-
--- 27번 사용자가 보낸 메시지 (10개)
--- 27 -> 26 (서로 주고받는 메시지 - 위에서 이미 4개 생성)
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('오늘 회의는 30분 늦게 시작한다고 합니다.', SYSTIMESTAMP - INTERVAL '2' HOUR, 1, 3, 26); -- 아직 안읽은 메시지;
 
 -- 27 -> 그 외 사용자
-INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('교수님, 과제 제출 기한을 하루만 연장해주실 수 있을까요?', SYSTIMESTAMP - INTERVAL '4' DAY, 1, 5, 27);
-INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('주문한 상품 배송 언제쯤 시작되나요?', SYSTIMESTAMP - INTERVAL '2' DAY, 1, 6, 27);
-INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('저번에 빌려준 책 잘 읽고 있어 고마워!', SYSTIMESTAMP - INTERVAL '6' HOUR, 1, 7, 27);
-INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('이번 주말에 같이 영화나 볼까?', SYSTIMESTAMP - INTERVAL '1' DAY, 0, 8, 27); -- 아직 안읽은 메시지
-INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('팀장님, 휴가 신청서 결재 부탁드립니다.', SYSTIMESTAMP - INTERVAL '5' DAY, 1, 5, 27);
-INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('다음 주 세미나 장소가 변경되었습니다.', SYSTIMESTAMP - INTERVAL '3' HOUR, 1, 6, 27);
-INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('생일 축하해! 오늘 하루 최고로 행복하게 보내!', SYSTIMESTAMP - INTERVAL '12' HOUR, 1, 7, 27);
-INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('면접 결과 나왔나요? 좋은 소식 있었으면 좋겠네요.', SYSTIMESTAMP - INTERVAL '1' HOUR, 0, 8, 27); -- 아직 안읽은 메시지
-INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('네, 답장 감사합니다. 그럼 주말에 뵙겠습니다.', SYSTIMESTAMP - INTERVAL '20' HOUR, 1, 26, 27); -- 26에게 보낸 답장
-INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('자세한 얘기는 만나서 해요!', SYSTIMESTAMP - INTERVAL '19' HOUR, 0, 26, 27); -- 26에게 보낸 아직 안읽은 메시지
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('교수님, 과제 제출 기한을 하루만 연장해주실 수 있을까요?', SYSTIMESTAMP - INTERVAL '4' DAY, 0, 5, 27);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('주문한 상품 배송 언제쯤 시작되나요?', SYSTIMESTAMP - INTERVAL '2' DAY, 0, 6, 27);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('저번에 빌려준 책 잘 읽고 있어 고마워!', SYSTIMESTAMP - INTERVAL '6' HOUR, 0, 7, 27);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('이번 주말에 같이 영화나 볼까?', SYSTIMESTAMP - INTERVAL '1' DAY, 1, 8, 27); -- 아직 안읽은 메시지
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('팀장님, 휴가 신청서 결재 부탁드립니다.', SYSTIMESTAMP - INTERVAL '5' DAY, 0, 5, 27);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('다음 주 세미나 장소가 변경되었습니다.', SYSTIMESTAMP - INTERVAL '3' HOUR, 0, 6, 27);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('생일 축하해! 오늘 하루 최고로 행복하게 보내!', SYSTIMESTAMP - INTERVAL '12' HOUR, 0, 7, 27);
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('면접 결과 나왔나요? 좋은 소식 있었으면 좋겠네요.', SYSTIMESTAMP - INTERVAL '1' HOUR, 1, 8, 27); -- 아직 안읽은 메시지
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('네, 답장 감사합니다. 그럼 주말에 뵙겠습니다.', SYSTIMESTAMP - INTERVAL '20' HOUR, 0, 26, 27); -- 26에게 보낸 답장
+INSERT INTO message (text, time, chk, ac_receiver, ac_sender) VALUES ('자세한 얘기는 만나서 해요!', SYSTIMESTAMP - INTERVAL '19' HOUR, 1, 26, 27); -- 26에게 보낸 아직 안읽은 메시지
 
 commit;
 
@@ -239,30 +236,6 @@ INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (5010.500, 'play', 1
 INSERT INTO wa_sync (timeline, play, watchParty_idx) VALUES (600.000, 'play', 20);
 commit;
 
--- =================================================================
--- watchParty 테이블 추가 더미 데이터 (총 20개)
--- 다양한 사용자가 생성한 워치파티
--- =================================================================
-INSERT INTO watchParty (title, video_id, host) VALUES ('주말엔 역시 마블 정주행이지!', 'play', 1);
-INSERT INTO watchParty (title, video_id, host) VALUES ('응답하라 시리즈 같이 봐요! (1997부터)', 'play', 2);
-INSERT INTO watchParty (title, video_id, host) VALUES ('BTS 최신 콘서트 실황 함께 즐기기', 'play', 3);
-INSERT INTO watchParty (title, video_id, host) VALUES ('퇴근 후 힐링: 지브리 애니메이션 모음', 'play', 4);
-INSERT INTO watchParty (title, video_id, host) VALUES ('숨 막히는 심리 스릴러 영화 추천', 'play', 5);
-INSERT INTO watchParty (title, video_id, host) VALUES ('인생 드라마 ''나의 아저씨'' 1화부터', 'play', 6);
-INSERT INTO watchParty (title, video_id, host) VALUES ('넷플릭스 신작 다큐 ''나는 신이다'' 토론', 'play', 7);
-INSERT INTO watchParty (title, video_id, host) VALUES ('[코미디] SNL 레전드편 모음집', 'play', 8);
-INSERT INTO watchParty (title, video_id, host) VALUES ('유퀴즈 보면서 하루 마무리', 'play', 9);
-INSERT INTO watchParty (title, video_id, host) VALUES ('로맨스 영화 추천 받습니다!', 'play', 10);
-INSERT INTO watchParty (title, video_id, host) VALUES ('해외 축구 빅매치 다시보기', 'play', 11);
-INSERT INTO watchParty (title, video_id, host) VALUES ('귀멸의 칼날 1기 정주행', 'play', 12);
-INSERT INTO watchParty (title, video_id, host) VALUES ('블랙핑크 뮤직비디오 리액션', 'play', 13);
-INSERT INTO watchParty (title, video_id, host) VALUES ('명작 다큐 ''아마존의 눈물'' 시청', 'play', 14);
-INSERT INTO watchParty (title, video_id, host) VALUES ('추억의 예능 1박2일 시즌1', 'play', 15);
-INSERT INTO watchParty (title, video_id, host) VALUES ('영화 ''기생충'' 심층 분석', 'play', 18);
-INSERT INTO watchParty (title, video_id, host) VALUES ('같이 게임 스트리밍 봐요!', 'play', 20);
-INSERT INTO watchParty (title, video_id, host) VALUES ('KBS 역사스페셜: 조선왕조실록편', 'play', 21);
-INSERT INTO watchParty (title, video_id, host) VALUES ('미드 ''프렌즈''로 영어 공부하기', 'play', 22);
-INSERT INTO watchParty (title, video_id, host) VALUES ('디즈니 OST와 함께하는 저녁', 'play', 25);
 
 
 INSERT INTO follows (ac_follow, ac_following) VALUES (26, 2);

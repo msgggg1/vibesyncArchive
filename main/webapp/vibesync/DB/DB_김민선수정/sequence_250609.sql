@@ -3,6 +3,7 @@
 -- 시퀀스 삭제
 --------------------------------------------------------------------------------
 DROP SEQUENCE schedule_seq;
+DROP SEQUENCE workspace_blocks_seq;
 DROP SEQUENCE commentlist_seq;
 DROP SEQUENCE noteAccess_seq;
 DROP SEQUENCE likes_seq;
@@ -384,3 +385,8 @@ END;
 /
 
 SELECT COUNT(*) AS trigger_count FROM user_triggers;
+
+commit;
+
+select *
+from useraccount;

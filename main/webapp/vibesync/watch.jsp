@@ -1,10 +1,15 @@
 
+<%@page import="mvc.domain.vo.UserVO"%>
 <%@page import="mvc.domain.vo.WatchPartyVO"%>
 <%@page import="mvc.persistence.daoImpl.WatchPartyDAOImpl"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 String contextPath = request.getContextPath();
-
+UserVO user = (UserVO) session.getAttribute("userInfo");
+String nickname = "익명";
+if (user != null) {
+    nickname = user.getNickname(); // getter로 접근
+}
     // 1) 파라미터로 전달된 watchPartyIdx를 가져옴
     String strIdx = request.getParameter("watchPartyIdx");
     int watchPartyIdx = Integer.parseInt(strIdx);
@@ -194,7 +199,7 @@ String contextPath = request.getContextPath();
         const text = input.value.trim();
         if (text === "") return;
         const currentTime = player.getCurrentTime();
-        const nickname = "익명";
+        const nickname = `<%=nickname %>`;
         const chatMsg = JSON.stringify({
           type: "comment",
           watchPartyIdx: watchPartyIdx,

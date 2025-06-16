@@ -9,13 +9,20 @@ import java.util.Base64;
 
 public class PasswordMigrator {
 
-    // 이전에 제공된 hashPassword 메소드 (SHA-256 버전)
+	/**
+     * 평문 비밀번호와 Salt를 받아 SHA-256 해시 값을 생성하는 메소드
+     * @param plainTextPassword 사용자로부터 입력받은 평문 비밀번호
+     * @param base64Salt        DB에 저장된 해당 유저의 Base64 인코딩된 Salt 값
+     * @return                  해싱된 비밀번호 (16진수 문자열)
+     */
     public static String hashPassword(String plainTextPassword, String base64Salt) {
         // [SHA-256 해싱 로직]
         // Null 또는 빈 문자열일 경우 예외 처리 또는 특정 값 반환
+    	/*
         if (plainTextPassword == null || plainTextPassword.isEmpty() || base64Salt == null || base64Salt.isEmpty()) {
             // 적절한 오류 처리 또는 빈 문자열 반환 등
         }
+        */
         	if (plainTextPassword == null || plainTextPassword.isEmpty()) {
                 throw new IllegalArgumentException("비밀번호는 null이거나 비어있을 수 없습니다.");
             }

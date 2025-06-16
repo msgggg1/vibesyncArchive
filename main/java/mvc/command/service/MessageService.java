@@ -5,9 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.naming.NamingException;
 
@@ -16,7 +13,6 @@ import com.util.JdbcUtil;
 
 import mvc.domain.dto.MessageDTO;
 import mvc.domain.dto.MessageListDTO;
-import mvc.domain.vo.MessageVO;
 import mvc.persistence.dao.MessageDAO;
 import mvc.persistence.daoImpl.MessageDAOImpl;
 
@@ -76,6 +72,7 @@ public class MessageService {
 		
 		try {
 			conn = ConnectionProvider.getConnection();
+			conn.setAutoCommit(false);
 			
 			MessageDAO messageDAO = new MessageDAOImpl(conn);
 			chatHistory = messageDAO.selectChatHistory(myIdx, otherIdx);
@@ -86,8 +83,12 @@ public class MessageService {
 					MessageDTO messageDTO = ir.next();
 					msg_idxList.add(messageDTO.getMsg_idx());
 				}
-				messageDAO.updateChkMessage(myIdx, msg_idxList);
-				conn.commit();
+				
+				if (messageDAO.updateChkMessage(myIdx, msg_idxList)) {
+					conn.commit();
+				} else {
+					conn.rollback();
+				}
 			}
 			
 		} catch (NamingException e) {
@@ -111,9 +112,16 @@ public class MessageService {
 		
 		try {
 			conn = ConnectionProvider.getConnection();
+			conn.setAutoCommit(false);
 			
 			MessageDAO messageDAO = new MessageDAOImpl(conn);
 			isSent = messageDAO.insertMessage(senderIdx, receiverIdx, text);
+			
+			if (isSent) {
+				conn.commit();
+			} else {
+				conn.rollback();
+			}
 			
 		} catch (NamingException e) {
 			JdbcUtil.rollback(conn);
