@@ -98,6 +98,9 @@
         <mxCell id="sR2NUPpZTcuUYpUYoaqi-40" value="social login" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="360" y="540" width="60" height="30" as="geometry" />
         </mxCell>
+        <mxCell id="sR2NUPpZTcuUYpUYoaqi-42" value="API" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="310" y="590" width="60" height="30" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
